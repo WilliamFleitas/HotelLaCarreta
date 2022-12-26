@@ -1,1 +1,1 @@
-# HotelLaCarreta
+# Hotel rural la Carreta
