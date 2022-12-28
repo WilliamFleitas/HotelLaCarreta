@@ -1,9 +1,15 @@
 import { Router, Request, Response } from "express";
+const {Reservation}= require("../database")
 const route = Router();
 const { Room } = require("../database");
 
-route.get("/", (_req: Request, res: Response) => {
-  res.status(200).send("Hola");
+route.get("/", async (_req: Request, res: Response) => {
+    const rooms = await Room.findAll({include: Reservation})
+    if(rooms){
+      res.status(200).send(rooms)
+    }else {
+      res.status(400).send("no se encontro nada")
+    }
 });
 
 route.post("/", async (req: Request, res: Response) => {
