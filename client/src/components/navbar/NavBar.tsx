@@ -1,7 +1,7 @@
-import React from 'react';
-import { NavLink } from 'react-router-dom';
-import Burger from './Burger';
-import RightNav from './RightNav';
+import React from "react";
+import { NavLink } from "react-router-dom";
+import Burger from "./Burger";
+import RightNav from "./RightNav";
 
 const NavBar = () => {
   return (
