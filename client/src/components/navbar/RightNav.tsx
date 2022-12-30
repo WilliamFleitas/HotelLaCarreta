@@ -13,25 +13,25 @@ const RightNav = () => {
     // md: para los de desktop
     <Menu right width={"85%"}>
       <div className="pl-2 py-4 bg-[#333333] w-full">
-        <p>Idiomas</p>
+        <p className="self-center">Idiomas</p>
         <div className="flex w-10/12 items-center justify-center max-w-[202px]">
-          <Flag code={"826"} onClick={() => changeLanguage('english')} className="w-12 mr-8" />
-          <Flag code={"724"} onClick={() => changeLanguage('español')} className="w-12 " />
+          <Flag code={"826"} onClick={() => changeLanguage('en')} className="w-12 mr-8" />
+          <Flag code={"724"} onClick={() => changeLanguage('es')} className="w-12 " />
         </div>
       </div>
       <div className="pl-2 py-4">
         <p>Tema Oscuro</p>
       </div>
-      <NavLink to="#" className="pl-2 py-4 bg-[#333333]">
+      <NavLink to="/habitaciones" className="pl-2 py-4 bg-[#333333]">
         Habitaciones
       </NavLink>
-      <NavLink to="#" className="pl-2 py-4">
+      <NavLink to="/sobreNosotros" className="pl-2 py-4">
         Sobre Nosotros
       </NavLink>
-      <NavLink to="#" className="pl-2 py-4 bg-[#333333]">
+      <NavLink to="/condiciones" className="pl-2 py-4 bg-[#333333]">
         Condiciones
       </NavLink>
-      <NavLink to="#" className="pl-2 py-4">
+      <NavLink to="/contacto" className="pl-2 py-4">
         Contacto
       </NavLink>
     </Menu>
