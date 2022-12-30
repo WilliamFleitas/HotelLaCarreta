@@ -2,24 +2,14 @@ import React, { useEffect, useState } from "react";
 import foto1 from "../../assets/carreta1.jpg"
 import foto2 from "../../assets/carreta2.jpg"
 import foto3 from "../../assets/carreta3.jpg"
-import foto4 from "../../assets/carreta4.jpg"
-import foto5 from "../../assets/carreta5.jpg"
-import foto6 from "../../assets/carreta6.jpg"
-import foto7 from "../../assets/carreta7.jpg"
-import foto8 from "../../assets/carreta8.jpg"
-import foto9 from "../../assets/carreta9.jpg"
+
 
 export const CarrouselFondo = ()=>{
     const carroImage = [
         foto1,
         foto2,
         foto3,
-        foto4,
-        foto5,
-        foto6,
-        foto7,
-        foto8,
-        foto9
+        
     ];
 
     const [actualImage, setActualImage] = useState(0);
@@ -32,7 +22,7 @@ export const CarrouselFondo = ()=>{
       };
 
       useEffect(() => {
-        myInterval = setInterval(nextImg, 7000);
+        myInterval = setInterval(nextImg, 9000);
       }, [actualImage]);
 
     return (
@@ -43,8 +33,14 @@ export const CarrouselFondo = ()=>{
                         <div>
                             {actualImage === index && ( 
                                 <div>
-                                    <h1 className="text-7xl text-center text-white opacity-100">La Carreta Posada Turistica Rural</h1>
-                                    <img className="w-screen h-screen p-2 mb-10 opacity-30" src={image} key={index} />
+                                    
+                                    <img className="object-cover h-[500px]   w-[500px]" src={image} key={index} />
+
+                                    <div className="borderText absolute top-[250px] items-center w-[310px] text-center  text-white ">
+                                    <h1 className="text-[70px]  pb-6 ">La Carreta </h1>
+                                    <h2 className=" text-[20px]  pb-14 ">Posada Rural</h2>
+                                    <button className="borderText font-sans font-bold text-center text-[15px] items-center border-[1px] border-[#c9b505] p-2 rounded-md bg-[#B35642]">Descubrir más</button>
+                                    </div>
                                 </div>
                             )}
                         </div>

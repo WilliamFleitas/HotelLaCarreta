@@ -1,7 +1,7 @@
 import React from "react";
 import { Contenido } from "./Contenido";
 import { CarrouselFondo } from "./CarrouselFondo";
-
+import "./home.css";
 const Home = () => {
   return (
     <div className="flex flex-col items-center">
