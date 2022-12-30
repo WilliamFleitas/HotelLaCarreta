@@ -5,7 +5,7 @@ import RightNav from "./RightNav";
 
 const NavBar = () => {
   return (
-    <div className='bg-black/80 fixed top-0 w-full flex justify-around h-[10vh] z-10'>
+    <div className='bg-black/90 fixed top-0 w-full flex justify-around h-[10vh] z-10'>
       <div className='self-center'>Logo La Carreta</div>
       <RightNav />
       {/* <Burger /> */}
