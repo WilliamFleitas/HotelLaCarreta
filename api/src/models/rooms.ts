@@ -18,6 +18,10 @@ module.exports = (sequelize: any) => {
         type: DataTypes.STRING,
         allowNull: false,
       },
+      preDescription: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
       images: {
         type: DataTypes.ARRAY(DataTypes.STRING),
         allowNull: false,
@@ -25,6 +29,11 @@ module.exports = (sequelize: any) => {
       price: {
         type: DataTypes.INTEGER,
         allowNull: false,
+      },
+      enabled: {
+        type: DataTypes.BOOLEAN,
+        allowNull: false,
+        defaultValue: true,
       },
     },
     {
