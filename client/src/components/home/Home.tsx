@@ -8,17 +8,15 @@ import { Welcome } from "./Welcome";
 const Home = () => {
   return (
     <div className="flex flex-col items-center">
-      <CarrouselFondo/>
+      <CarrouselFondo />
 
-      <Check/>
-      <div>
-      <Welcome/>
-      </div>
-      
+      <Check />
+      <Welcome />
+
       <div className="border-2">
         <button>Buscar</button>
       </div>
-        <Contenido/>
+      <Contenido />
     </div>
   );
 };
