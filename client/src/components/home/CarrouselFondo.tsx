@@ -30,11 +30,11 @@ export const CarrouselFondo = ()=>{
                 {
                 carroImage?.map((image:string, index:number): any => {
                     return(
-                        <div >
+                        <div key={image}>
                             {actualImage === index && ( 
                                 <div >
                                     
-                                    <img className="object-cover h-[500px]   w-[500px]" src={image} key={index} />
+                                    <img className="object-cover h-[500px]   w-[500px]" src={image} key={index} loading="lazy" />
 
                                     <div className="borderText absolute top-[250px] items-center w-[310px] text-center  text-white ">
                                     <h1 className="text-[70px] pl-2 pb-6 ">La Carreta </h1>
