@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 
 interface Props {
-    file: Array<string>
-    className: string
+    file: Array<string>;
+    className: string;
 }
 
 export const SuperCarru = (props: Props) => {
@@ -26,11 +26,11 @@ export const SuperCarru = (props: Props) => {
                 {
                 props.file?.map((image:string, index:number): any => {
                     return(
-                        <div >
+                        <div key={image}>
                             {actualImage === index && ( 
                                 <div >
                                     
-                                    <img className={props.className} src={image} key={index} />
+                                    <img className={props.className} src={image} key={index} alt={image}/>
                                 </div>
                             )}
                         </div>
