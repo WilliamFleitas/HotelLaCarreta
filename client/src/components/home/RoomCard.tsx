@@ -11,7 +11,7 @@ export const RoomCard = ({rooms}:CardProps) => {
     return ( 
         <div key={rooms.id} className="flex flex-col text-center bg-[#B35642] h-full w-[300px] p-2 rounded-lg border-2 border-[#D3B616]" >
 
-            <h2 className="bg-white m-2 h-[40px] p-2 rounded-lg text-[#B35642] text-[20px] border-2 border-[#D3B616]">Elegi tu habitacion deseada!</h2>
+            
 
             <h2 className="bg-white m-2 h-[40px] p-2 rounded-lg text-[#B35642] text-[20px] border-2 border-[#D3B616]">{rooms.name}</h2>
 

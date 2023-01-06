@@ -34,7 +34,9 @@ export const RoomCarrusel = () => {
   }, [dispatch]);
   return (
     <div className="text-black text-center pt-10 flex flex-col">
+      <h2 className=" m-2 h-[40px] p-2 rounded-lg text-[#B35642] text-[20px] ">Elegi tu habitacion deseada!</h2>
       <div className="flex flex-row justify-center pt-5 space-x-5 pb-5">
+        
         {rooms.map((room, index) => {
           return (
             <div onClick={() => goToSlide(index)} className="text-[30px] ">
