@@ -4,12 +4,12 @@ import NavBar from "./components/navbar/NavBar";
 
 function App() {
   return (
-    <div className="flex flex-col items-center justify-center content-center">
-      <NavBar />
-      <Routes>
-        <Route path="/" element={<Home />} />
-      </Routes>
-    </div>
+      <div className="flex flex-col items-center justify-center content-center">
+        <NavBar />
+        <Routes>
+          <Route path="/" element={<Home />} />
+        </Routes>
+      </div>
   );
 }
 
