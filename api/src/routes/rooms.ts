@@ -14,14 +14,15 @@ route.get("/", async (_req: Request, res: Response) => {
 
 route.put("/:id", async (req: Request, res: Response) => {
   try {
-    await Room.update(req.body, {
+    const room = await Room.update(req.body, {
       where: {
         id: req.params.id,
       },
     });
+    console.log(room);
     res.status(200).send("Habitacion editada correctamente");
   } catch (error) {
-    console.error(error);
+    console.log(error);
     res.status(400).send("No se ha podido editar la habitacion");
   }
 });

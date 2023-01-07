@@ -35,6 +35,10 @@ module.exports = (sequelize: any) => {
         allowNull: false,
         defaultValue: true,
       },
+      capacity: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+      },
     },
     {
       timestamps: false,

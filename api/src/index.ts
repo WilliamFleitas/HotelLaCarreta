@@ -10,9 +10,7 @@ const { BACKEND_PORT, CLIENT_URL } = process.env;
 const app = express();
 
 //middlewares
-app.use(express.json()); // transforma la req.body a un objeto
-app.use(morgan("dev"));
-app.use("/", routes);
+
 //Admitir llamados del front
 app.use((_req: Request, res: Response, next: NextFunction) => {
   res.header("Access-Control-Allow-Origin", CLIENT_URL); // update to match the domain you will make the request from
@@ -24,6 +22,9 @@ app.use((_req: Request, res: Response, next: NextFunction) => {
   res.header("Access-Control-Allow-Methods", "GET, POST, OPTIONS, PUT, DELETE");
   next();
 });
+app.use(express.json()); // transforma la req.body a un objeto
+app.use(morgan("dev"));
+app.use("/", routes);
 
 sequelize
   .sync({ force: true })
