@@ -5,6 +5,7 @@ import Home from "./components/home/Home";
 import NavbarDisplayer from "./components/navbar/NavbarDisplayer";
 import { RoomCards } from "./components/home/RoomCards";
 import NavBar from "../src/components/navbar/NavBar";
+import { CreateRoom } from "./components/admin/CreateRoom";
 
 
 function App() {
@@ -15,8 +16,8 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/admin" element={<AdminPanel />} />
-        <Route path="/" element={<Home />} />
         <Route path="/rooms" element={<RoomCards/>}/>
+        <Route path="/createRoom" element={<CreateRoom/>}/>
       </Routes>
     </div>
   );
