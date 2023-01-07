@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { updateData } from "../../redux/adminSlice";
-import { AppDispatch, RootState } from "../../redux/store";
+import { useAppDispatch, useAppSelector } from "../../hooks";
 
 const NavbarAdmin = () => {
-  const current = useSelector((state: RootState) => state.admin.current);
-  const dispatch: AppDispatch = useDispatch();
+  const current = useAppSelector((state) => state.admin.current);
+  const dispatch = useAppDispatch();
   return (
     <div className="h-12 w-full bg-white flex flex-row items-center px-4 justify-between ">
       <p className="font-bold text-xl">ADMIN</p>

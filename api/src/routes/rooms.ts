@@ -5,7 +5,7 @@ const { Room } = require("../database");
 
 route.get("/", async (_req: Request, res: Response) => {
   const rooms = await Room.findAll({ include: Reservation });
-  if (rooms) {
+  if (rooms.length) {
     res.status(200).send(rooms);
   } else {
     res.status(400).send("no se encontro nada");
