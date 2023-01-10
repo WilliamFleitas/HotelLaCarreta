@@ -114,25 +114,28 @@ export const CreateRoom = () => {
   };
 
   const [featureInput, setFeatureInput] = useState(initialForm);
+ 
+ 
 
   const [newRoomFeature, setNewRoomFeature] = useState<string[]>([]);
   const [newBathroomFeature, setNewBathroomFeature] = useState<string[]>([]);
   const [newRoomService, setNewRoomService] = useState<string[]>([]);
-
+  
   const handleInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     console.log("input", e.target.value);
-    e.preventDefault();
-    const valueTrim = e.target.value.trim();
-    if (valueTrim.length < 1) {
-      return;
-    } else {
+    if(e.target.value.trim().length === 0){
+      return ;
+    }else{
       setFeatureInput({
         ...featureInput,
-        [e.target.id]: valueTrim,
+        [e.target.id]: e.target.value,
       });
+      
     }
+      
+    
   };
-
+  console.log("featureinput", featureInput)
   const addNewFeature = (e: string, name: string) => {
     console.log("newfeature", e);
     if (e.length < 1) {
@@ -187,7 +190,7 @@ export const CreateRoom = () => {
     }
   };
 
-  let [images, setImages] = useState<File[]>([]);
+  const [images, setImages] = useState<File[]>([]);
   let imgUrls: string[] | null;
   let newImages: File[] = [];
 
@@ -196,11 +199,11 @@ export const CreateRoom = () => {
     if (!e.target.files) return;
 
     newImages = Array.from(e.target.files);
-    setImages([...images, ...newImages]);
-
+    setImages([...images, ...newImages]); 
     console.log("aha", images);
   };
   console.log("aha", images);
+// al eliminar una imagen esta no cambia el length del input de imagenes
   const handleDeleteImg = (e: File, index: number) => {
     console.log("index", e, index)
     setImages((items) => items.filter((x) => x !== e));
@@ -232,7 +235,8 @@ export const CreateRoom = () => {
       console.log("holanda", newObject);
     }
   );
-
+  
+ 
   return (
     <form className="pt-60 text-black flex flex-col" onSubmit={onSubmit}>
       <div className=" text-black flex flex-col">
@@ -264,13 +268,17 @@ export const CreateRoom = () => {
         )}
 
         <label>Imagenes</label>
+        
         <input
+          className="style"
           type="file"
           multiple accept=".png, .jpg, .jpeg, .gif"
           id="images"
+          key="images"
+          
           {...register("images")}
           onChange={onChangeFiles}
-        />
+        /> 
         {errors.images && (
           <p className="text-red-600 font-bold">{errors.images.message}</p>
         )}
@@ -324,11 +332,13 @@ export const CreateRoom = () => {
           <input
             placeholder="Caracteristicas "
             type="text"
-            id="room_features"
+            value={featureInput.room_features}
+            id="room_features" 
             {...register("room_features")}
+            name="room_features" 
             onChange={(e) => handleInput(e)}
           />
-          <button
+          <button 
             onClick={() =>
               addNewFeature(featureInput.room_features, "room_features")
             }
@@ -363,7 +373,7 @@ export const CreateRoom = () => {
           <label>Caracteristicas del baño</label>
           <input
             type="text"
-            id="bathroom_features"
+            id="bathroom_features" value={featureInput.bathroom_features}
             {...register("bathroom_features")}
             onChange={(e) => handleInput(e)}
           />
@@ -399,6 +409,7 @@ export const CreateRoom = () => {
         <input
           type="text"
           id="room_services"
+          value={featureInput.room_services}
           {...register("room_services")}
           onChange={(e) => handleInput(e)}
         />
