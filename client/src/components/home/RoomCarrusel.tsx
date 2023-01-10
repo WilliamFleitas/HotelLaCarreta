@@ -7,7 +7,8 @@ export const RoomCarrusel = () => {
   const dispatch = useAppDispatch();
   const rooms = useAppSelector((state) => state.rooms.roomList);
 
-  let myInterval: number;
+  let myInterval: ReturnType<typeof setInterval> | undefined;
+  
   const [currentImg, setCurrentImg] = useState(0);
   const quantity = rooms.length;
 
@@ -24,9 +25,9 @@ export const RoomCarrusel = () => {
     clearInterval(myInterval);
     setCurrentImg(index);
   };
-
+  const interval = setInterval(nextImg, 18000)
   useEffect(() => {
-    myInterval = setInterval(nextImg, 18000);
+    myInterval = interval;
   }, [currentImg]);
 
   useEffect(() => {
@@ -39,7 +40,7 @@ export const RoomCarrusel = () => {
         
         {rooms.map((room, index) => {
           return (
-            <div onClick={() => goToSlide(index)} className="text-[30px] ">
+            <div key={room.id} onClick={() => goToSlide(index)} className="text-[30px] ">
               {currentImg === index ? (
                 <div className="opacity-[100%]">
                   <nav>

@@ -8,8 +8,6 @@ import { Check } from "./Check";
 export const RoomCards = () => {
 
     const rooms = useAppSelector((state) => state.rooms.roomList);
-    console.log("roomss", rooms);
-    console.log("roomss2", rooms);
     const dispatch = useAppDispatch();
     useEffect(() => {
         dispatch(getAllRooms());

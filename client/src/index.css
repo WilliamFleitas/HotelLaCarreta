@@ -9,17 +9,20 @@
   font-weight: 400;
   box-sizing: border-box;
 
-  color-scheme: light dark;
+  /* color-scheme: light dark; */
   color: rgba(255, 255, 255, 0.87);
   background-color: #ffffff;
-
-  font-synthesis: none;
+ 
+  /* font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  -webkit-text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%; */
 }
 
+form *{
+  font-family: Inter;
+}
 /* Position and sizing of burger button */
 .bm-burger-button {
   position: absolute;

@@ -10,7 +10,7 @@ export const SuperCarru = (props: Props) => {
 
     const [actualImage, setActualImage] = useState(0);
 
-    let myInterval: any;
+    let myInterval: ReturnType<typeof setInterval> | undefined;
     
     const nextImg = () => {
         clearInterval(myInterval);

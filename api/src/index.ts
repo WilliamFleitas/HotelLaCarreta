@@ -10,6 +10,8 @@ const { BACKEND_PORT, CLIENT_URL } = process.env;
 const app = express();
 
 //middlewares
+
+//Admitir llamados del front
 app.use((_req: Request, res: Response, next: NextFunction) => {
   res.header("Access-Control-Allow-Origin", CLIENT_URL); // update to match the domain you will make the request from
   res.header("Access-Control-Allow-Credentials", "true");
@@ -23,8 +25,6 @@ app.use((_req: Request, res: Response, next: NextFunction) => {
 app.use(express.json()); // transforma la req.body a un objeto
 app.use(morgan("dev"));
 app.use("/", routes);
-//Admitir llamados del front
-
 
 sequelize
   .sync({ force: true })
