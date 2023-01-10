@@ -225,8 +225,9 @@ export const CreateRoom = () => {
       capacity,
       roomZone,
     }) => {
+      
       imgUrls = await uploadImageDb(images, "Rooms");
-
+      
       const newObject = {
         name,
         images: imgUrls,
@@ -359,7 +360,7 @@ export const CreateRoom = () => {
             name="room_features" 
             onChange={(e) => handleInput(e)}
           />
-          <button id="buttoRoomFeat" name="buttonRoomFeat"
+          <button id="buttoRoomFeat" type="button" name="buttonRoomFeat"
             onClick={() =>
               addNewFeature(featureInput.room_features, "room_features")
             }
@@ -398,7 +399,7 @@ export const CreateRoom = () => {
             {...register("bathroom_features")}
             onChange={(e) => handleInput(e)}
           />
-          <button id="buttobathRoomFeat" name="buttobathRoomFeat"
+          <button id="buttobathRoomFeat" type="button" name="buttobathRoomFeat"
             onClick={() =>
               addNewFeature(featureInput.bathroom_features, "bathroom_features")
             }
@@ -435,7 +436,7 @@ export const CreateRoom = () => {
           onChange={(e) => handleInput(e)}
         />
 
-        <button id="buttoRoomServ" name="buttoRoomServ"
+        <button id="buttoRoomServ" type="button" name="buttoRoomServ"
           onClick={() =>
             addNewFeature(featureInput.room_services, "room_services")
           }
