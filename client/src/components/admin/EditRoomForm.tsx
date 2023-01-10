@@ -47,7 +47,7 @@ const EditRoomForm = ({ edit, setEdit, data }: EditRoomProps) => {
 
   return (
     <form
-      className="p-4 flex flex-col items-center w-[300px]"
+      className="p-4 flex flex-col items-center w-[300px] "
       onSubmit={onSubmit}
     >
       <p className="text-lg font-bold">Editar habitacion</p>
