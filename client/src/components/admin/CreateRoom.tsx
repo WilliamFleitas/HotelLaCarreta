@@ -44,17 +44,6 @@ const RoomSchema = z.object({
       .max(50, { message: "El limite es de 50 caracteres" })
   ),
 
-  images: z
-    .instanceof(FileList)
-    .refine(
-      (files) => files?.[0]?.size <= MAX_FILE_SIZE,
-      `Max image size is 9MB.`
-    )
-    .refine(
-      (files) => ACCEPTED_IMAGE_TYPES.includes(files?.[0]?.type),
-      "Only .jpg, .jpeg, .png and .webp formats are supported."
-    ),
-
   price: z.coerce.number().min(1, { message: "Precio es requerido" }),
 
   capacity: z.coerce.number().min(1, { message: "Precio es requerido" }),
@@ -106,7 +95,7 @@ export const CreateRoom = () => {
   } = useForm<roomsType>({
     resolver: zodResolver(RoomSchema),
   });
-
+  const BackUrl = (import.meta.env.VITE_BACK_URL as string);
   const initialForm: featureType = {
     room_features: "",
     room_services: "",
@@ -114,27 +103,28 @@ export const CreateRoom = () => {
   };
 
   const [featureInput, setFeatureInput] = useState(initialForm);
+ 
+ 
 
   const [newRoomFeature, setNewRoomFeature] = useState<string[]>([]);
   const [newBathroomFeature, setNewBathroomFeature] = useState<string[]>([]);
   const [newRoomService, setNewRoomService] = useState<string[]>([]);
-
+  
   const handleInput = (e: React.ChangeEvent<HTMLInputElement>) => {
-    console.log("input", e.target.value);
-    e.preventDefault();
-    const valueTrim = e.target.value.trim();
-    if (valueTrim.length < 1) {
-      return;
-    } else {
+    if(e.target.value.trim().length === 0){
+      return ;
+    }else{
       setFeatureInput({
         ...featureInput,
-        [e.target.id]: valueTrim,
+        [e.target.id]: e.target.value,
       });
+      
     }
+      
+    
   };
 
   const addNewFeature = (e: string, name: string) => {
-    console.log("newfeature", e);
     if (e.length < 1) {
       return;
     } else {
@@ -167,7 +157,6 @@ export const CreateRoom = () => {
   };
 
   const handleDeleteFeature = (e: string, name: string) => {
-    console.log("evento", e, name);
     if (e.length < 1) {
       return;
     } else {
@@ -186,24 +175,45 @@ export const CreateRoom = () => {
       }
     }
   };
-
-  let [images, setImages] = useState<File[]>([]);
+  
+  
+  const [images, setImages] = useState<File[]>([]);
   let imgUrls: string[] | null;
   let newImages: File[] = [];
 
   const onChangeFiles = (e: React.ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
     if (!e.target.files) return;
-
     newImages = Array.from(e.target.files);
-    setImages([...images, ...newImages]);
-
-    console.log("aha", images);
+    if(newImages.length > 5 || images.length > 5){
+      return alert("Limite de 5 imagenes");
+    }
+    else if(images.length >= 1) {
+      const num = images.length;
+      if(num === 1){
+        setImages([...images, ...newImages.slice(0, 4)]); 
+      }
+      if(num === 2){
+        setImages([...images, ...newImages.slice(0, 3)]); 
+      }
+      if(num === 3){
+        setImages([...images, ...newImages.slice(0, 2)]); 
+      }
+      if(num === 4){
+        setImages([...images, ...newImages.slice(0, 1)]); 
+      }
+    }
+    else {
+      console.log("imglength", newImages)
+      setImages([...images, ...newImages.slice(0, 5)]); 
+      
+    }
+    
   };
-  console.log("aha", images);
+// al eliminar una imagen esta no cambia el length del input de imagenes
   const handleDeleteImg = (e: File, index: number) => {
-    console.log("index", e, index)
-    setImages((items) => items.filter((x) => x !== e));
+     setImages((items) => items.filter((x) => x !== e));
+    
   };
 
   const onSubmit = handleSubmit(
@@ -215,8 +225,9 @@ export const CreateRoom = () => {
       capacity,
       roomZone,
     }) => {
+      
       imgUrls = await uploadImageDb(images, "Rooms");
-
+      
       const newObject = {
         name,
         images: imgUrls,
@@ -229,12 +240,23 @@ export const CreateRoom = () => {
         room_services: newRoomService,
         bathroom_features: newBathroomFeature,
       };
-      console.log("holanda", newObject);
+      if(images.length > 0 ){
+        axios.post(`${BackUrl}/rooms`, newObject).then((res) => {
+          alert("Se creo la habitación");
+          window.location.reload();
+          console.log(res)
+
+        }).catch((res) => {
+          console.log(res)
+          alert("No se creo la habitación")
+        })
+      }
     }
   );
-
+  
+ 
   return (
-    <form className="pt-60 text-black flex flex-col" onSubmit={onSubmit}>
+    <form className="pt-60 text-black flex flex-col" onSubmit={ onSubmit}>
       <div className=" text-black flex flex-col">
         <label>Nombre de la habitación</label>
         <input type="text" id="name" {...register("name")} />
@@ -251,7 +273,7 @@ export const CreateRoom = () => {
         )}
 
         <label>Mini Descripción</label>
-        <input
+        <input 
           type="text"
           id="preDescription"
           {...register("preDescription")}
@@ -262,22 +284,24 @@ export const CreateRoom = () => {
             {errors.preDescription.message}
           </p>
         )}
-
+        <div className="flex flex-col">
         <label>Imagenes</label>
-        <input
+        {
+          images.length < 5 ? <input
+          className=""
           type="file"
           multiple accept=".png, .jpg, .jpeg, .gif"
           id="images"
-          {...register("images")}
+          key="images"
           onChange={onChangeFiles}
-        />
-        {errors.images && (
-          <p className="text-red-600 font-bold">{errors.images.message}</p>
-        )}
-
+        /> : <></>
+        }
+        
+        
+        <div className="flex flex-row justify-center p-5 pt-10 pb-10 space-x-5  ">
         {images?.map((e: any, index: any) => {
           return (
-            <div className="flex flex-wrap justify-start h-28 mt-4" key={index}>
+            <div className="flex flex-col justify-center text-center aling-center items-center pt-5   h-28 " key={index}>
               
                 <img
                   className="h-full mr-4 border border-black border-solid rounded"
@@ -290,6 +314,10 @@ export const CreateRoom = () => {
             </div>
           );
         })}
+        </div>
+
+        </div>
+
         
         <label>Precio</label>
         <input type="number" id="price" min="1" {...register("price")} />
@@ -303,6 +331,8 @@ export const CreateRoom = () => {
         {errors.capacity && (
           <p className="text-red-600 font-bold">{errors.capacity.message}</p>
         )}
+        
+        
         <div>
           <label>Zona de la habitación</label>
           <select
@@ -324,11 +354,13 @@ export const CreateRoom = () => {
           <input
             placeholder="Caracteristicas "
             type="text"
-            id="room_features"
+            value={featureInput.room_features}
+            id="room_features" 
             {...register("room_features")}
+            name="room_features" 
             onChange={(e) => handleInput(e)}
           />
-          <button
+          <button id="buttoRoomFeat" type="button" name="buttonRoomFeat"
             onClick={() =>
               addNewFeature(featureInput.room_features, "room_features")
             }
@@ -363,11 +395,11 @@ export const CreateRoom = () => {
           <label>Caracteristicas del baño</label>
           <input
             type="text"
-            id="bathroom_features"
+            id="bathroom_features" value={featureInput.bathroom_features}
             {...register("bathroom_features")}
             onChange={(e) => handleInput(e)}
           />
-          <button
+          <button id="buttobathRoomFeat" type="button" name="buttobathRoomFeat"
             onClick={() =>
               addNewFeature(featureInput.bathroom_features, "bathroom_features")
             }
@@ -399,11 +431,12 @@ export const CreateRoom = () => {
         <input
           type="text"
           id="room_services"
+          value={featureInput.room_services}
           {...register("room_services")}
           onChange={(e) => handleInput(e)}
         />
 
-        <button
+        <button id="buttoRoomServ" type="button" name="buttoRoomServ"
           onClick={() =>
             addNewFeature(featureInput.room_services, "room_services")
           }
