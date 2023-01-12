@@ -8,14 +8,13 @@ import { MdDelete } from "react-icons/md";
 
 
 
-const MAX_FILE_SIZE = 900000;
+
 const ACCEPTED_IMAGE_TYPES = [
   "image/jpeg",
   "image/jpg",
   "image/png",
   "image/webp",
 ];
-const rgx = /^\s*$/g;
 
 const trimString = (u: unknown) => (typeof u === "string" ? u.trim() : u);
 
@@ -43,7 +42,6 @@ const RoomSchema = z.object({
       .min(15, { message: "Ingresa por lo menos 15 caracteres" })
       .max(50, { message: "El limite es de 50 caracteres" })
   ),
-
   price: z.coerce.number().min(1, { message: "Precio es requerido" }),
 
   capacity: z.coerce.number().min(1, { message: "Precio es requerido" }),
@@ -54,23 +52,24 @@ const RoomSchema = z.object({
     trimString,
     z
       .string()
-      .min(1, { message: "Caracteristica requerida" })
+      .min(1, { message: "Ingrese por lo menos 2 caracteristicas y vuelva a intentar" })
       .max(60, { message: "El limite es de 60 caracteres" })
   ),
 
-  room_services: z.preprocess(
+  room_services: z
+  .preprocess(
     trimString,
-    z
-      .string()
-      .min(1, { message: "Caracteristica requerida" })
+    z.coerce.string()
+      .min(1, { message: "Ingrese por lo menos 2 caracteristicas y vuelva a intentar" })
       .max(60, { message: "El limite es de 60 caracteres" })
+      
   ),
 
   room_features: z.preprocess(
     trimString,
     z
       .string()
-      .min(1, { message: "Caracteristica requerida" })
+      .min(1, { message: "Ingrese por lo menos 2 caracteristicas y vuelva a intentar" })
       .max(60, { message: "El limite es de 60 caracteres" })
   ),
 });
@@ -256,39 +255,42 @@ export const CreateRoom = () => {
   
  
   return (
-    <form className="pt-60 text-black flex flex-col" onSubmit={ onSubmit}>
-      <div className=" text-black flex flex-col">
-        <label>Nombre de la habitación</label>
-        <input type="text" id="name" {...register("name")} />
+    <form className="pt-[40px] text-black p-4 flex flex-col w-[335px] h-full justify-center items-center align-center text-center border-2" onSubmit={ onSubmit}>
+      <p className="text-lg font-bold">Crear habitación</p>
+      <div className=" text-black flex flex-col w-full ">
+        <label className="text-sm text-black relative top-[8px] left-3 bg-[#B35642] border-2 border-black w-fit px-1 rounded-xl">Nombre de la habitación</label>
+        <input className={`w-full border border-[#B35642] rounded-xl px-3 py-2`} type="text" id="name" {...register("name")} />
 
         {errors?.name && (
-          <p className="text-red-600 font-bold">{errors.name.message}</p>
+          <p className="text-sm text-red-400">{errors.name.message}</p>
         )}
-
-        <label>Descripción</label>
-        <input type="text" id="description" {...register("description")} />
+        
+        <label className="text-sm text-black border-2 border-black relative top-[8px] left-3 bg-[#B35642] w-fit px-1 rounded-xl">Descripción</label>
+        <textarea  id="description" className="w-full border border-[#B35642] rounded-xl px-3 py-2 p-2 text-black h-full text-start" {...register("description")}></textarea>
 
         {errors.description && (
-          <p className="text-red-600 font-bold">{errors.description.message}</p>
+          <p className="text-sm text-red-400">{errors.description.message}</p>
         )}
 
-        <label>Mini Descripción</label>
-        <input 
+        <label className="text-sm text-black relative top-[8px] left-3 bg-[#B35642] w-fit border-2 border-black px-1 rounded-xl">Mini Descripción</label>
+        <input className="w-full border border-[#B35642]  rounded-xl px-3 py-2 h-18" 
           type="text"
           id="preDescription"
           {...register("preDescription")}
         />
 
         {errors.preDescription && (
-          <p className="text-red-600 font-bold">
+          <p className="text-sm text-red-400">
             {errors.preDescription.message}
           </p>
         )}
-        <div className="flex flex-col">
-        <label>Imagenes</label>
+        <label className="text-sm text-black relative top-[8px] left-3 bg-[#B35642] w-fit px-1 rounded-xl border-2 border-black">Imagenes</label>
+        <div className="border border-[#B35642] rounded-lg w-full">
+        
+        <div className="py-5  ">
         {
           images.length < 5 ? <input
-          className=""
+          className=" py-2  text-white"
           type="file"
           multiple accept=".png, .jpg, .jpeg, .gif"
           id="images"
@@ -298,18 +300,18 @@ export const CreateRoom = () => {
         }
         
         
-        <div className="flex flex-row justify-center p-5 pt-10 pb-10 space-x-5  ">
+        <div className="grid gap-x-0 gap-y-5 grid-cols-3  w-full">
         {images?.map((e: any, index: any) => {
           return (
-            <div className="flex flex-col justify-center text-center aling-center items-center pt-5   h-28 " key={index}>
+            <div className="pt-3 h-28 " key={index}>
               
                 <img
-                  className="h-full mr-4 border border-black border-solid rounded"
+                  className="h-full  border border-black border-solid rounded "
                   src={URL.createObjectURL(e)}
                   alt={`upload_image_${e}`}
                   key={e}
                 />
-                <button onClick={() => handleDeleteImg(e, index)}>{<MdDelete/>}</button>
+                <button type="button" onClick={() => handleDeleteImg(e, index)}>{<MdDelete/>}</button>
               
             </div>
           );
@@ -317,25 +319,25 @@ export const CreateRoom = () => {
         </div>
 
         </div>
-
+        </div>
         
-        <label>Precio</label>
-        <input type="number" id="price" min="1" {...register("price")} />
+        <label className="text-sm text-black relative top-[8px] left-3 bg-[#B35642] w-fit px-1 rounded-xl border-2 border-black">Precio</label>
+        <input className="w-full border border-[#B35642]  rounded-xl px-3 py-2" type="number" id="price" min="1" {...register("price")} />
 
         {errors.price && (
-          <p className="text-red-600 font-bold">{errors.price.message}</p>
+          <p className="text-sm text-red-400">{errors.price.message}</p>
         )}
-        <label>Capacidad</label>
-        <input type="number" id="capacity" min="1" {...register("capacity")} />
+        <label className="text-sm text-black relative top-[8px] left-3 bg-[#B35642] w-fit px-1 rounded-xl border-2 border-black">Capacidad</label>
+        <input className="w-full border border-[#B35642] rounded-xl px-3 py-2" type="number" id="capacity" min="1" {...register("capacity")} />
 
         {errors.capacity && (
-          <p className="text-red-600 font-bold">{errors.capacity.message}</p>
+          <p className="text-sm text-red-400">{errors.capacity.message}</p>
         )}
         
         
-        <div>
-          <label>Zona de la habitación</label>
-          <select
+        
+          <label className="text-sm text-black relative top-[8px] left-3 bg-[#B35642] w-fit px-1 rounded-xl border-2 border-black">Zona de la habitación</label>
+          <select className="w-full border mb-10 border-[#B35642] rounded-xl px-3 py-2"
             placeholder="Moderna o Rustica"
             id="roomZone"
             {...register("roomZone")}
@@ -345,13 +347,13 @@ export const CreateRoom = () => {
           </select>
 
           {errors.roomZone && (
-            <p className="text-red-600 font-bold">{errors.roomZone.message}</p>
+            <p className="text-sm text-red-400">{errors.roomZone.message}</p>
           )}
-        </div>
-
-        <div>
-          <label>Caracteristicas de la habitacion</label>
-          <input
+       
+       <label className="text-sm text-black relative top-[8px] left-3 bg-[#B35642] w-fit px-1 rounded-xl border-2 border-black">Caracteristicas de la habitacion</label>
+        <div className="">
+         
+          <input className="w-[200px] border border-[#B35642] rounded-xl px-3 py-2"
             placeholder="Caracteristicas "
             type="text"
             value={featureInput.room_features}
@@ -360,25 +362,18 @@ export const CreateRoom = () => {
             name="room_features" 
             onChange={(e) => handleInput(e)}
           />
-          <button id="buttoRoomFeat" type="button" name="buttonRoomFeat"
+          <button className=" text-sm p-2 text-white  border-black bg-[#B35642] rounded-xl" id="buttoRoomFeat" type="button" name="buttonRoomFeat"
             onClick={() =>
               addNewFeature(featureInput.room_features, "room_features")
             }
           >
             Agregar
           </button>
-
-          {errors.room_features && (
-            <p className="text-red-600 font-bold">
-              {errors.room_features.message}
-            </p>
-          )}
-        </div>
-        <div>
+          <div className="py-5">
           {newRoomFeature.length > 0 ? (
             newRoomFeature.map((e) => {
               return (
-                <button
+                <button className=" text-sm p-2 text-black border border-[#B35642] rounded-xl ml-2" id="buttoRoomFeat"
                   key={e}
                   onClick={() => handleDeleteFeature(e, "room_features")}
                 >
@@ -390,33 +385,36 @@ export const CreateRoom = () => {
             <></>
           )}
         </div>
+          {errors.room_features && (
+            <p className="pt-5 text-sm text-red-400">
+              {errors.room_features.message}
+            </p>
+          )}
+        </div>
+        
+
+        <label className="text-sm text-black relative top-[8px] left-3 bg-[#B35642] w-fit px-1 rounded-xl border-2 border-black">Caracteristicas del baño</label>
 
         <div>
-          <label>Caracteristicas del baño</label>
-          <input
+          <input className="w-[200px] border border-[#B35642] rounded-xl px-3 py-2"
             type="text"
             id="bathroom_features" value={featureInput.bathroom_features}
             {...register("bathroom_features")}
             onChange={(e) => handleInput(e)}
           />
-          <button id="buttobathRoomFeat" type="button" name="buttobathRoomFeat"
+          <button className=" text-sm p-2 text-white border bg-[#B35642] rounded-xl" id="buttobathRoomFeat" type="button" name="buttobathRoomFeat"
             onClick={() =>
               addNewFeature(featureInput.bathroom_features, "bathroom_features")
             }
           >
             Agregar
           </button>
-          {errors.bathroom_features && (
-            <p className="text-red-600 font-bold">
-              {errors.bathroom_features.message}
-            </p>
-          )}
-        </div>
-
+          <div className="py-5">   
         {newBathroomFeature.length > 0 ? (
           newBathroomFeature.map((e) => {
             return (
               <button
+              className=" text-sm p-2 text-black border border-[#B35642] rounded-xl ml-2"
                 key={e}
                 onClick={() => handleDeleteFeature(e, "bathroom_features")}
               >
@@ -427,8 +425,19 @@ export const CreateRoom = () => {
         ) : (
           <></>
         )}
-        <label>Servicios de la habitación</label>
-        <input
+        </div>
+          {errors.bathroom_features && (
+            <p className="pt-5 text-sm text-red-400">
+              {errors.bathroom_features.message}
+            </p>
+          )}
+        </div>
+        
+
+
+        <label className="text-sm text-black relative top-[8px] left-3 bg-[#B35642] w-fit px-1 rounded-xl border-2 border-black">Servicios de la habitación</label>
+        <div>
+        <input className="w-[200px] border border-[#B35642] rounded-xl px-3 py-2"
           type="text"
           id="room_services"
           value={featureInput.room_services}
@@ -436,23 +445,18 @@ export const CreateRoom = () => {
           onChange={(e) => handleInput(e)}
         />
 
-        <button id="buttoRoomServ" type="button" name="buttoRoomServ"
+        <button className=" text-sm p-2 text-white border bg-[#B35642] rounded-xl" id="buttoRoomServ" type="button" name="buttonRoomServ"
           onClick={() =>
             addNewFeature(featureInput.room_services, "room_services")
           }
         >
           Agregar
         </button>
-        {errors.room_services && (
-          <p className="text-red-600 font-bold">
-            {errors.room_services.message}
-          </p>
-        )}
-
+        <div className="py-5 ">
         {newRoomService.length > 0 ? (
           newRoomService.map((e) => {
             return (
-              <button
+              <button className=" text-sm p-2 text-black border border-[#B35642] rounded-xl ml-2 "
                 key={e}
                 onClick={() => handleDeleteFeature(e, "room_services")}
               >
@@ -463,9 +467,20 @@ export const CreateRoom = () => {
         ) : (
           <></>
         )}
+
+        {errors.room_services && (
+          <p className="pt-5 text-sm text-red-400">
+            {errors.room_services.message}
+          </p>
+        )}
+
+        </div>
+        
+      </div>
+
       </div>
       <button
-        className="w-fit px-2 duration-300 hover:bg-gray-200 hover:duration-300 py-2 rounded-sm bg-yellow font-bold my-1.5 mb-8"
+        className="w-fit px-2 duration-300 text-white bg-[#B35642]  hover:bg-[#ec775f] hover:duration-300 py-2 rounded-lg font-bold my-1.5 mb-8 "
         type="submit"
       >
         Crear habitación
