@@ -29,7 +29,7 @@ export const RoomCard = ({rooms}:CardProps) => {
             </div>
             
 
-           <div className="grid grid-cols-2  text-white" >
+           <div className="grid grid-cols-2  text-white pr-2" >
             
             {
              rooms.room_services.slice(0, 2).map((e) => { 

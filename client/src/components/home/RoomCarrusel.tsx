@@ -9,25 +9,34 @@ export const RoomCarrusel = () => {
 
   let myInterval: ReturnType<typeof setInterval> | undefined;
   
-  const [currentImg, setCurrentImg] = useState(0);
-  const quantity = rooms.length;
+  let [currentImg, setCurrentImg] = useState(0);
+  const quantity = rooms.length -1;
 
-  const nextImg = () => {
-    clearInterval(myInterval);
-    setCurrentImg(currentImg === quantity - 1 ? 0 : currentImg + 1);
-  };
-  const prevImg = () => {
-    clearInterval(myInterval);
-    setCurrentImg(currentImg === 0 ? quantity - 1 : currentImg - 1);
-  };
+  // const nextImg = () => {
+    
+  //   setCurrentImg(currentImg === quantity ? 0 : currentImg +1);
+  //   clearInterval(myInterval);
+  // };
+  // const prevImg = () => {
+  //   clearInterval(myInterval);
+  //   setCurrentImg(currentImg === 0 ? quantity - 1 : currentImg - 1);
+  // };
 
-  const goToSlide = (index: number) => {
+  const goToSlide = (index?: number) => {
+    console.log(index);
+    if(!index){
+      setCurrentImg(currentImg === quantity ? 0 : currentImg +1);
     clearInterval(myInterval);
-    setCurrentImg(index);
+    }else{
+      clearInterval(myInterval);
+      setCurrentImg(index);
+    }
+    
   };
-  const interval = setInterval(nextImg, 18000)
+  // let interval = 
   useEffect(() => {
-    myInterval = interval;
+    clearInterval(myInterval);
+    myInterval = setInterval(goToSlide, 18000);
   }, [currentImg]);
 
   useEffect(() => {
@@ -41,7 +50,7 @@ export const RoomCarrusel = () => {
         {rooms.map((room, index) => {
           return (
             <div key={room.id} onClick={() => goToSlide(index)} className="text-[30px] ">
-              {currentImg === index ? (
+              {currentImg === index  ? (
                 <div className="opacity-[100%]">
                   <nav>
                     <ul>
