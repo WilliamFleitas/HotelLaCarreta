@@ -243,7 +243,6 @@ export const CreateRoom = () => {
         axios.post(`${BackUrl}/rooms`, newObject).then((res) => {
           alert("Se creo la habitación");
           window.location.reload();
-          console.log(res)
 
         }).catch((res) => {
           console.log(res)
