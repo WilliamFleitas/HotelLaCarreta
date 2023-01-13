@@ -6,6 +6,7 @@ import NavbarDisplayer from "./components/navbar/NavbarDisplayer";
 import { RoomCards } from "./components/home/RoomCards";
 import NavBar from "../src/components/navbar/NavBar";
 import { CreateRoom } from "./components/admin/CreateRoom";
+import { RoomDetail } from "./components/home/RoomDetail";
 
 
 function App() {
@@ -17,6 +18,7 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/admin" element={<AdminPanel />} />
         <Route path="/rooms" element={<RoomCards/>}/>
+        <Route path="/roomdetail/:id" element={<RoomDetail/>} />
         <Route path="/createroom" element={<CreateRoom/>}/>
       </Routes>
     </div>

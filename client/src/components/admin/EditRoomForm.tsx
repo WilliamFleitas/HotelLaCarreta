@@ -27,7 +27,8 @@ const EditRoomForm = ({ edit, setEdit, data }: EditRoomProps) => {
     console.log(formData);
     await axios
       .put(`http://localhost:3001/rooms/${data.id}`, { formData })
-      .then((response) => console.log(response));
+      .then((response) => {alert("Se creo la habitación");
+      window.location.reload();});
   });
 
   const [images, setImages] = useState(Array<File>);
@@ -38,7 +39,6 @@ const EditRoomForm = ({ edit, setEdit, data }: EditRoomProps) => {
     if (e.target.files) {
       for (let i = 0; i < e.target.files.length; i++) {
         let newImage: File = e.target.files[i];
-        console.log("bucle ", i);
         imagesArray.push(newImage);
       }
     }

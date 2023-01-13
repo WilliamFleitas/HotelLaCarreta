@@ -4,11 +4,15 @@ const route = Router();
 const { Room } = require("../database");
 
 route.get("/", async (_req: Request, res: Response) => {
-  const rooms = await Room.findAll({ include: Reservation });
-  if (rooms.length) {
+  try {
+    const rooms = await Room.findAll({ include: Reservation });
+  if (rooms.length > 0) {
     res.status(200).send(rooms);
   } else {
-    res.status(400).send("no se encontro nada");
+    res.status(200).send("No se encontraron habitaciónes");
+  }
+  } catch (error) {
+    res.status(400).send(error)
   }
 });
 
@@ -43,6 +47,24 @@ route.put("/toggle/:id", async (req: Request, res: Response) => {
   } catch (error) {
     console.error(error);
     res.status(400).send("No se ha podido editar la habitacion");
+  }
+});
+
+route.get("/:id", async (req: Request, res: Response) => {
+
+  try {
+    const { id } = req.params;
+    if(!/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/.test(id)){
+        res.status(400).send("Ingrese un ID valido");
+    }
+    const result = await Room.findByPk(id, { include: Reservation });
+    if(!result){
+      res.status(400).send("No se encontro la habitación")
+    }else{
+      res.status(200).send(result);
+    }
+  } catch (error) {
+    console.log(error);
   }
 });
 

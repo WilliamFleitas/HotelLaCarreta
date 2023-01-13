@@ -18,7 +18,7 @@ export const RoomCards = () => {
            <Check/>
            <h2 className="text-[#B35642] pt-16 text-[20px]">Habitaciones disponibles</h2>
            <div className="flex flex-col items-center justify-center pt-16  pb-15 ">
-           {rooms.length ? 
+           {typeof rooms === "object" && rooms.length > 0 ? 
           rooms.map((rooms, index) => {
             return (
             <div className="h-full pb-16">
