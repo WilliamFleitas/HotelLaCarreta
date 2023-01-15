@@ -1,9 +1,15 @@
 import React from "react";
+import useWindowSize from "../customHooks/useWindowSize";
 
 export const Highlights = () => {
 
+    const {width} = useWindowSize();
+
+
     return ( 
-        <div className="pt-10">
+        <div>
+            {width < 768 ? 
+            <div className="pt-10">
             <div className=" text-white text-[25px] pt-7 bg-[#B35642] h-full  w-screen text-center p-5 object-fit border-[1px] border-[#D3B616]">
             <h2>Aspectos destacados</h2>
             <div className="text-[15px] pt-5 space-y-5">
@@ -13,6 +19,20 @@ export const Highlights = () => {
             </div>
             
             </div>
+        </div> 
+        : 
+        <div className="text-[#696969] text-center justify-center p-5">
+             <h2 className="text-[35px] pt-8 pb-10 text-[#E2725B]">Aspectos destacados</h2>
+
+             <div className="grid grid-cols-3 text-[20px] ">
+             <p className="">Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusantium at dolorum quidem, non facilis aliquam blanditiis hic corrupti eum, dolorem eligendi esse enim. Aspernatur, fugiat neque? Dolorum facere eaque similique?</p>
+             <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusantium at dolorum quidem, non facilis aliquam blanditiis hic corrupti eum, dolorem eligendi esse enim. Aspernatur, fugiat neque? Dolorum facere eaque similique?</p>
+             <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusantium at dolorum quidem, non facilis aliquam blanditiis hic corrupti eum, dolorem eligendi esse enim. Aspernatur, fugiat neque? Dolorum facere eaque similique?</p>
+             </div>
+
         </div>
+            }
+        </div>
+        
     )
 }

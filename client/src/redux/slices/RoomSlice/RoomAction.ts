@@ -1,5 +1,4 @@
 import axios from "axios";
-import { Dispatch } from "react";
 import { clearRoomDetail, getRooms, roomById, RoomsDetails, setErrors, setLoading } from ".";
 import { AppDispatch } from "../../../store";
 

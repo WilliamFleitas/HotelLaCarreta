@@ -2,41 +2,42 @@ import React, { useEffect, useRef, useState, MutableRefObject } from "react";
 import { RoomCard } from "./RoomCard";
 import { useAppDispatch, useAppSelector } from "../../hooks";
 import { getAllRooms } from "../../redux/slices/RoomSlice/RoomAction";
+import useWindowSize from "../customHooks/useWindowSize";
 
 export const RoomCarrusel = () => {
   const dispatch = useAppDispatch();
   const rooms = useAppSelector((state) => state.rooms.roomList);
-
+  const {width} = useWindowSize();
   let myInterval: ReturnType<typeof setInterval> | undefined;
   
   let [currentImg, setCurrentImg] = useState(0);
   const quantity = rooms.length -1;
 
-  
-
-  const goToSlide = (index?: number) => {
-    if(!index){
-      setCurrentImg(currentImg === quantity ? 0 : currentImg +1);
+  const nextImg = () => {
     clearInterval(myInterval);
-    }else{
+    setCurrentImg(currentImg === quantity ? 0 : currentImg + 1);
+  };
+
+  const goToSlide = (index: number) => {
       clearInterval(myInterval);
       setCurrentImg(index);
-    }
-    
   };
 
   useEffect(() => {
     clearInterval(myInterval);
-    myInterval = setInterval(goToSlide, 18000);
+    myInterval = setInterval(nextImg, 18000);
   }, [currentImg]);
 
   useEffect(() => {
     dispatch(getAllRooms());
   }, [dispatch]);
-  return (
-    <div className="text-black text-center pt-10 flex flex-col">
-      <h2 className=" m-2 h-[40px] p-2 rounded-lg text-[#B35642] text-[20px] ">Elegi tu habitacion deseada!</h2>
-      <div className="flex flex-row justify-center pt-5 space-x-5 pb-5">
+  return (  
+  <div>
+    {
+      width < 768 ? 
+      <div className="text-black text-center pt-10 flex flex-col tcw:pt-36 tsw:pt-[200px] cvo:pt-[300px]">
+      <h2 className=" m-2 h-[40px] p-2 rounded-lg text-[#B35642] text-[20px] tcw:pb-14 tsw:pb-0">Elegi tu habitacion deseada!</h2>
+      <div className="flex flex-row justify-center pt-5 space-x-5 pb-5 tsw:pt-0">
           {/* slidemap */}
         { typeof rooms === "object" && rooms.length > 0 ? rooms.map((room, index) => {
           return (
@@ -79,13 +80,51 @@ export const RoomCarrusel = () => {
         })
       ) : (
         <div>
-          <p>No se encontraron productos</p>
+          <p>No se encontraron habitaciones</p>
         </div>
       )}
       
-      <div className=" flex justify-center pt-5">
+      <div className=" flex justify-center pt-5 ">
         <button className="text-white bg-[#B35642]  p-1 flex w-[100px] justify-center rounded-lg border-2 border-[#D3B616]">VER MÁS</button>
       </div>
-    </div>
+    </div> 
+    : 
+    // tabletaresponsive
+    <div className="text-[#696969] justify-center items-center text-center p-5 py-5 leading-[25px]	">
+      <div className="p-5 ">
+      <h2 className="text-[40px] py-5 text-[#E2725B]">Habitaciones</h2>
+      <p className="text-[20px] ">Las habitaciones de la posada cuentan con todo lo que necesitas para relajarte de la forma más placentera durante su estadía en el campo, Lorem ipsum dolor sit amet consectetur adipisicing elit. Neque ad voluptatum unde distinctio.</p>
+      </div>
+
+      <div className={` grid grid-cols-2  p-5 py-10 text-center items-center justify-center`}>
+      {typeof rooms === "object" && rooms.length > 0 ? (
+        rooms.map((rooms, index) => {
+          return (
+            <div className="px-10 text-center pb-14" key={rooms.id}>
+              <img className="h-[200px] w-[260px] border border-[#E2725B] rounded-lg" src={rooms.images?.[0]} alt={rooms.images?.[0]}/>
+              <h2 className="text-[#E2725B] pt-3 text-[25px] pb-3">{rooms.name}</h2> 
+              <div className=" pt-3  grid grid-cols-2 gap">
+               <h3 className=" text-[20px] pb-3 gap text-center ">●Zona: {rooms.roomZone}</h3>
+               <h3 className=" text-[20px] pb-3 gap text-center ">●Precio: <b className="text-[#E2725B]">{rooms.price}GS.</b></h3>
+              </div>
+              <p className="text-[20px] text-center pb-3">{rooms.preDescription}</p>
+              <button className="text-white  rounded-lg bg-[#B35642] p-2 px-5"> RESERVAR ➜</button>
+            
+            </div>
+          
+          )
+        })
+      ) : (
+        <div className="absolute text-center items-center justify-center aling-center text-[20px] right-[250px]">
+          
+          <p className=" ">No se encontraron habitaciones...</p>
+       
+        </div>
+      )}
+       </div>
+      </div>
+    }
+  </div>
+    
   );
 };
