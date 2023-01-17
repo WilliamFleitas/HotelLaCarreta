@@ -10,6 +10,7 @@ import { Highlights } from "./Highlights";
 import useWindowSize from "../customHooks/useWindowSize";
 import { Facilities } from "./Facilities";
 import { AboutHome } from "./AboutHome";
+import { Events } from "./Events";
 
 const Home = () => {
   const {width} = useWindowSize();
@@ -30,11 +31,13 @@ const Home = () => {
       <Welcome/>
       <Facilities/>
       <AboutHome/>
+      
         </>
       }
       
 
       <Highlights/>
+      <Events/>
       {/* <div className="border-2">
         <button>Buscar</button>
       </div>

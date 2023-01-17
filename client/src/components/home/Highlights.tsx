@@ -1,8 +1,11 @@
 import React from "react";
 import useWindowSize from "../customHooks/useWindowSize";
 
+
+
 export const Highlights = () => {
 
+        
     const {width} = useWindowSize();
 
 
@@ -29,9 +32,12 @@ export const Highlights = () => {
              <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusantium at dolorum quidem, non facilis aliquam blanditiis hic corrupti eum, dolorem eligendi esse enim. Aspernatur, fugiat neque? Dolorum facere eaque similique?</p>
              <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusantium at dolorum quidem, non facilis aliquam blanditiis hic corrupti eum, dolorem eligendi esse enim. Aspernatur, fugiat neque? Dolorum facere eaque similique?</p>
              </div>
-
+             
+             
+             
         </div>
             }
+                 
         </div>
         
     )
