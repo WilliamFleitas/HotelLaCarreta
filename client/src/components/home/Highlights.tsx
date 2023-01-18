@@ -1,8 +1,11 @@
 import React from "react";
 import useWindowSize from "../customHooks/useWindowSize";
 
+
+
 export const Highlights = () => {
 
+        
     const {width} = useWindowSize();
 
 
@@ -21,17 +24,20 @@ export const Highlights = () => {
             </div>
         </div> 
         : 
-        <div className="text-[#696969] text-center justify-center p-5">
+        <div className="text-[#696969] text-center justify-center p-5 lg:p-14 ">
              <h2 className="text-[35px] pt-8 pb-10 text-[#E2725B]">Aspectos destacados</h2>
 
-             <div className="grid grid-cols-3 text-[20px] ">
+             <div className="grid grid-cols-3 text-[20px] lg:gap-4">
              <p className="">Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusantium at dolorum quidem, non facilis aliquam blanditiis hic corrupti eum, dolorem eligendi esse enim. Aspernatur, fugiat neque? Dolorum facere eaque similique?</p>
              <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusantium at dolorum quidem, non facilis aliquam blanditiis hic corrupti eum, dolorem eligendi esse enim. Aspernatur, fugiat neque? Dolorum facere eaque similique?</p>
              <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusantium at dolorum quidem, non facilis aliquam blanditiis hic corrupti eum, dolorem eligendi esse enim. Aspernatur, fugiat neque? Dolorum facere eaque similique?</p>
              </div>
-
+             
+             
+             
         </div>
             }
+                 
         </div>
         
     )

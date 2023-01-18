@@ -39,16 +39,21 @@ module.exports = {
   
         'md': '768px',
         // => @media (min-width: 768px) { ... }
-  
-        'lg': '1024px',
+        'aser': '850px',
+
+        'lg': '1000px',
         // => @media (min-width: 1024px) { ... }
-  
+        'lgg': '1090px',
+
+        'ggg': '1150px',
+
+        'gxl': '1205px',
         'xl': '1280px',
         // => @media (min-width: 1280px) { ... }
-  
+        '1xl': '1407px',
         '2xl': '1535px',
         // => @media (min-width: 1536px) { ... }
-        '3x1': '1543px',
+        '3x1': '1600px',
       },
     },
   },

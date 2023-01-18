@@ -91,17 +91,17 @@ export const RoomCarrusel = () => {
     : 
     // tabletaresponsive
     <div className="text-[#696969] justify-center items-center text-center p-5 py-5 leading-[25px]	">
-      <div className="p-5 ">
+      <div className="p-5 lgg:p-10">
       <h2 className="text-[40px] py-5 text-[#E2725B]">Habitaciones</h2>
       <p className="text-[20px] ">Las habitaciones de la posada cuentan con todo lo que necesitas para relajarte de la forma más placentera durante su estadía en el campo, Lorem ipsum dolor sit amet consectetur adipisicing elit. Neque ad voluptatum unde distinctio.</p>
       </div>
 
-      <div className={` grid grid-cols-2  p-5 py-10 text-center items-center justify-center`}>
+      <div className={` grid grid-cols-2 lg:grid-cols-3 p-5 py-10 text-center items-center justify-center lg:p-2 lg:w-screen lgg:p-8 lgg:w-full`}>
       {typeof rooms === "object" && rooms.length > 0 ? (
         rooms.map((rooms, index) => {
           return (
-            <div className="px-10 text-center pb-14" key={rooms.id}>
-              <img className="h-[200px] w-[260px] border border-[#E2725B] rounded-lg" src={rooms.images?.[0]} alt={rooms.images?.[0]}/>
+            <div className="px-10 text-center pb-14 lg:px-5 lg:text-start" key={rooms.id}>
+              <img className="h-[200px] w-[260px] border border-[#E2725B] rounded-lg aser:w-screen aser:h-full" src={rooms.images?.[0]} alt={rooms.images?.[0]}/>
               <h2 className="text-[#E2725B] pt-3 text-[25px] pb-3">{rooms.name}</h2> 
               <div className=" pt-3  grid grid-cols-2 gap">
                <h3 className=" text-[20px] pb-3 gap text-center ">●Zona: {rooms.roomZone}</h3>
