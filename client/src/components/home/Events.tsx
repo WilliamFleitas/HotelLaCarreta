@@ -39,39 +39,45 @@ export const Events = () => {
     ];
 
     const [switchI, setSwitchI] = useState(false);
+    const [currentDiv, setCurrentDiv] = useState<number | undefined>(undefined);
 
-    const handleSwitch = () => {
+    const handleSwitch = (index: number | undefined) => {
 
-        if(switchI === false) setSwitchI(true);
-        if(switchI === true) setSwitchI(false);
+        if(switchI === false){
+            setCurrentDiv(index);
+            setSwitchI(true);
+        } 
+        if(switchI === true){
+            setCurrentDiv(undefined);
+            setSwitchI(false);
+            
+        }
     };
 
     return (
-        <div className="text-white  p-2 ">
+        <div className="text-white lg:p-8 ">
             <h2 className="text-[35px] pt-20 pb-10 text-[#E2725B] text-center">También podes reservar eventos!</h2>
-            <div className="grid grid-cols-4 text-[20px] ">
+            <div className="grid grid-cols-4 p-2 gap-x-2">
              {
-                eventsObject.length > 0 ? eventsObject.map((e) => {
+                eventsObject.length > 0 ? eventsObject.map((e:eventsObjects, index: number) => {
                     return (
-                        <div className="p-1 text-[20px] ">
-                            <img className="h-[450px] w-screen object-cover" src={e.image} alt={e.image}/>
-
-                          <button onClick={handleSwitch} className=" relative w-full bottom-[50px] bg-[#E2725B] ">
-                          <div className="text-start">
-                            <h3 className="p-2">{e.eventType}</h3>
-                            <h3 className=" p-2">{e.name}</h3>
+                        <div className=" relative border border-[#B35642] rounded-md">
+                            <img className="h-[550px] w-screen object-cover rounded-md" src={e.image} alt={e.image}/>
+                        
+                          
+                          <div onClick={() => handleSwitch(index)} className={currentDiv !== index ? " bg-white bg-opacity-[90%] border border-[#B35642] absolute bottom-0  w-full text-[15px] text-[#B35642] pb-2 pt-1 rounded-b-md": " bg-[#B35642] absolute bottom-0  w-full text-[12px] rounded-b-md"}>
+                            <h3 className="px-2 pt-2">{e.eventType}</h3>
+                            <h3 className="px-2 pt-1">{e.name}</h3>
                             {
-                                   switchI ? 
-                                    <div className="text-center flex flex-col  ">
-                                        <p className="pt-3 p-2 ">{e.description}</p>
-                                        <button className="text-center p-3 mt-10 text-[#E2725B]  bg-white ">Reserva de evento</button>
+                                currentDiv === index ? 
+                                    <div className="text-center flex flex-col ">
+                                        <p className="pt-1 text-start px-2">{e.description}</p>
+                                        <button className="text-center mt-10 p-1 text-[#E2725B]  bg-white border rounded-b-md" type="button" id="Reservadevento" name="reservadeevento">Reserva de evento</button>
                                     </div>
                                         
                                     : <></>
                                 }
                             </div>
-                            </button>  
-                            
                         </div>
                     )
                 }): <div><h2>No se encontraron eventos..</h2></div>

@@ -24,6 +24,7 @@ const Home = () => {
         width < 768 ? 
         <><Welcome/>
         <RoomCarrusel/>
+        <Highlights/>
         </> 
         :
         <>
@@ -31,13 +32,13 @@ const Home = () => {
       <Welcome/>
       <Facilities/>
       <AboutHome/>
-      
+      <Highlights/>
+      <Events/>
         </>
       }
       
 
-      <Highlights/>
-      <Events/>
+      
       {/* <div className="border-2">
         <button>Buscar</button>
       </div>
