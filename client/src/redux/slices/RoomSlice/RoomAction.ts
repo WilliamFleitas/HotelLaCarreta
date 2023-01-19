@@ -1,5 +1,5 @@
 import axios from "axios";
-import { clearRoomDetail, getRooms, roomById, RoomsDetails, setErrors, setLoading } from ".";
+import { clearRoomDetail, getRooms, roomById, RoomsDetails, setErrors, setHigherPriceRooms, setLoading } from ".";
 import { AppDispatch } from "../../../store";
 
 
@@ -8,6 +8,17 @@ export const getAllRooms = () => (dispatch: AppDispatch) => {
     axios.get("http://localhost:3001/rooms").then(({data}) => {
        
             dispatch(getRooms(data));
+        
+    }).catch((error) => {
+        console.log(error);
+    });
+};
+
+export const getHigherPrice = () => (dispatch: AppDispatch) => {
+
+    axios.get("http://localhost:3001/rooms/roombyprices").then(({data}) => {
+       
+            dispatch(setHigherPriceRooms(data));
         
     }).catch((error) => {
         console.log(error);

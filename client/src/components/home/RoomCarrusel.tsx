@@ -107,7 +107,7 @@ export const RoomCarrusel = () => {
                <h3 className=" text-[20px] pb-3 gap text-center ">●Zona: {rooms.roomZone}</h3>
                <h3 className=" text-[20px] pb-3 gap text-center ">●Precio: <b className="text-[#E2725B]">{rooms.price}GS.</b></h3>
               </div>
-              <p className="text-[20px] text-center pb-3">{rooms.preDescription}</p>
+              
               <button className="text-white  rounded-lg bg-[#B35642] p-2 px-5"> RESERVAR ➜</button>
             
             </div>
