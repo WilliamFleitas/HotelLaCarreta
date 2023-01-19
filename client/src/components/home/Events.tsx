@@ -55,22 +55,22 @@ export const Events = () => {
     };
 
     return (
-        <div className="text-white lg:p-8 ">
-            <h2 className="text-[35px] pt-20 pb-10 text-[#E2725B] text-center">También podes reservar eventos!</h2>
-            <div className="grid grid-cols-4 p-2 gap-x-2">
+        <div className=" text-white lg:p-8 ">
+            <h2 className=" text-[35px] pt-20 pb-10 text-[#E2725B] text-center">También podes reservar eventos!</h2>
+            <div className=" grid grid-cols-4 p-2 gap-x-2">
              {
                 eventsObject.length > 0 ? eventsObject.map((e:eventsObjects, index: number) => {
                     return (
                         <div className=" relative border border-[#B35642] rounded-md">
-                            <img className="h-[550px] w-screen object-cover rounded-md" src={e.image} alt={e.image}/>
+                            <img className=" h-[550px] w-screen object-cover rounded-md" src={e.image} alt={e.image}/>
                         
                           
-                          <div onClick={() => handleSwitch(index)} className={currentDiv !== index ? " bg-white bg-opacity-[90%] border border-[#B35642] absolute bottom-0  w-full text-[15px] text-[#B35642] pb-2 pt-1 rounded-b-md": " bg-[#B35642] absolute bottom-0  w-full text-[12px] rounded-b-md"}>
+                          <div onClick={() => handleSwitch(index)} className={currentDiv !== index ? " bg-white bg-opacity-[90%] border border-[#B35642] absolute bottom-0  w-full text-[15px] text-[#B35642] pb-2 pt-1 rounded-b-md ": " bg-[#B35642] absolute bottom-0  w-full text-[12px] rounded-b-md"}>
                             <h3 className="px-2 pt-2">{e.eventType}</h3>
                             <h3 className="px-2 pt-1">{e.name}</h3>
                             {
                                 currentDiv === index ? 
-                                    <div className="text-center flex flex-col ">
+                                    <div className=" text-center flex flex-col ">
                                         <p className="pt-1 text-start px-2">{e.description}</p>
                                         <button className="text-center mt-10 p-1 text-[#E2725B]  bg-white border rounded-b-md" type="button" id="Reservadevento" name="reservadeevento">Reserva de evento</button>
                                     </div>

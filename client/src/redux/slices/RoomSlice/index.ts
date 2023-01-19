@@ -19,11 +19,13 @@ export interface RoomsDetails {
 interface RoomsState {
   roomList: Array<RoomsDetails>;
   roomDetail: RoomsDetails;
+  higherPriceRoomList: Array<RoomsDetails>
   error: string;
   loading: boolean;
 }
 const initialState: RoomsState = {
   roomList: [],
+  higherPriceRoomList: [],
   roomDetail: {
       name: "",
 	    description: "",
@@ -49,6 +51,9 @@ const RoomSlice = createSlice({
   reducers: {
     getRooms(state, action: PayloadAction<Array<RoomsDetails>>) {
       state.roomList = action.payload;
+    },
+    setHigherPriceRooms(state, action: PayloadAction<Array<RoomsDetails>>) {
+      state.higherPriceRoomList = action.payload;
     },
     roomById(state, action: PayloadAction<RoomsDetails>) {
       state.roomDetail = action.payload;
@@ -81,4 +86,4 @@ const RoomSlice = createSlice({
 });
 
 export default RoomSlice.reducer;
-export const { getRooms, roomById, setErrors, clearRoomDetail, setLoading } = RoomSlice.actions;
+export const { getRooms, roomById, setErrors, clearRoomDetail, setLoading, setHigherPriceRooms } = RoomSlice.actions;

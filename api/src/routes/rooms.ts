@@ -16,6 +16,21 @@ route.get("/", async (_req: Request, res: Response) => {
   }
 });
 
+route.get("/roombyprices", async (_req: Request, res: Response) => {
+  try {
+    const rooms = await Room.findAll({ order: [
+      ['price', 'DESC']
+    ]});
+  if (rooms.length > 0) {
+    res.status(200).send(rooms);
+  } else {
+    res.status(200).send("No se encontraron habitaciónes");
+  }
+  } catch (error) {
+    res.status(400).send(error)
+  }
+});
+
 route.put("/:id", async (req: Request, res: Response) => {
   try {
     const room = await Room.update(req.body, {

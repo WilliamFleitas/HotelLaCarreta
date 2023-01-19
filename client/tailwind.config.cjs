@@ -48,6 +48,7 @@ module.exports = {
         'ggg': '1150px',
 
         'gxl': '1205px',
+        
         'xl': '1280px',
         // => @media (min-width: 1280px) { ... }
         '1xl': '1407px',
