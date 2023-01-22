@@ -31,6 +31,24 @@ route.get("/roombyprices", async (_req: Request, res: Response) => {
   }
 });
 
+route.get("/:id", async (req: Request, res: Response) => {
+
+  try {
+    const { id } = req.params;
+    if(!/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/.test(id)){
+        res.status(400).send("Ingrese un ID valido");
+    }
+    const result = await Room.findByPk(id, { include: Reservation });
+    if(!result){
+      res.status(400).send("No se encontro la habitación")
+    }else{
+      res.status(200).send(result);
+    }
+  } catch (error) {
+    console.log(error);
+  }
+});
+
 route.put("/:id", async (req: Request, res: Response) => {
   try {
     const room = await Room.update(req.body, {
@@ -65,26 +83,11 @@ route.put("/toggle/:id", async (req: Request, res: Response) => {
   }
 });
 
-route.get("/:id", async (req: Request, res: Response) => {
-
-  try {
-    const { id } = req.params;
-    if(!/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/.test(id)){
-        res.status(400).send("Ingrese un ID valido");
-    }
-    const result = await Room.findByPk(id, { include: Reservation });
-    if(!result){
-      res.status(400).send("No se encontro la habitación")
-    }else{
-      res.status(200).send(result);
-    }
-  } catch (error) {
-    console.log(error);
-  }
-});
-
 route.post("/", async (req: Request, res: Response) => {
   try {
+    if(!req.body.name || !req.body.description || !req.body.preDescription || !req.body.images || !req.body.price || !req.body.capacity){
+      res.status(400).send("Faltan datos para crear la habitación")
+    }
     const room = await Room.create(req.body);
     res.status(200).send(room);
   } catch (error) {

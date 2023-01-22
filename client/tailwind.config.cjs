@@ -9,11 +9,14 @@ module.exports = {
         'tcw': '350px',
   
         'tsw': '360px',
-  
+        'tlc': '375px',
+
         'cl': '390px',
   
         'cdw': '393px',
         // => @media (min-width: 393px) { ... }
+        'ccw': '400px',
+
         'ccc': '414px',
         // => @media (min-width: 414px) { ... }
         'cvo': '428px',
