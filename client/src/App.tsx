@@ -7,6 +7,8 @@ import { RoomCards } from "./components/home/RoomCards";
 import { CreateRoom } from "./components/admin/CreateRoom";
 import NavBar from "./components/navbar/Navbar";
 import { RoomDetail } from "./components/home/RoomDetail/RoomDetail";
+import { Gallery } from "./components/home/Gallery/Gallery";
+import { AboutUs } from "./components/home/AboutUs";
 
 
 function App() {
@@ -19,6 +21,8 @@ function App() {
         <Route path="/admin" element={<AdminPanel />} />
         <Route path="/rooms" element={<RoomCards/>}/>
         <Route path="/roomdetail/:id" element={<RoomDetail/>} />
+        <Route path="/gallery" element={<Gallery/>}/>
+        <Route path="/aboutus" element={<AboutUs/>}/>
         <Route path="/createroom" element={<CreateRoom/>}/>
       </Routes>
     </div>

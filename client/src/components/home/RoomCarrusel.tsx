@@ -96,7 +96,7 @@ export const RoomCarrusel = () => {
       <p className="text-[20px] ">Las habitaciones de la posada cuentan con todo lo que necesitas para relajarte de la forma más placentera durante su estadía en el campo, Lorem ipsum dolor sit amet consectetur adipisicing elit. Neque ad voluptatum unde distinctio.</p>
       </div>
 
-      <div className={` grid grid-cols-2 lg:grid-cols-3 p-5 py-10 text-center items-center justify-center lg:p-2 lg:w-screen lgg:p-8 lgg:w-full`}>
+      <div className={typeof rooms === "object" && rooms.length > 0 ? ` grid grid-cols-2 lg:grid-cols-3 p-5 py-10 text-center items-center justify-center lg:p-2 lg:w-screen lgg:p-8 lgg:w-full` : `  p-5 py-10 text-center items-center justify-center lg:p-2 lg:w-screen lgg:p-8 lgg:w-full` }>
       {typeof rooms === "object" && rooms.length > 0 ? (
         rooms.map((rooms, index) => {
           return (
@@ -115,10 +115,9 @@ export const RoomCarrusel = () => {
           )
         })
       ) : (
-        <div className="absolute text-center items-center justify-center aling-center text-[20px] right-[250px]">
-          
-          <p className=" ">No se encontraron habitaciones...</p>
-       
+        
+        <div className=" text-[20px] ">
+          <p className="">No se encontraron habitaciones...</p>
         </div>
       )}
        </div>

@@ -11,11 +11,12 @@ import useWindowSize from "../customHooks/useWindowSize";
 import { Facilities } from "./Facilities";
 import { AboutHome } from "./AboutHome";
 import { Events } from "./Events";
+import { Footer } from "./footer/Footer";
 
 const Home = () => {
   const {width} = useWindowSize();
   return (
-    <div className="flex flex-col items-center overflow-hidden	">
+    <div className="flex flex-col items-center overflow-hidden	h-full w-screen">
       <CarrouselFondo/>
 
       <Check/>
@@ -25,6 +26,7 @@ const Home = () => {
         <><Welcome/>
         <RoomCarrusel/>
         <Highlights/>
+        <Footer/>
         </> 
         :
         <>
@@ -34,6 +36,7 @@ const Home = () => {
       <AboutHome/>
       <Highlights/>
       <Events/>
+      <Footer/>
         </>
       }
       
@@ -43,6 +46,8 @@ const Home = () => {
         <button>Buscar</button>
       </div>
         <Contenido/> */}
+
+      
     </div>
   );
 };

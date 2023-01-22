@@ -2,12 +2,14 @@ import { configureStore } from "@reduxjs/toolkit";
 import roomSlice from "./redux/slices/RoomSlice";
 import adminSlice from "./redux/adminSlice";
 import facilitieSlice from "./redux/slices/FacilitiesSlice";
+import gallerySlice from "./redux/slices/GallerySlice";
 
 const store = configureStore({
   reducer: {
     rooms: roomSlice,
     admin: adminSlice,
     facilities: facilitieSlice,
+    gallery: gallerySlice,
   },
   
 });

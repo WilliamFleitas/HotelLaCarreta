@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { boolean } from "zod";
-
 interface eventsObjects {
     name: string,
     eventType: string; 
@@ -39,7 +38,7 @@ export const Events = () => {
     ];
 
     const [switchI, setSwitchI] = useState(false);
-    const [currentDiv, setCurrentDiv] = useState<number | undefined>(undefined);
+    const [currentDiv, setCurrentDiv] = useState<number | undefined>(0);
 
     const handleSwitch = (index: number | undefined) => {
 
@@ -65,14 +64,19 @@ export const Events = () => {
                             <img className=" h-[550px] w-screen object-cover rounded-md" src={e.image} alt={e.image}/>
                         
                           
-                          <div onClick={() => handleSwitch(index)} className={currentDiv !== index ? " bg-white bg-opacity-[90%] border border-[#B35642] absolute bottom-0  w-full text-[15px] text-[#B35642] pb-2 pt-1 rounded-b-md ": " bg-[#B35642] absolute bottom-0  w-full text-[12px] rounded-b-md"}>
+                          <div  className={currentDiv !== index ? " bg-white bg-opacity-[90%] border border-[#B35642] absolute bottom-0  w-full text-[15px] text-[#B35642] pb-2 pt-1 rounded-b-md ": " bg-[#B35642] absolute bottom-0  w-full text-[15px] rounded-b-md xl:text-[18px]"}>
+                            <div className="flex flex-row">
+                            <div onClick={() => handleSwitch(index)} className="h-full w-screen hover:opacity-[80%]">
                             <h3 className="px-2 pt-2">{e.eventType}</h3>
                             <h3 className="px-2 pt-1">{e.name}</h3>
+                            </div>
+                            
+                            </div>
                             {
                                 currentDiv === index ? 
-                                    <div className=" text-center flex flex-col ">
-                                        <p className="pt-1 text-start px-2">{e.description}</p>
-                                        <button className="text-center mt-10 p-1 text-[#E2725B]  bg-white border rounded-b-md" type="button" id="Reservadevento" name="reservadeevento">Reserva de evento</button>
+                                    <div className=" text-center flex flex-col " >
+                                        <p className="pt-1 text-start px-2" onClick={() => handleSwitch(index)}>{e.description}</p>
+                                        <button className="text-center mt-10 p-1 text-[#E2725B] hover:bg-opacity-[80%] bg-white border rounded-b-md" type="button" id="Reservadevento" name="reservadeevento">Reserva de evento</button>
                                     </div>
                                         
                                     : <></>

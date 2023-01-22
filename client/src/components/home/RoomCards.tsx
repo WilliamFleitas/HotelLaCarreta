@@ -30,7 +30,7 @@ export const RoomCards = () => {
          </div>)
        })
       : 
-       <div>
+       <div className="text-black">
          <p>No se encontraron productos</p>
        </div>
      }
@@ -47,7 +47,7 @@ export const RoomCards = () => {
       </div>
 
       <h2 className="text-[40px] py-10 text-[#E2725B]">Vea nuestras habitaciones!</h2>
-      <div className={` grid grid-cols-2 lg:grid-cols-3 p-5 py-10 text-center items-center justify-center lg:p-2 lg:w-screen lgg:p-8 lgg:w-full`}>
+      <div className={typeof rooms === "object" && rooms.length > 0 ? ` grid grid-cols-2 lg:grid-cols-3 p-5 py-10 text-center items-center justify-center lg:p-2 lg:w-screen lgg:p-8 lgg:w-full` : `p-5 py-10 text-center items-center justify-center lg:p-2 lg:w-screen lgg:p-8 lgg:w-full`}>
       {typeof rooms === "object" && rooms.length > 0 ? (
         rooms.map((rooms, index) => {
           return (
@@ -66,9 +66,9 @@ export const RoomCards = () => {
           )
         })
       ) : (
-        <div className="absolute text-center items-center justify-center aling-center text-[20px] right-[250px]">
+        <div className="">
           
-          <p className=" ">No se encontraron habitaciones...</p>
+          <p className=" text-[20px]">No se encontraron habitaciones...</p>
        
         </div>
       )}
