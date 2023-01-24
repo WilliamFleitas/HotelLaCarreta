@@ -1,6 +1,7 @@
 import React from "react";
 import { RoomsDetails } from "../../redux/slices/RoomSlice";
 import {FaConciergeBell} from "react-icons/fa";
+import { Link } from "react-router-dom";
 
 interface CardProps {
     rooms: RoomsDetails;
@@ -9,9 +10,9 @@ interface CardProps {
 export const RoomCard = ({rooms}:CardProps) => {
    
     return ( 
-        <div key={rooms.id} className="flex flex-col text-center bg-[#B35642] h-full w-[300px] p-2 rounded-lg border-2 border-[#D3B616]" >
+        <div key={rooms.id} className="flex flex-col text-center bg-[#B35642] h-full w-[300px] p-2 rounded-lg border-2 border-[#D3B616] hover:opacity-[90%] " draggable="false">
 
-            
+            <Link to={`/roomdetail/${rooms.id}`} draggable="false">
 
             <h2 className="bg-white m-2 h-[40px] p-2 rounded-lg text-[#B35642] text-[20px] border-2 border-[#D3B616]">{rooms.name}</h2>
 
@@ -47,7 +48,7 @@ export const RoomCard = ({rooms}:CardProps) => {
             
             }
            </div>
-            
+           </Link>
         </div>
     )
 };

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../../hooks";
 import { getAllPost } from "../../../redux/slices/GallerySlice/Galleryaction";
+import { ModalGallery } from "../../customHooks/ModalGallery";
 import useWindowSize from "../../customHooks/useWindowSize";
 
 export const GalleryPhotos = () => {
@@ -10,7 +11,7 @@ export const GalleryPhotos = () => {
   const [showModal, setShowModal] = useState(false);
   const { width } = useWindowSize();
   const [currentPage, setCurrentPage] = useState(1);
-
+  const [currentImg, setCurrentImg] = useState(0);
   useEffect(() => {
     if (width < 768) {
       dispatch(getAllPost());
@@ -18,6 +19,11 @@ export const GalleryPhotos = () => {
       dispatch(getAllPost(currentPage));
     }
   }, [dispatch, currentPage]);
+  
+  const handleModal = (bool: boolean, index: number) => {
+    setShowModal(bool);
+    setCurrentImg(index);
+  };
 
   return (
     <div>
@@ -31,44 +37,19 @@ export const GalleryPhotos = () => {
               postList.map((e, index) => {
                 return (
                   <div className="p-5" key={e.id}>
+                    <button onClick={() => handleModal(true, index)}>
                     <img
-                      onClick={() => setShowModal(true)}
+                      
                       className="w-screen h-full border-2 border-[#D3B616] rounded-lg"
-                      src={e.image}
+                      src={e.image} alt={`${e.image}+${index}`}
                     />
+                    </button>
                     <div>
-                      {showModal ? (
-                        <>
-                          <div className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none h-full w-full">
-                            {/*content*/}
-                            <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
-                              {/*body*/}
-                              <div className="relative p-5  flex-auto">
-                                <img
-                                  className="h-full w-full pt-5"
-                                  src={e.image}
-                                  alt={`${e.image}+${index}`}
-                                />
-                              </div>
-                              {/*footer*/}
-                              <div className="flex items-center justify-end p-2 border-t border-solid border-slate-200 rounded-b">
-                                <button
-                                  className="text-[#B35642] background-transparent font-bold uppercase px-6  text-sm outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
-                                  type="button"
-                                  onClick={() => setShowModal(false)}
-                                >
-                                  Cerrar
-                                </button>
-                              </div>
-                            </div>
-                          </div>
-                          <div
-                            className="opacity-25 fixed inset-0 z-40 bg-black"
-                            onClick={() => setShowModal(false)}
-                          ></div>
-                        </>
-                      ) : null}
+                  {showModal && currentImg === index ?  <div onClick={() => handleModal(false, index)}>
+                    <ModalGallery image={`${e.image}`} /> 
                     </div>
+                   : <></>}
+                </div>
                   </div>
                 );
               })
@@ -88,11 +69,19 @@ export const GalleryPhotos = () => {
                 postList.map((e, index) => {
                   return (
                     <div className="p-3 " key={e.id}>
+                      <button type="button" onClick={() => handleModal(true, index)}>
                       <img
                         className="rounded-lg h-full  w-screen object-cover border border-white"
                         src={e.image}
                         alt={`${e.image}+${index}`}
                       />
+                      </button>
+                       <div>
+                  {showModal && currentImg === index ?  <div onClick={() => handleModal(false, index)}>
+                    <ModalGallery image={`${e.image}`} /> 
+                    </div>
+                   : <></>}
+                </div>
                     </div>
                   );
                 })

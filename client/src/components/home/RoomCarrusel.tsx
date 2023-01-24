@@ -3,6 +3,7 @@ import { RoomCard } from "./RoomCard";
 import { useAppDispatch, useAppSelector } from "../../hooks";
 import { getAllRooms } from "../../redux/slices/RoomSlice/RoomAction";
 import useWindowSize from "../customHooks/useWindowSize";
+import { Link } from "react-router-dom";
 
 export const RoomCarrusel = () => {
   const dispatch = useAppDispatch();
@@ -32,14 +33,14 @@ export const RoomCarrusel = () => {
     dispatch(getAllRooms());
   }, [dispatch]);
   return (  
-  <div>
+  <div className="overflow-x-hidden">
     {
       width < 768 ? 
-      <div className="text-black text-center pt-10 flex flex-col tcw:pt-36 tsw:pt-[200px] cvo:pt-[300px]">
+      <div className="text-black text-center pt-5 flex flex-col tcw:pt-10 tsw:pt-12 cvo:pt-12">
       <h2 className=" m-2 h-[40px] p-2 rounded-lg text-[#B35642] text-[20px] tcw:pb-14 tsw:pb-0">Elegi tu habitacion deseada!</h2>
       <div className="flex flex-row justify-center pt-5 space-x-5 pb-5 tsw:pt-0">
           {/* slidemap */}
-        { typeof rooms === "object" && rooms.length > 0 ? rooms.map((room, index) => {
+        { typeof rooms === "object" && rooms.length > 0 ? rooms.slice(0, 6).map((room, index) => {
           return (
             <div key={room.id} onClick={() => goToSlide(index)} className="text-[30px] ">
               {currentImg === index  ? (
@@ -66,7 +67,7 @@ export const RoomCarrusel = () => {
       </div>
         {/* carruselmap */}
       {typeof rooms === "object" && rooms.length > 0 ? (
-        rooms.map((rooms, index) => {
+        rooms.slice(0, 6).map((rooms, index) => {
           
           return (
             <div key={rooms.id}>
@@ -85,7 +86,9 @@ export const RoomCarrusel = () => {
       )}
       
       <div className=" flex justify-center pt-5 ">
-        <button className="text-white bg-[#B35642]  p-1 flex w-[100px] justify-center rounded-lg border-2 border-[#D3B616]">VER MÁS</button>
+        <Link to="/rooms">
+        <button className="text-white bg-[#B35642]  p-1 flex w-[100px] justify-center rounded-lg border-2 border-[#D3B616] hover:bg-[#c25f48] hover:border-[#7a6a10]">VER MÁS</button>
+        </Link>
       </div>
     </div> 
     : 
@@ -98,7 +101,7 @@ export const RoomCarrusel = () => {
 
       <div className={typeof rooms === "object" && rooms.length > 0 ? ` grid grid-cols-2 lg:grid-cols-3 p-5 py-10 text-center items-center justify-center lg:p-2 lg:w-screen lgg:p-8 lgg:w-full` : `  p-5 py-10 text-center items-center justify-center lg:p-2 lg:w-screen lgg:p-8 lgg:w-full` }>
       {typeof rooms === "object" && rooms.length > 0 ? (
-        rooms.map((rooms, index) => {
+        rooms.slice(0,6).map((rooms, index) => {
           return (
             <div className="px-10 text-center pb-14 lg:px-5 lg:text-start" key={rooms.id}>
               <img className="h-[200px] w-[260px] border border-[#E2725B] rounded-lg aser:w-screen aser:h-full" src={rooms.images?.[0]} alt={rooms.images?.[0]}/>
@@ -107,9 +110,11 @@ export const RoomCarrusel = () => {
                <h3 className=" text-[20px] pb-3 gap text-center ">●Zona: {rooms.roomZone}</h3>
                <h3 className=" text-[20px] pb-3 gap text-center ">●Precio: <b className="text-[#E2725B]">{rooms.price}GS.</b></h3>
               </div>
+              <Link to={`/roomdetail/${rooms.id}`}>
+                
+              <button className="text-white  rounded-lg bg-[#B35642] p-2 px-5 hover:bg-opacity-[80%]"> RESERVAR ➜</button>
               
-              <button className="text-white  rounded-lg bg-[#B35642] p-2 px-5"> RESERVAR ➜</button>
-            
+              </Link>
             </div>
           
           )

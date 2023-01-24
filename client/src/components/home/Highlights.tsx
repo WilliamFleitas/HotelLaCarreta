@@ -10,7 +10,7 @@ export const Highlights = () => {
 
 
     return ( 
-        <div>
+        <div className="overflow-x-hidden">
             {width < 768 ? 
             <div className="pt-10">
             <div className=" text-white text-[25px] pt-7 bg-[#B35642] h-full  w-screen text-center p-5 object-fit border-[1px] border-[#D3B616]">

@@ -4,6 +4,7 @@ import foto2 from "../../assets/carreta2.jpg";
 import foto3 from "../../assets/carreta3.jpg";
 import useWindowSize from "../customHooks/useWindowSize";
 import { BsArrowRight } from "react-icons/bs";
+import { Link } from "react-router-dom";
 
 
 export const CarrouselFondo = () => {
@@ -25,27 +26,29 @@ export const CarrouselFondo = () => {
   }, [actualImage]);
 
   return (
-    <div>
-    { width < 768 ? <div className="h-[500px] w-screen tcw:h-full tcw:w-full text-center cvo:h-[710px]">
+    <div className="overflow-x-hidden" >
+    { width < 768 ? <div className="h-[500px] w-screen tcw:h-full tcw:w-full text-center cvo:h-[710px] " >
         
     {carroImage?.map((image: string, index: number): any => {
       return (
-        <div key={image}>
+        <div key={image} >
           {actualImage === index && (
             <div>
-              <img
-                className="object-cover h-[500px]   w-[500px] tcw:h-[500px] tcw:w-full tsw:h-[650px] cvo:h-[710px] "
+              <img draggable="false"
+                className="object-cover h-[500px] w-screen tcw:h-[500px] tcw:w-screen tsw:h-[650px] cvo:h-[710px] "
                 src={image}
                 key={index}
                 loading="lazy"
               />
 
-              <div className="borderText absolute top-[250px] items-center w-[310px] tcw:justify-center text-center  text-white tcw:w-screen tsw:pt-20">
+              <div className="borderText absolute top-[250px] items-center w-[310px] tcw:justify-center text-center  text-white tcw:w-screen tsw:pt-20" draggable="false">
                 <h1 className="text-[70px] pl-2 pb-6 ">La Carreta </h1>
                 <h2 className=" text-[20px] tsw:text-[25px] pb-14 pl-2  ">Posada Rural</h2>
-                <button className="borderText pl-2  font-sans font-bold text-center text-[15px] items-center border-[1px] border-[#c9b505] p-2 rounded-md bg-[#B35642]">
+                <Link to="/gallery">
+                <button className="borderText pl-2  font-sans font-bold text-center text-[15px] items-center border-[1px] border-[#c9b505] p-2 rounded-md bg-[#B35642] hover:bg-[#c25f48] hover:border-white">
                   Descubrir más
                 </button>
+                </Link>
               </div>
             </div>
           )}
@@ -61,8 +64,9 @@ export const CarrouselFondo = () => {
         <p className="pt-2 text-[20px] lg:text-[25px] aser:text-[23px] lg:p-3 lgg:p-0 gxl:text-[30px] 3x1:text-[35px]  3x1:p-5">Lorem ipsum dolor sit amet consectetur adipisicing elit. Odit delectus rem veniam ratione, voluptatibus debitis eveniet esse dicta odio cum, aspernatur quas repellat, voluptate corrupti numquam. Commodi facilis voluptates illo.</p>
 
             <div className="">
-             <button className="text-[#E2725B] text-[20px]  border  rounded-lg border-[#E2725B] p-3 3x1:ml-5"> Descubrir más➜</button>
-             
+              <Link to="/gallery">
+             <button className="text-[#E2725B] text-[20px]  border  rounded-lg border-[#E2725B] p-3 3x1:ml-5 hover:border-[#E2725B] hover:bg-zinc-100"> Descubrir más➜</button>
+             </Link>
             </div>
 
      </div>

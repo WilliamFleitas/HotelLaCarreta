@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import { Link } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../../hooks";
 import { getHigherPrice } from "../../../redux/slices/RoomSlice/RoomAction";
 
@@ -24,7 +25,11 @@ export const RoomDetailCarrusel = () => {
                <h3 className=" text-[20px] pb-3 gap text-center ">●Zona: {rooms.roomZone}</h3>
                <h3 className=" text-[20px] pb-3 gap text-center ">●Precio: <b className="text-[#E2725B]">{rooms.price}GS.</b></h3>
               </div>
-              <button className="text-white  rounded-lg bg-[#B35642] p-2 px-5"> RESERVAR ➜</button>
+              <Link to={`/roomdetail/${rooms.id}`}>
+                
+              <button className="text-white  rounded-lg bg-[#B35642] p-2 px-5 hover:bg-opacity-[80%]"> RESERVAR ➜</button>
+              
+              </Link>
             
             </div>
           
@@ -38,7 +43,9 @@ export const RoomDetailCarrusel = () => {
         </div>
       )}
        </div> 
-       <button className="text-white  rounded-lg bg-[#B35642] p-2 px-5"> VER MÁS ➜</button>
+       <Link to="/rooms">
+       <button className="text-white  rounded-lg bg-[#B35642] p-2 px-5  border-[#D3B616] hover:bg-[#c25f48] hover:border-[#7a6a10]"> VER MÁS ➜</button>
+       </Link>
         </div>
     )
 };

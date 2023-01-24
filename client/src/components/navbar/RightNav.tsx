@@ -3,7 +3,7 @@ import { NavLink } from "react-router-dom";
 import { slide as Menu } from "react-burger-menu";
 import Flag from "react-world-flags";
 
-const itemStyle = "pl-4 py-4";
+const itemStyle = "pl-4 py-4 hover:opacity-[70%]";
 
 const RightNav = () => {
   const changeLanguage = (lan: string) => {
@@ -32,17 +32,23 @@ const RightNav = () => {
       {/* <div className={itemStyle}>
         <p>Tema Oscuro</p>
       </div> */}
-      <NavLink to="/habitaciones" className={itemStyle}>
+      <NavLink to="/home" className={itemStyle}>
+        Home
+      </NavLink>
+      <NavLink to="/gallery" className={itemStyle}>
+        Galleria
+      </NavLink>
+      
+        <a draggable="false" className={itemStyle} href="#footer">Contacto</a>
+        
+      
+      
+      <NavLink to="/rooms" className={itemStyle}>
         Habitaciones
       </NavLink>
-      <NavLink to="/sobreNosotros" className={itemStyle}>
+      
+      <NavLink to="/aboutus" className={itemStyle}>
         Sobre Nosotros
-      </NavLink>
-      <NavLink to="/condiciones" className={itemStyle}>
-        Condiciones
-      </NavLink>
-      <NavLink to="/contacto" className={itemStyle}>
-        Contacto
       </NavLink>
     </Menu>
   );

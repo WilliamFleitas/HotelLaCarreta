@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import { boolean } from "zod";
 interface eventsObjects {
     name: string,
@@ -54,13 +55,13 @@ export const Events = () => {
     };
 
     return (
-        <div className=" text-white lg:p-8 ">
+        <div className=" text-white lg:p-8 md:p-5 overflow-x-hidden">
             <h2 className=" text-[35px] pt-20 pb-10 text-[#E2725B] text-center">También podes reservar eventos!</h2>
             <div className=" grid grid-cols-4 p-2 gap-x-2">
              {
                 eventsObject.length > 0 ? eventsObject.map((e:eventsObjects, index: number) => {
                     return (
-                        <div className=" relative border border-[#B35642] rounded-md">
+                        <div className=" relative border border-[#B35642] rounded-md" key={e.name}>
                             <img className=" h-[550px] w-screen object-cover rounded-md" src={e.image} alt={e.image}/>
                         
                           
@@ -76,7 +77,9 @@ export const Events = () => {
                                 currentDiv === index ? 
                                     <div className=" text-center flex flex-col " >
                                         <p className="pt-1 text-start px-2" onClick={() => handleSwitch(index)}>{e.description}</p>
-                                        <button className="text-center mt-10 p-1 text-[#E2725B] hover:bg-opacity-[80%] bg-white border rounded-b-md" type="button" id="Reservadevento" name="reservadeevento">Reserva de evento</button>
+                                        
+                                        <button className="text-center mt-10 p-1 text-[#E2725B] hover:bg-opacity-[80%] bg-white border rounded-b-md" type="button" id="Reservadevento" name="reservadeevento"><a href="#footer">Reserva de evento</a></button>
+                                        
                                     </div>
                                         
                                     : <></>
