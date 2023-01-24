@@ -3,7 +3,7 @@ import abus from "../../assets/abus.jpeg"
 export const AboutHome = () => {
 
     return (
-        <div className="text-white bg-[#B35642] p-8 lg:p-14 ">
+        <div className="text-white bg-[#B35642] p-8 lg:p-14  overflow-x-hidden">
             <h2 className="text-[35px] pt-8 ">Sobre nosotros</h2>
             <p className="text-[20px] pt-8">Lorem ipsum dolor sit amet consectetur adipisicing elit. Labore debitis autem sequi corporis incidunt, ea asperiores et quisquam deleniti aut possim</p>
 

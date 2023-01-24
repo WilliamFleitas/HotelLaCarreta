@@ -4,6 +4,7 @@ import { useAppDispatch, useAppSelector } from "../../hooks";
 import { getAllRooms } from "../../redux/slices/RoomSlice/RoomAction";
 import { Check } from "./Check";
 import useWindowSize from "../customHooks/useWindowSize";
+import { Link } from "react-router-dom";
 
 
 export const RoomCards = () => {
@@ -25,7 +26,7 @@ export const RoomCards = () => {
         {typeof rooms === "object" && rooms.length > 0 ? 
        rooms.map((rooms, index) => {
          return (
-         <div className="h-full pb-16">
+         <div className="h-full pb-16" key={rooms.id}>
            <RoomCard key={rooms.id} rooms={rooms}  />
          </div>)
        })
@@ -59,8 +60,11 @@ export const RoomCards = () => {
                <h3 className=" text-[20px] pb-3 gap text-center ">●Precio: <b className="text-[#E2725B]">{rooms.price}GS.</b></h3>
               </div>
               <p className="text-[20px] text-center pb-3">{rooms.preDescription}</p>
-              <button className="text-white  rounded-lg bg-[#B35642] p-2 px-5"> RESERVAR ➜</button>
-            
+              <Link to={`/roomdetail/${rooms.id}`}>
+                
+              <button className="text-white  rounded-lg bg-[#B35642] p-2 px-5 hover:bg-opacity-[80%]"> RESERVAR ➜</button>
+              
+              </Link>
             </div>
           
           )

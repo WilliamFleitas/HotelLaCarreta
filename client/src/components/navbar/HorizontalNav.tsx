@@ -14,22 +14,20 @@ const HorizontalNav = () => {
         </ul>
       </li> */}
       <li>
-        <NavLink to="/habitaciones" className={linkStyle}>
+        <NavLink to="/rooms" className={linkStyle}>
           Habitaciones
         </NavLink>
       </li>
       <li>
-        <NavLink to="/condiciones" className={linkStyle}>
-          Condiciones
+        <NavLink to="/gallery" className={linkStyle}>
+          Galeria
         </NavLink>
       </li>
       <li>
-        <NavLink to="/contacto" className={linkStyle}>
-          Contacto
-        </NavLink>
+       <a draggable="false" className={linkStyle}href="#footer">Contacto</a>
       </li>
       <li>
-        <NavLink to="/sobreNosotros" className={linkStyle}>
+        <NavLink to="/aboutus" className={linkStyle}>
           Sobre Nosotros
         </NavLink>
       </li>

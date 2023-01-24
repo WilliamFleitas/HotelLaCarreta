@@ -16,7 +16,7 @@ import { Footer } from "./footer/Footer";
 const Home = () => {
   const {width} = useWindowSize();
   return (
-    <div className="flex flex-col items-center overflow-hidden	h-full w-screen">
+    <div className="flex flex-col items-center	h-full w-screen overflow-x-hidden" >
       <CarrouselFondo/>
 
       <Check/>
@@ -26,7 +26,6 @@ const Home = () => {
         <><Welcome/>
         <RoomCarrusel/>
         <Highlights/>
-        <Footer/>
         </> 
         :
         <>
@@ -36,7 +35,6 @@ const Home = () => {
       <AboutHome/>
       <Highlights/>
       <Events/>
-      <Footer/>
         </>
       }
       

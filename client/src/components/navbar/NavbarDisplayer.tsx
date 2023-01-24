@@ -1,5 +1,5 @@
 import React from "react";
-import NavBar from "../navbar/Navbar";
+import NavBar from "./NavBar";
 import NavbarAdmin from "./NavbarAdmin";
 
 const NavbarDisplayer = () => {

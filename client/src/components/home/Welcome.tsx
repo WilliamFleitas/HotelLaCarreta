@@ -15,13 +15,13 @@ export const Welcome = () => {
   const carroImageLarge = [fotoAncha1, fotoAncha2];
 
   return (
-    <>
+    <div className="p-0  overflow-hidden">
       {width < 768 ? (
-        <div className="h-[530px] p-7 pt-6 tcw:h-[600px] tcw:w-full tcw:p-0 tcw:pt-20 tsw:pt-28 md:grid md:grid-cols-2 md:text-center md:justify-center ">
-          <h2 className="text-[25px] text-black text-center">
+        <div className="h-[530px] p-7 pt-6 tcw:h-full tcw:w-screen tcw:p-0 tcw:pt-20 tsw:pt-28 md:grid md:grid-cols-2 md:text-center md:justify-center ">
+          <h2 className="text-[25px] text-[#B35642] text-center">
             Bienvenido a La Carreta
           </h2>
-          <div className="text-center text-[#B35642]">
+          <div className="text-center text-black">
             <p className="text-[15px] p-5 tcw:pt-14">
               Lorem ipsum dolor sit amet, consectetur adipisicing elit. Tempora
               exercitationem officiis voluptatum hic similique tempore quasi,
@@ -30,6 +30,7 @@ export const Welcome = () => {
             </p>
           </div>
 
+        <div className="">
           <div className="tcw:pt-14">
             <div className="grid-cols-2 h-[280px] w-screen p-2 space-y-[6px] tcw:space-y-[3px] tsw:h-[350px] grid gap-2 grid-rows-2 items-center">
               <div className="w-full rounded border-2 border-[#B35642]">
@@ -52,6 +53,7 @@ export const Welcome = () => {
                 />
               </div>
             </div>
+          </div>
           </div>
         </div>
       ) : (
@@ -94,6 +96,6 @@ export const Welcome = () => {
            
           </div>
       )}
-    </>
+    </div>
   );
 };

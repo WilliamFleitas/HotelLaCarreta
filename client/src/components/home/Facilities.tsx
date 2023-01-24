@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import { Link } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../hooks";
 import { getAllFacilities } from "../../redux/slices/FacilitiesSlice/FacilitieAction";
 
@@ -11,7 +12,7 @@ export const Facilities = () => {
  }, [dispatch]);
 
     return ( 
-        <div className="py-16 items-center justify-center text-center h-full">
+        <div className="py-16 items-center justify-center text-center h-full overflow-x-hidden">
             <h2 className="text-[#E2725B]  text-center  text-[40px]">Instalaciones</h2>
         <div className={facilities.length ? "py-5 p-6 text-[#696969] grid grid-cols-3  items-center justify-center text-center h-full " : "py-5 p-6 text-[#696969]  items-center justify-center text-center h-full " }>
                 {
@@ -32,7 +33,9 @@ export const Facilities = () => {
                 }
                 
         </div>
-        <button className="text-white mt-10 rounded-lg bg-[#B35642] p-3 h-full w-[150px]"> VER MÁS➜</button>
+        <Link to="/aboutus">
+        <button className="text-white mt-10 rounded-lg bg-[#B35642] p-3 h-full w-[150px] hover:bg-opacity-[80%]"> VER MÁS➜</button>
+        </Link>
         </div>
     )
 };

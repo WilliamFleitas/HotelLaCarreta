@@ -18,7 +18,8 @@ export const AboutUs = () => {
     };
     const {width} = useWindowSize();
     return (
-        <div className="text-black pt-6 text-center justify-center items-center  p-5 overflow-clip tsw:p-14 md:pt-20 aser:pt-24" >
+        <div className="text-black pt-6 text-center justify-center items-center  p-5 overflow-clip tsw:p-14 md:pt-20 aser:pt-24">
+            
             <h2 className="text-[23px] text-[#B35642] md:text-[26px] aser:text-[35px] lg:text-[40px]  ggg:text-[48px] ">Sobre nosotros</h2>
 
             <div className=" p-5 md:grid md:grid-cols-2 md:p-8 h-full w-full md:space-x-5">
@@ -43,10 +44,12 @@ export const AboutUs = () => {
             </div>
             
             </div>
+           
         </div> 
             
-            <div onClick={() => handleFacilDiv()}>
-            <h2 className="text-[23px] text-start text-[#B35642] pt-14 pl-5" > {"> Instalaciones"}</h2> 
+         <section id="facilitiesDiv"></section>
+            <div className="pt-14 " onClick={() => handleFacilDiv()}>
+            <h2 className="text-[23px] text-start text-[#B35642] pt-14 pl-5 hover:opacity-[70%] mb-14 md:text-[40px]" > {"> Instalaciones"}</h2> 
             <div className={"  text-[#696969]  items-center justify-center text-start border-t-4 pt-0 mt-8 md:grid md:grid-cols-3 md:text-center md:border-none md:bg-[#B35642]" }>
             
                 
@@ -100,6 +103,30 @@ export const AboutUs = () => {
                 }
                 
         </div>
+        <section id="proyChange">
+        </section>
+        <div className="mb-10 mt-14 p-5  md:p-8 h-full w-full  border-t-4 pt-14 border-black bg-zinc-800 shadow-md  shadow-black text-white pb-14">
+        
+                 <h2 className="text-[30px] text-[#B35642] md:text-[26px] aser:text-[35px] lg:text-[40px]  ggg:text-[48px] ">Proyecto intercambio</h2>
+                 <div className="md:grid md:grid-cols-2 md:p-5 md:space-x-5 ">
+                <p className="text-center pt-8 md:pt-[15%] text-[18px] md:text-[24px] aser:text-[28px] lg:text-[34px] lg:pt-[20%] ggg:text-[38px] ggg:leading-[40px]">Mediante el proyecto de intercambio te damos la oportunidad de vivir la experiencia del campo, te dejamos unirte a nosotros como trabajadores para hacer los diferentes quehaceres rurales, a cambio de tu trabajo te ofrecemos la estadia gratis más las 3 comidas diaras.</p>
+                <img className="border border-[#B35642] rounded-lg mt-8" src={fachada} alt={fachada}/>
+                </div>
+                <section id="proyRural">
+        </section>
+            </div>
+            
+        <div className=" p-5 md:p-8 h-full w-full  pt-14 border-t-4 border-black bg-zinc-800 shadow-md  shadow-black text-white pb-14">
+
+
+                 <h2 className="text-[30px] text-[#B35642] md:text-[26px] aser:text-[35px] lg:text-[40px]  ggg:text-[48px] ">Proyecto rural</h2>
+                 <div className="md:grid md:grid-cols-2 md:p-5 md:space-x-5 ">
+                <p className="text-center pt-8 md:pt-[15%] text-[18px] md:text-[24px] aser:text-[28px] lg:text-[34px] lg:pt-[20%] ggg:text-[38px] ggg:leading-[40px]">El proyecto rural consiste en aprovechar el espacio del campo para convertirlo en una zona verde, podes contribuir al mismo viniendo a la posada a plantar tu arbol y contribuir con la causa! Si reservas y venis con tu arbolito recibis descuentos!.</p>
+                <img className="border border-white rounded-lg mt-8" src={fachada} alt={fachada}/>
+                </div>
+
+            </div>
+        
             </div>
         </div>
     )
