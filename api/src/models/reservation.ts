@@ -19,16 +19,24 @@ module.exports = (sequelize: any) => {
         allowNull: false,
       },
       entryDate: {
-        type: DataTypes.DATEONLY,
+        type: DataTypes.DATE,
         allowNull: false,
       },
       exitDate: {
-        type: DataTypes.DATEONLY,
+        type: DataTypes.DATE,
         allowNull: false,
       },
       payment: {
         type: DataTypes.ENUM("partial", "complete"),
         allowNull: false,
+      },
+      roomId: {
+        type: DataTypes.UUID,
+        allowNull: false,
+      },
+      payAmount: {
+        type: DataTypes.INTEGER,
+        allowNull: false
       },
     },
     {

@@ -5,6 +5,7 @@ import { getRoomId } from "../../../redux/slices/RoomSlice/RoomAction";
 import { FaConciergeBell } from "react-icons/fa";
 import useWindowSize from "../../customHooks/useWindowSize";
 import { RoomDetailCarrusel } from "./RoomDetailCarrusel";
+import { CheckRoom } from "../check/CheckRoom";
 
 export const RoomDetail = () => {
   const { id } = useParams();
@@ -34,7 +35,7 @@ export const RoomDetail = () => {
       alert("No se encontro la habitación");
       window.location.replace("http://127.0.0.1:5173/");
     } else {
-      dispatch(getRoomId(String(id)));
+      dispatch(getRoomId(id as string) as any);
     }
   }, [dispatch, id]);
   if (loading) {
@@ -276,6 +277,7 @@ export const RoomDetail = () => {
           <p>no se encontraron productos</p>{" "}
         </div>
       )}
+      <CheckRoom/>
       <RoomDetailCarrusel/>
     </div>
 
