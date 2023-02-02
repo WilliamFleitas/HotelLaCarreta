@@ -12,7 +12,6 @@ export const RoomDetail = () => {
   const room = useAppSelector((state) => state.rooms.roomDetail);
   const { loading, error } = useAppSelector((state) => state.rooms);
   const dispatch = useAppDispatch();
-
   const {width} = useWindowSize();
 
 
@@ -277,7 +276,7 @@ export const RoomDetail = () => {
           <p>no se encontraron productos</p>{" "}
         </div>
       )}
-      <CheckRoom/>
+      <CheckRoom roomId={id} reserved={room.Reservations} price={room.price}/>
       <RoomDetailCarrusel/>
     </div>
 

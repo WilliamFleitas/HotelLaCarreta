@@ -38,6 +38,16 @@ module.exports = (sequelize: any) => {
         type: DataTypes.INTEGER,
         allowNull: false
       },
+      reservedDays: {
+        type: DataTypes.ARRAY(DataTypes.STRING),
+        allowNull: false
+      },
+      adults: {
+        type: DataTypes.INTEGER,
+      },
+      childs: {
+        type: DataTypes.INTEGER,
+      }
     },
     {
       // Other model options go here
