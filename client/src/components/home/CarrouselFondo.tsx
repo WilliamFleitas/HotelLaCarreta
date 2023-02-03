@@ -57,28 +57,28 @@ export const CarrouselFondo = () => {
     })}
   </div> 
   : 
-  <div className="grid grid-cols-2 text-[#696969] pt-28 pb-20 px-8 lg:pb-24 lg:p-14 lg:pt-24 aser:p-10 aser:pt-36 xl:p-[60px] xl:pb-8 xl:pt-28 lgg:p-[50px] lgg:pt-24 3x1:pt-30 3x1:pb-36">
+  <div className="grid grid-cols-2 text-[#696969] pt-28 pb-20 px-8 lg:pb-24 lg:p-14 lg:pt-24 aser:p-10 aser:pt-36 xl:p-[60px] xl:pb-8 xl:pt-28 lgg:p-[50px] lgg:pt-24 3x1:pt-30 3x1:pb-36 ">
     
-     <div className="p-5 space-y-3 text-[20px] lg:space-y-8 lg:p-0 lg:pt-5 lgg:space-y-5 xl:space-y-10  xl:leading-[36px] xl:p-4 ggg:leading-[28px] gxl:leading-[34px]  1xl:leading-[42px]">
+     <div id="slide2" className="p-5 space-y-3 text-[20px] lg:space-y-8 lg:p-0 lg:pt-5 lgg:space-y-5 xl:space-y-10  xl:leading-[36px] xl:p-4 ggg:leading-[28px] gxl:leading-[34px]  1xl:leading-[42px]">
         <h2 className="text-[#E2725B] text-[40px] leading-10 lg:text-[60px] lg:leading-[60px] aser:text-[50px] aser:leading-[35px] lgg:leading-[75px] xl:leading-[60px] gxl:text-[55px] 3x1:text-[70px] 3x1:leading-[64px] 3x1:p-5">Imagine a place where you can be yourself</h2>
         <p className="pt-2 text-[20px] lg:text-[25px] aser:text-[23px] lg:p-3 lgg:p-0 gxl:text-[30px] 3x1:text-[35px]  3x1:p-5">Lorem ipsum dolor sit amet consectetur adipisicing elit. Odit delectus rem veniam ratione, voluptatibus debitis eveniet esse dicta odio cum, aspernatur quas repellat, voluptate corrupti numquam. Commodi facilis voluptates illo.</p>
 
             <div className="">
               <Link to="/gallery">
-             <button className="text-[#E2725B] text-[20px]  border  rounded-lg border-[#E2725B] p-3 3x1:ml-5 hover:border-[#E2725B] hover:bg-zinc-100"> Descubrir más➜</button>
+             <button className="text-[#E2725B] text-[20px]  border  rounded-lg border-[#E2725B] p-3 3x1:ml-5 hover:border-[#E2725B] hover:bg-zinc-100 shadow-md shadow-[#B35642]"> DESCUBRIR MÁS ➜</button>
              </Link>
             </div>
 
      </div>
 
-     <div className="lgg:pl-14 3x1:pl-34">
+     <div className="wrapper  lgg:pl-14 3x1:pl-34 ">
      {carroImage?.map((image: string, index: number): any => {
       return (
-        <div key={image}>
+        <div key={image} className="">
           {actualImage === index && (
-            <div className="lg:pt-6 xl:pt-0">
-              <img
-                className=" h-[400px] object-cover  w-[400px] rounded-tl-[180px] rounded-br-[180px] rounded-[20px] border-2 border-[#B35642] lg:h-[460px] lg:w-[480px] xl:h-[500px] xl:w-[650px] 3x1:h-[600px] 3x1:w-[800px] "
+            <div className=" lg:pt-6 xl:pt-0  ">
+              <img id="slide"
+                className="slide h-[400px] object-cover  w-[400px] rounded-tl-[180px] rounded-br-[180px] rounded-[20px] border-y-2 border-[#B35642] lg:h-[460px] lg:w-[480px] xl:h-[500px] xl:w-[650px] 3x1:h-[600px] 3x1:w-[800px] shadow-lg shadow-[#B35642] "
                 src={image}
                 key={index}
                 loading="lazy"

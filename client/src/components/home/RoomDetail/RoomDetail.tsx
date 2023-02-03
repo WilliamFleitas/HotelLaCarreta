@@ -13,7 +13,7 @@ export const RoomDetail = () => {
   const { loading, error } = useAppSelector((state) => state.rooms);
   const dispatch = useAppDispatch();
   const {width} = useWindowSize();
-
+  const urlBack: string = (import.meta.env.VITE_BACK_URL as string);
 
   let [currentImg, setCurrentImg] = useState(0);
   const quantity = room.images.length;
@@ -32,7 +32,7 @@ export const RoomDetail = () => {
       )
     ) {
       alert("No se encontro la habitación");
-      window.location.replace("http://127.0.0.1:5173/");
+      window.location.replace(`/home`);
     } else {
       dispatch(getRoomId(id as string) as any);
     }
@@ -46,9 +46,7 @@ export const RoomDetail = () => {
   }
   if (error) {
     alert(error);
-    console.log(error);
-
-    window.location.replace("http://127.0.0.1:5173/");
+    window.location.replace(`/home`);
   }
 
   return (<div>
@@ -276,7 +274,7 @@ export const RoomDetail = () => {
           <p>no se encontraron productos</p>{" "}
         </div>
       )}
-      <CheckRoom roomId={id} reserved={room.Reservations} price={room.price}/>
+      <CheckRoom roomId={id} reserved={room.Reservations} price={room.price} roomName={room.name}/>
       <RoomDetailCarrusel/>
     </div>
 

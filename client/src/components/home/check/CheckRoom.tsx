@@ -8,6 +8,9 @@ import type { DatePickerProps, RangePickerProps } from "antd/es/date-picker";
 
 import { BsFillPersonFill } from "react-icons/bs";
 import { FaMinusCircle, FaPlusCircle } from "react-icons/fa";
+import { setErrors } from "../../../redux/slices/RoomSlice";
+import axios from "axios";
+import { setDebt } from "../../customHooks/PaymentFunctions";
 
 const BookingSchema = z.object({
   checkIn: z.string(),
@@ -26,23 +29,39 @@ type bookingType = z.infer<typeof BookingSchema>;
 const { RangePicker } = DatePicker;
 const dateFormat = "YYYY/MM/DD";
 
-interface CheckForm {
+
+
+interface CheckForm extends bookingDataType{
   checkIn: string;
   checkOut: string;
   reservedDays: string[];
   adults: number;
   childs: number;
   totalPrice: number;
+  payment: string;
   nightQuantity: number;
+  roomId: string;
 }
 
 interface CheckRoomProps {
   roomId?: string;
   reserved?: any;
   price?: number;
+  roomName: string;
 }
 
-export const CheckRoom = ({ roomId, reserved, price }: CheckRoomProps) => {
+interface bookingDataType {
+  name: string;
+  dni: string | undefined;
+}
+
+interface errorsType {
+  bookingNombre: string;
+  bookingDni: string;
+  bookingButton: string;
+}
+
+export const CheckRoom = ({ roomId, reserved, price, roomName }: CheckRoomProps) => {
   // const {
   //   register,
   //   formState: { errors },
@@ -52,6 +71,9 @@ export const CheckRoom = ({ roomId, reserved, price }: CheckRoomProps) => {
   // })
 
   console.log("hola", reserved);
+
+  const urlBack: string = (import.meta.env.VITE_BACK_URL as string);
+
   const initialForm = {
     checkIn: "",
     checkOut: "",
@@ -59,15 +81,32 @@ export const CheckRoom = ({ roomId, reserved, price }: CheckRoomProps) => {
     adults: 1,
     childs: 0,
     totalPrice: 0,
-    nightQuantity: 0
+    nightQuantity: 0,
+    name: "",
+    dni: "",
+    roomId: "",
+    payment: "none",
   };
+
+
   const [bookingInput, setBookingInput] = useState<CheckForm>(initialForm);
   const [adultsCounter, setAdultsCounter] = useState(1);
   const [childCounter, setChildCounter] = useState(0);
   const [maxValue, setMaxValue] = useState(6);
   const [guesSwitch, setGuestSwitch] = useState(false);
   const [showRate, setShowRate] = useState(false);
+  const [bookingButtonSwitch, setBookingButtonSwitch] = useState(false);
+  const [bookingData, setBookingData] = useState<bookingDataType>({
+    name: "",
+    dni: "",
+  });
+  const [checkErrors, setCheckErrors] = useState<errorsType>({
+    bookingNombre: "",
+    bookingDni: "",
+    bookingButton: "",
+  });
 
+  console.log(bookingData);
   const disabledDate: any = (current: any) => {
     const arrDays = reserved?.map((e: any) => e.reservedDays).flat(Infinity);
 
@@ -90,13 +129,12 @@ export const CheckRoom = ({ roomId, reserved, price }: CheckRoomProps) => {
     const bookOut = new Date(dateString?.[1]).getTime();
 
     let dates: any = [];
-    
+
     const theDate = new Date(bookIn);
     while (theDate < new Date(bookOut)) {
       dates = [...dates, new Date(dayjs(theDate).format("YYYY/MM/DD"))];
       theDate.setDate(theDate.getDate() + 1);
     }
-    
 
     console.log("dates", dates);
     const Difference_In_Time = bookOut - bookIn;
@@ -108,7 +146,7 @@ export const CheckRoom = ({ roomId, reserved, price }: CheckRoomProps) => {
       reservedDays: dates.length > 0 ? dates : dateString[0],
       checkIn: dateString[0],
       checkOut: dateString[1],
-      nightQuantity: Difference_In_Days
+      nightQuantity: Difference_In_Days,
     });
 
     console.log("Selected Time: ", value);
@@ -131,21 +169,84 @@ export const CheckRoom = ({ roomId, reserved, price }: CheckRoomProps) => {
   const showPrice = () => {
     console.log("onsubmit", bookingInput);
     const guest = bookingInput.adults;
-    const daysReserved = bookingInput.nightQuantity > 0 ?  bookingInput.nightQuantity : 1;
+    const daysReserved =
+      bookingInput.nightQuantity > 0 ? bookingInput.nightQuantity : 1;
     const amount = guest * price!;
-    const daysAmount =  daysReserved * amount;
+    const daysAmount = daysReserved * amount;
 
-    if(bookingInput.childs > 0){
+    if (bookingInput.childs > 0) {
       const childsPrice = bookingInput.childs * (price! / 2);
       const childsAmount = childsPrice * daysReserved;
-      setBookingInput({...bookingInput, totalPrice: childsAmount! + daysAmount});
-      console.log("as", guest, daysReserved, amount, daysAmount)
+      setBookingInput({
+        ...bookingInput,
+        totalPrice: childsAmount! + daysAmount,
+      });
+      console.log("as", guest, daysReserved, amount, daysAmount);
       return;
     }
-    setBookingInput({...bookingInput, totalPrice: daysAmount});
-    console.log("as", guest, daysReserved, amount, daysAmount)
+    setBookingInput({ ...bookingInput, totalPrice: daysAmount });
+    console.log("as", guest, daysReserved, amount, daysAmount);
     setShowRate(true);
+    console.log("holanda", dayjs().format("YYYY-MM-DDTHH:mm:ssZ"), dayjs().add(1, "hour").format("YYYY-MM-DDTHH:mm:ssZ"))
   };
+
+  const handleBookingOk = () => {
+    if (bookingData.name.length && roomId) {
+      setBookingInput({
+        ...bookingInput,
+        name: bookingData.name,
+        dni: bookingData.dni,
+        roomId: roomId
+      });
+      setBookingData({...bookingData, name: "", dni: ""})
+      setCheckErrors({ ...checkErrors, bookingNombre: "", bookingDni: "" });
+    } else {
+      setCheckErrors({
+        ...checkErrors,
+        bookingNombre: "Es obligatorio el nombre para la reserva",
+      });
+      setBookingInput({...bookingInput, name: "", dni: ""});
+    }
+  };
+
+  const handleBooking: any = async () => {
+      if(bookingInput.checkIn.length &&
+      bookingInput.checkOut.length &&
+      bookingInput.reservedDays.length > 0 &&
+      bookingInput.adults > 0 &&
+      bookingInput.totalPrice > 0 &&
+      bookingInput.nightQuantity > 0 &&
+      bookingInput.name.length ){
+       const res = await axios.post(`${urlBack}/reservations`, bookingInput);
+       console.log(res);
+       const dataRes = await setDebt({
+        debt: {
+            docId: res.data.id,
+            amount: {
+                currency: "PYG",
+                value: res.data.payAmount
+
+            },
+            label: `Reserva de habitación ${roomName} para ${res.data.adults} adulto/s y ${res.data.childs} niño/s, por ${res.data.nightQuantity} noche/s. `,
+            target: {
+                type: "cip",
+                number: res.data.dni ? res.data.dni : null,
+                label: res.data.name
+            },
+            validPeriod: {
+                start: dayjs().format("YYYY-MM-DDTHH:mm:ssZ"),
+                end: dayjs().add(1, "hour").format("YYYY-MM-DDTHH:mm:ssZ")
+            }
+        }
+    })
+    console.log("dateRes", dataRes);
+      }
+      else {
+        setCheckErrors({...checkErrors, bookingButton: "Faltan datos para hacer la reserva"});
+      }
+  };
+
+  console.log("errors", checkErrors);
   console.log("asara", bookingInput.totalPrice);
   // useEffect(() => {
 
@@ -166,7 +267,7 @@ export const CheckRoom = ({ roomId, reserved, price }: CheckRoomProps) => {
               format={dateFormat}
               onChange={handleRangePicker}
               id="checkIn"
-              className="p-3 border-2 border-[#B35642] hover:border-[#B35642] font-bold text-[#c7cbce]"
+              className="p-3 border-2 shadow-md shadow-[#B35642] border-[#B35642] hover:border-[#B35642] font-bold text-[#c7cbce]"
             />
           </div>
         </div>
@@ -175,7 +276,7 @@ export const CheckRoom = ({ roomId, reserved, price }: CheckRoomProps) => {
           <h3 className="text-[#B35642] text-[24px]">Guest</h3>
 
           <div
-            className="flex flex-row gap-5 p-[11.4px] rounded-lg border-[2px] border-[#B35642]  text-[#c0c0c0] font-bold "
+            className="flex flex-row gap-5 p-[11.4px] rounded-lg border-[2px] border-[#B35642]  text-[#c0c0c0] font-bold shadow-md shadow-[#B35642]"
             onClick={() => setGuestSwitch(true)}
           >
             <div className="">
@@ -189,7 +290,7 @@ export const CheckRoom = ({ roomId, reserved, price }: CheckRoomProps) => {
             </div>
           </div>
           {guesSwitch ? (
-            <div className="border p-2 w-full  z-10 absolute text-center items-center justify-center bg-white rounded-lg mt-2 shadow-lg shadow-[#5f5e5e] text-[17px]">
+            <div className="border p-2 w-full  z-10 absolute text-center items-center justify-center bg-white rounded-lg mt-2 shadow-md shadow-[#B35642] text-[17px]">
               <div className="items-center justify-center text-center">
                 <h3 className="">Adultos</h3>
                 <div className="space-x-5 pt-2 pb-3">
@@ -283,7 +384,7 @@ export const CheckRoom = ({ roomId, reserved, price }: CheckRoomProps) => {
           bookingInput.adults > 0 ? (
             <button
               type="button"
-              className="px-4 duration-300  py-2 text-white bg-[#B35642] text-[20px] hover:bg-[#ec775f] hover:duration-300  rounded-lg font-bold  "
+              className="px-4 duration-300  py-2 text-[#B35642] bg-white text-[20px]  hover:duration-300  rounded-lg font-bold  border-[#E2725B] p-3 3x1:ml-5 hover:border-[#E2725B] hover:bg-zinc-100 shadow-md shadow-[#B35642] "
               onClick={() => showPrice()}
             >
               Ver tarifa
@@ -291,7 +392,7 @@ export const CheckRoom = ({ roomId, reserved, price }: CheckRoomProps) => {
           ) : (
             <button
               type="button"
-              className="  px-4 duration-300  py-2 text-white bg-[#B35642] text-[20px] hover:bg-[#ec775f] hover:duration-300  rounded-lg font-bold  "
+              className="  px-4 duration-300  py-2 text-white bg-[#B35642] text-[20px] hover:bg-[#ec775f] hover:duration-300  rounded-lg font-bold  shadow-md shadow-[#5f5e5e] border border-[#c9c3c3]"
               disabled
             >
               Ver tarifa
@@ -301,20 +402,84 @@ export const CheckRoom = ({ roomId, reserved, price }: CheckRoomProps) => {
       </div>
 
       {/* tarifa */}
-      { bookingInput.checkIn && bookingInput.checkOut && bookingInput.adults && showRate &&
+      {bookingInput.checkIn &&
+      bookingInput.checkOut &&
+      bookingInput.adults &&
+      showRate ? (
         <div className="p-10 items-center justify-center text-center ">
-          <div className="bg-[#B35642]  grid grid-cols-2 px-10  gap-x-20 p-5 rounded-lg relative">
-            <div className="p-5 text-start">
+          <div className="bg-[#B35642]  grid grid-cols-2 px-10  gap-x-20 p-5 rounded-lg relative pb-10 shadow-lg shadow-[#5f5e5e]">
+            <div className="p-5 text-start ">
               <h3>
                 Del {bookingInput?.checkIn} hasta el {bookingInput.checkOut}
               </h3>
               <h3>Cantidad de adultos: {bookingInput.adults}</h3>
               <h3>Cantidad de niños: {bookingInput.childs}</h3>
-              <h3>Cantidad de noches: {bookingInput.nightQuantity > 0 ?  bookingInput.nightQuantity : 1}</h3>
-            </div>
+              <h3>
+                Cantidad de noches:{" "}
+                {bookingInput.nightQuantity > 0
+                  ? bookingInput.nightQuantity
+                  : 1}
+              </h3>
+              <h3>Reserva a nombre de: {bookingInput.name ? bookingInput.name: "Inserte un nombre"}</h3>
 
+              <div className={`flex flex-row gap-x-4  ${checkErrors.bookingNombre.length ? "mb-0": "mb-20"}`}>
+                <div className="">
+                  <label className="text-sm text-black relative top-[8px] left-3 bg-[#B35642] border-2 border-black w-fit px-1 rounded-xl">
+                    Nombre
+                  </label>
+                  <input
+                    placeholder="Nombre del que reserva.."
+                    className={`w-full border border-[#B35642] shadow-inner shadow-black rounded-xl px-3 py-2`}
+                    
+                    type="text"
+                    id="nameBooking"
+                    onChange={(e) =>
+                      setBookingData({ ...bookingData, name: e.target.value })
+                    }
+                  />
+                </div>
+
+                <div className="pt-2">
+                  <br></br>
+                  <label className="">O</label>
+                </div>
+                <div>
+                  <label className="text-sm text-black  relative top-[8px] left-3 bg-[#B35642] border-2 border-black w-fit px-1 rounded-xl">
+                    DNI
+                  </label>
+                  <input 
+                    placeholder="DNI del que reserva.."
+                    className={`w-full border shadow-inner  shadow-black border-[#B35642] rounded-xl px-3 py-2`}
+                    type="number"
+                    id="dniBooking"
+                    onChange={(e) =>
+                      setBookingData({ ...bookingData, dni: e.target.value })
+                    }
+                  />
+                </div>
+                
+                <div className="">
+                  <button
+                    onClick={handleBookingOk}
+                    type="button"
+                    id="bookingOk"
+                    className="duration-300 text-[#B35642]   rounded-lg bg-white  hover:bg-[#c9c3c3] hover:duration-300 mt-[23.8px]  h-fit gap-x-0 px-3 py-2 font-bold  shadow-md shadow-[#5f5e5e] border border-[#c9c3c3]"
+                  >
+                    OK
+                  </button>
+                </div>
+                
+              </div>
+              <div className="flex-col">
+                {
+                checkErrors.bookingNombre.length ? <h2 className="pb-14 text-white">{checkErrors.bookingNombre}</h2> : <></>
+              }
+              </div> 
+            </div>
+                
+              
             <div className="justify-end items-end text-end ">
-              <div className="p-5 text-start  bg-white rounded-lg ">
+              <div className="p-5 text-start  bg-white rounded-md shadow-lg shadow-[#5f5e5e]">
                 <ul>
                   <li>- Menores de 10 años pagan el 50%.</li>
                   <li>
@@ -332,18 +497,23 @@ export const CheckRoom = ({ roomId, reserved, price }: CheckRoomProps) => {
               </div>
             </div>
 
-            <div className="absolute bottom-0 right-[50%]">
-              <h2>Precio total: {bookingInput.totalPrice}GS</h2>
+            <div className="absolute bottom-2 right-[50%] ">
+               <h2 className="">Precio total: {bookingInput.totalPrice}GS</h2>
               <button
-                className="w-fit px-2 duration-300 text-[#B35642] bg-white  hover:bg-[#ec775f] hover:duration-300 py-2 rounded-lg font-bold my-1.5 mb-8 "
-                type="button"
+                className="w-fit px-2 duration-300 text-[#B35642] bg-white  hover:bg-[#c9c3c3] hover:duration-300 py-2 rounded-lg font-bold  mt-2 shadow-md shadow-[#5f5e5e] border border-[#c9c3c3]"
+                type="button" onClick={handleBooking}
               >
                 RESERVAR
               </button>
+              {
+                checkErrors.bookingButton.length ? <h2 className=" text-white">{checkErrors.bookingButton}</h2> : <></>
+              }
             </div>
           </div>
         </div>
-      }
+      ) : (
+        <></>
+      )}
     </div>
   );
 };

@@ -13,17 +13,22 @@ route.get("/", async (_req: Request, res: Response) => {
 
 route.post("/", async (req: Request, res: Response) => {
   try {
-    const { name, email, entryDate, exitDate, payment, roomId, payAmount, reservedDays } = req.body;
+    console.log("hola", req.body);
+    const { name,  checkIn, checkOut, totalPrice, roomId, reservedDays, adults, payment, childs, nightQuantity, dni  } = req.body;
     const reservation = await Reservation.create({
       name,
-      email,
-      entryDate,
-      exitDate,
-      payment,
+      entryDate: checkIn,
+      exitDate: checkOut,
+      payAmount: totalPrice,
       roomId,
-      payAmount,
-      reservedDays
+      payment,
+      reservedDays,
+      adults, 
+      childs, 
+      nightQuantity,
+      dni
     });
+
     await reservation.setRoom(roomId);
     res.status(200).send(reservation);
   } catch (error) {

@@ -2,7 +2,7 @@ import React from "react";
 import { NavLink } from "react-router-dom";
 import Dropdown from 'react-dropdown';
 
-const linkStyle = 'p-2 hover:bg-[#E2725B] hover:text-white cursor-pointer rounded duration-300';
+const linkStyle = 'p-2 hover:border-b-4 hover:border-[#B35642]   cursor-pointer  duration-300';
 
 const HorizontalNav = () => {
   return (

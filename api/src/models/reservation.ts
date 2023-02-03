@@ -14,10 +14,6 @@ module.exports = (sequelize: any) => {
         type: DataTypes.STRING,
         allowNull: false,
       },
-      email: {
-        type: DataTypes.STRING,
-        allowNull: false,
-      },
       entryDate: {
         type: DataTypes.DATE,
         allowNull: false,
@@ -27,7 +23,7 @@ module.exports = (sequelize: any) => {
         allowNull: false,
       },
       payment: {
-        type: DataTypes.ENUM("partial", "complete"),
+        type: DataTypes.ENUM("none", "partial", "complete"),
         allowNull: false,
       },
       roomId: {
@@ -44,9 +40,17 @@ module.exports = (sequelize: any) => {
       },
       adults: {
         type: DataTypes.INTEGER,
+        allowNull: false
       },
       childs: {
         type: DataTypes.INTEGER,
+      },
+      nightQuantity: {
+        type: DataTypes.INTEGER,
+        allowNull: false
+      },
+      dni: {
+        type: DataTypes.STRING,
       }
     },
     {
