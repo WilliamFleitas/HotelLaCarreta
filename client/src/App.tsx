@@ -10,6 +10,7 @@ import { RoomDetail } from "./components/home/RoomDetail/RoomDetail";
 import { Gallery } from "./components/home/Gallery/Gallery";
 import { AboutUs } from "./components/home/AboutUs";
 import { Footer } from "./components/home/footer/Footer";
+import { PaymentRoute } from "./components/home/check/PaymentRoute";
 
 
 function App() {
@@ -21,6 +22,7 @@ function App() {
         
         <Route path="/home" element={<Home />} />
         <Route path="/admin" element={<AdminPanel />} />
+        <Route path="/paymentroute" element={<PaymentRoute/>} />
         <Route path="/rooms" element={<RoomCards/>}/>
         <Route path="/roomdetail/:id" element={<RoomDetail/>} />
         <Route path="/gallery" element={<Gallery/>}/>

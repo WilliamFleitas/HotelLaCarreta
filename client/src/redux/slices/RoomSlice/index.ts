@@ -15,16 +15,25 @@ export interface RoomsDetails {
   id: string;
   Reservations: any[];
 }
-
+interface BookingIdType {
+  payment: string;
+  payAmount: number;
+}
 interface RoomsState {
   roomList: Array<RoomsDetails>;
+  bookingById: BookingIdType;
   roomDetail: RoomsDetails;
   higherPriceRoomList: Array<RoomsDetails>
   error: string;
   loading: boolean;
 }
+
 const initialState: RoomsState = {
   roomList: [],
+  bookingById: {
+    payment: "",
+    payAmount: 0,
+  },
   higherPriceRoomList: [],
   roomDetail: {
       name: "",
@@ -58,6 +67,9 @@ const RoomSlice = createSlice({
     roomById(state, action: PayloadAction<RoomsDetails>) {
       state.roomDetail = action.payload;
     },
+    bookingById(state, action: PayloadAction<BookingIdType>) {
+      state.bookingById = action.payload;
+    },
     setErrors(state, action: PayloadAction<string>) {
       state.error = action.payload;
     },
@@ -86,4 +98,4 @@ const RoomSlice = createSlice({
 });
 
 export default RoomSlice.reducer;
-export const { getRooms, roomById, setErrors, clearRoomDetail, setLoading, setHigherPriceRooms } = RoomSlice.actions;
+export const { getRooms, roomById, setErrors, clearRoomDetail, setLoading, setHigherPriceRooms, bookingById } = RoomSlice.actions;

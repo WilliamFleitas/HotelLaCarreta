@@ -37,6 +37,8 @@ export const RoomDetail = () => {
       dispatch(getRoomId(id as string) as any);
     }
   }, [dispatch, id]);
+
+  
   if (loading) {
     return (
       <div>
