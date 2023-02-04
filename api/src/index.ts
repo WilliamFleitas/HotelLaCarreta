@@ -4,7 +4,7 @@ import routes from "./routes/index";
 const { sequelize } = require("./database");
 const morgan = require("morgan");
 
-const { BACKEND_PORT, CLIENT_URL } = process.env;
+const { BACKEND_PORT, CLIENT_URL, WEBHOOK_URL } = process.env;
 
 //creamos el servidor
 const app = express();
@@ -13,7 +13,7 @@ const app = express();
 
 //Admitir llamados del front
 app.use((_req: Request, res: Response, next: NextFunction) => {
-  res.header("Access-Control-Allow-Origin", CLIENT_URL); // update to match the domain you will make the request from
+  res.header("Access-Control-Allow-Origin", CLIENT_URL || WEBHOOK_URL); // update to match the domain you will make the request from
   res.header("Access-Control-Allow-Credentials", "true");
   res.header(
     "Access-Control-Allow-Headers",

@@ -26,10 +26,6 @@ module.exports = (sequelize: any) => {
         type: DataTypes.ENUM("none", "partial", "complete"),
         allowNull: false,
       },
-      roomId: {
-        type: DataTypes.UUID,
-        allowNull: false,
-      },
       payAmount: {
         type: DataTypes.INTEGER,
         allowNull: false
