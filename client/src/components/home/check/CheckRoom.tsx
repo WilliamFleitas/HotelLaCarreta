@@ -149,6 +149,14 @@ export const CheckRoom = ({ roomId, reserved, price, roomName }: CheckRoomProps)
       nightQuantity: Difference_In_Days,
     });
 
+    const dateEndtest = '2023-02-06T21:24:04+00:00';
+    const dateActualTest = dayjs().format("YYYY-MM-DDTHH:mm:ss");
+    dateEndtest < dateActualTest ? console.log("Es menor", dateEndtest, dateActualTest) : console.log("Es noser", dateEndtest, dateActualTest);
+   const validPeriod: any = {
+      start: dayjs().format("YYYY-MM-DDTHH:mm:ssZ"),
+      end: dayjs().add(1, "hour").format("YYYY-MM-DDTHH:mm:ssZ")
+  };
+  console.log("Valida period", validPeriod);
     console.log("Selected Time: ", value);
     console.log("Formatted Selected Time: ", dateString);
     console.log("diferencias de dias", Difference_In_Days);
@@ -235,7 +243,7 @@ export const CheckRoom = ({ roomId, reserved, price, roomName }: CheckRoomProps)
             },
             validPeriod: {
                 start: dayjs().format("YYYY-MM-DDTHH:mm:ssZ"),
-                end: dayjs().add(1, "hour").format("YYYY-MM-DDTHH:mm:ssZ")
+                end: dayjs().add(30, "minute").format("YYYY-MM-DDTHH:mm:ssZ")
             }
         }
     })

@@ -1,7 +1,9 @@
 import { Router, Request, Response } from "express";
+import { getDebtAdams, payReservation} from "./paymentControllers/paymentController";
+import { revertDebtAdams } from "./paymentControllers/paymentController";
 const route = Router();
 const { Reservation} = require("../database");
-
+import dayjs from "dayjs";
 route.get("/", async (_req: Request, res: Response) => {
   const rooms = await Reservation.findAll();
   if (rooms) {
@@ -10,6 +12,7 @@ route.get("/", async (_req: Request, res: Response) => {
     res.status(400).send("no se encontro nada");
   }
 });
+
 
 route.get("/bookingid/:id", async (req: Request, res: Response) => {
   try {
@@ -33,17 +36,84 @@ route.get("/bookingid/:id", async (req: Request, res: Response) => {
   
 });
 
-route.post("/webhooknotify", async (req: Request, res: Response) => {
+route.get("/adams/debtbyid/:id", async (req: Request, res: Response) => {
+  const {id} = req.params;
+  
+    const result = await getDebtAdams(id);
+
+    const debtAdams = result?.data? result?.data : result.response?.data;
+
+    console.log("resultasdas1", result?.data? result?.data : result.response?.data);
+
+    const statusDebt = debtAdams.meta.status;
+
+    console.log("resultasdas2", statusDebt);
+    if(statusDebt === "error"){
+      res.status(400).send(debtAdams.meta.description);
+    }
+    else {
+      res.status(200).send(debtAdams);
+    }
+    
+});
+
+route.post("/webhooknotify",   async (req: Request, res: Response) => {
   try {
     const body = req;
-    console.log(body);
-    res.status(200);
+    const id = body.body.debt.docId;
+    const statusPay = body.body.debt.payStatus.status;
+    const statusObj = body.body.debt.objStatus.status; 
+    console.log("vari", statusPay, statusObj);
+    //si la notify es igual a paid y el paid value es igual al paid amount se reserva la habitacion, si es solo una notify de pago partial no hace nada y notifica 200, 
+    if(statusPay === "paid" && statusObj === "success"){
+
+      try {
+        if(Number(body.body.debt.amount.value) === Number(body.body.debt.amount.paid)){
+          const result = await payReservation(id);
+          console.log("resultdelresult", result);
+          console.log("es paid y success", body.body);
+        }
+
+          res.status(200).send("llego");
+      } catch (error) {
+       const debResult = await getDebtAdams(id);
+       console.log("holandass", debResult.data.debt.refs.txList[0].txId);
+       const revertDebt = await revertDebtAdams(debResult.data.debt.refs.txList[0].txId);
+       console.log(revertDebt);
+        console.log("trycatchpayerror", error);
+        res.status(200);
+      }
+    }
+
+    else if(statusPay === "pending" && statusObj === "active"){
+      const debtEnd = body.body.debt.validPeriod.end;
+      const actualDate = dayjs().format("YYYY-MM-DDTHH:mm:ss");
+      if(debtEnd < actualDate){
+        console.log("fecha de la deuda pasada", debtEnd );
+      }
+      else {
+        console.log("se revirtio una deuda", body.body);
+        res.status(200).send("llego");
+      }
+      
+    }
+    else if(statusPay === "pending" && statusObj === "expired"){
+      console.log("el pago expiro, eliminar la reserva", body.body);
+      res.status(200).send("llego");
+    }
+    else{
+      console.log("entro al else", body.body, body.body.debt.payStatus.status);
+      res.status(200).send("llego");
+    }
+    
   } catch (error) {
     console.log(error);
     res.status(400)
   }
   
 });
+
+
 
 route.post("/", async (req: Request, res: Response) => {
   try {

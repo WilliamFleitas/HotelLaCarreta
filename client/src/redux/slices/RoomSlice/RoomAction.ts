@@ -1,5 +1,5 @@
 import axios from "axios";
-import { bookingById, clearRoomDetail, getRooms, roomById, RoomsDetails, setErrors, setHigherPriceRooms, setLoading } from ".";
+import { bookingById, clearRoomDetail, getRooms, roomById, RoomsDetails, setDebtDetail, setErrors, setHigherPriceRooms, setLoading } from ".";
 import { AppDispatch } from "../../../store";
 
 const urlBack: string = (import.meta.env.VITE_BACK_URL as string);
@@ -46,6 +46,18 @@ export const getBookingById = (id: string ) => (dispatch: AppDispatch) => {
         }).catch((errors) => {
             dispatch(setErrors(errors.response.data))
             console.log(errors);
+        }).finally(() => {
+            dispatch(setLoading(false));
+        });
+    
+};
+
+export const getDebtAdams = (id: string ) => (dispatch: AppDispatch) => {
+    dispatch(setLoading(true));
+        axios.get(`${urlBack}/reservations/adams/debtbyid/${id}`).then(({data}) => {
+            dispatch(setDebtDetail(data));
+        }).catch((errors) => {
+            dispatch(setErrors(errors.response.data));
         }).finally(() => {
             dispatch(setLoading(false));
         });

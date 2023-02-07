@@ -83,6 +83,8 @@ route.put("/toggle/:id", async (req: Request, res: Response) => {
   }
 });
 
+
+// ##enpoint que postea las habitaciones
 route.post("/", async (req: Request, res: Response) => {
   try {
     if(!req.body.name || !req.body.description || !req.body.preDescription || !req.body.images || !req.body.price || !req.body.capacity){
