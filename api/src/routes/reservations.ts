@@ -1,9 +1,10 @@
 import { Router, Request, Response } from "express";
-import { getDebtAdams, payReservation} from "./paymentControllers/paymentController";
+import { deleteReservation, getDebtAdams, payReservation, revertPayReservation} from "./paymentControllers/paymentController";
 import { revertDebtAdams } from "./paymentControllers/paymentController";
 const route = Router();
 const { Reservation} = require("../database");
 import dayjs from "dayjs";
+
 route.get("/", async (_req: Request, res: Response) => {
   const rooms = await Reservation.findAll();
   if (rooms) {
@@ -88,18 +89,26 @@ route.post("/webhooknotify",   async (req: Request, res: Response) => {
     else if(statusPay === "pending" && statusObj === "active"){
       const debtEnd = body.body.debt.validPeriod.end;
       const actualDate = dayjs().format("YYYY-MM-DDTHH:mm:ss");
+
       if(debtEnd < actualDate){
-        console.log("fecha de la deuda pasada", debtEnd );
+        const deletePayReservation = await deleteReservation(id);
+        console.log("fecha de la deuda pasada eliminar",deletePayReservation);
+        res.status(200)
+        
       }
       else {
-        console.log("se revirtio una deuda", body.body);
+        const revertReervation = await revertPayReservation(id);
+        console.log("se revirtio una deuda", revertReervation);
         res.status(200).send("llego");
       }
       
     }
     else if(statusPay === "pending" && statusObj === "expired"){
       console.log("el pago expiro, eliminar la reserva", body.body);
-      res.status(200).send("llego");
+      
+      const deletePayReservation = await deleteReservation(id);
+      console.log("fecha de la deuda pasada eliminar",deletePayReservation);
+      res.status(200)
     }
     else{
       console.log("entro al else", body.body, body.body.debt.payStatus.status);
@@ -112,6 +121,7 @@ route.post("/webhooknotify",   async (req: Request, res: Response) => {
   }
   
 });
+
 
 
 

@@ -62,15 +62,9 @@ interface errorsType {
 }
 
 export const CheckRoom = ({ roomId, reserved, price, roomName }: CheckRoomProps) => {
-  // const {
-  //   register,
-  //   formState: { errors },
-  //   handleSubmit,
-  // } = useForm<bookingType>({
-  //   resolver: zodResolver(BookingSchema)
-  // })
+  
 
-  console.log("hola", reserved);
+ 
 
   const urlBack: string = (import.meta.env.VITE_BACK_URL as string);
 
@@ -105,10 +99,13 @@ export const CheckRoom = ({ roomId, reserved, price, roomName }: CheckRoomProps)
     bookingDni: "",
     bookingButton: "",
   });
+ 
 
-  console.log(bookingData);
+  const reservedFilter = reserved.filter((e: any) => e.payment === "complete");
+
   const disabledDate: any = (current: any) => {
-    const arrDays = reserved?.map((e: any) => e.reservedDays).flat(Infinity);
+    const arrDays = reservedFilter?.map((e: any) => e.reservedDays).flat(Infinity);
+    
 
     return (
       (current && current <= dayjs().startOf("day")) ||
@@ -136,9 +133,7 @@ export const CheckRoom = ({ roomId, reserved, price, roomName }: CheckRoomProps)
       theDate.setDate(theDate.getDate() + 1);
     }
 
-    console.log("dates", dates);
     const Difference_In_Time = bookOut - bookIn;
-    console.log("diferencia de tiempo", Difference_In_Time);
     // To calculate the no. of days between two dates
     const Difference_In_Days = Difference_In_Time / (1000 * 3600 * 24);
     setBookingInput({
@@ -149,19 +144,6 @@ export const CheckRoom = ({ roomId, reserved, price, roomName }: CheckRoomProps)
       nightQuantity: Difference_In_Days,
     });
 
-    const dateEndtest = '2023-02-06T21:24:04+00:00';
-    const dateActualTest = dayjs().format("YYYY-MM-DDTHH:mm:ss");
-    dateEndtest < dateActualTest ? console.log("Es menor", dateEndtest, dateActualTest) : console.log("Es noser", dateEndtest, dateActualTest);
-   const validPeriod: any = {
-      start: dayjs().format("YYYY-MM-DDTHH:mm:ssZ"),
-      end: dayjs().add(1, "hour").format("YYYY-MM-DDTHH:mm:ssZ")
-  };
-  console.log("Valida period", validPeriod);
-    console.log("Selected Time: ", value);
-    console.log("Formatted Selected Time: ", dateString);
-    console.log("diferencias de dias", Difference_In_Days);
-    console.log("asda", bookIn);
-    console.log("asda2", bookOut);
   };
 
   const handleOnOk = () => {
@@ -175,7 +157,6 @@ export const CheckRoom = ({ roomId, reserved, price, roomName }: CheckRoomProps)
   };
 
   const showPrice = () => {
-    console.log("onsubmit", bookingInput);
     const guest = bookingInput.adults;
     const daysReserved =
       bookingInput.nightQuantity > 0 ? bookingInput.nightQuantity : 1;
@@ -189,13 +170,10 @@ export const CheckRoom = ({ roomId, reserved, price, roomName }: CheckRoomProps)
         ...bookingInput,
         totalPrice: childsAmount! + daysAmount,
       });
-      console.log("as", guest, daysReserved, amount, daysAmount);
       return;
     }
     setBookingInput({ ...bookingInput, totalPrice: daysAmount });
-    console.log("as", guest, daysReserved, amount, daysAmount);
     setShowRate(true);
-    console.log("holanda", dayjs().format("YYYY-MM-DDTHH:mm:ssZ"), dayjs().add(1, "hour").format("YYYY-MM-DDTHH:mm:ssZ"))
   };
 
   const handleBookingOk = () => {
@@ -217,7 +195,7 @@ export const CheckRoom = ({ roomId, reserved, price, roomName }: CheckRoomProps)
     }
   };
 
-  const handleBooking: any = async () => {
+  const handleBooking = async ()=> {
       if(bookingInput.checkIn.length &&
       bookingInput.checkOut.length &&
       bookingInput.reservedDays.length > 0 &&
@@ -226,8 +204,8 @@ export const CheckRoom = ({ roomId, reserved, price, roomName }: CheckRoomProps)
       bookingInput.nightQuantity > 0 &&
       bookingInput.name.length ){
        const res = await axios.post(`${urlBack}/reservations`, bookingInput);
-       console.log(res);
-       const dataRes = await setDebt({
+
+       await setDebt({
         debt: {
             docId: res.data.id,
             amount: {
@@ -246,22 +224,15 @@ export const CheckRoom = ({ roomId, reserved, price, roomName }: CheckRoomProps)
                 end: dayjs().add(30, "minute").format("YYYY-MM-DDTHH:mm:ssZ")
             }
         }
-    })
-    console.log("dateRes", dataRes);
+    });
+    
       }
       else {
         setCheckErrors({...checkErrors, bookingButton: "Faltan datos para hacer la reserva"});
       }
   };
 
-  console.log("errors", checkErrors);
-  console.log("asara", bookingInput.totalPrice);
-  // useEffect(() => {
-
-  // }, [adultsCounter, childCounter]);
-
-  console.log("booking", bookingInput);
-  console.log("adults", adultsCounter, childCounter);
+ 
 
   return (
     <div className="text-black text-center items-center justify-center">
@@ -522,6 +493,7 @@ export const CheckRoom = ({ roomId, reserved, price, roomName }: CheckRoomProps)
       ) : (
         <></>
       )}
+      
     </div>
   );
 };

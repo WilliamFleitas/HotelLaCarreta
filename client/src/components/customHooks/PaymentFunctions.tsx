@@ -27,7 +27,8 @@ interface debtType {
 export const setDebt = (body: debtType) => {
     axios.post(`${urlPayment}/api/v1/debts`, body, { headers: {
         'apikey': apiKey,
-      }}).then((e ) => console.log("asadapa", e)).catch((e) => console.log(e.response.data));
+      }}).then((e ) => {console.log("asdsa", e.data)
+        window.location.href = e.data.debt.payUrl;}).catch((e) => console.log(e.response.data));
 };
 
 export const notifyDebt = () => {

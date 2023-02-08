@@ -63,7 +63,7 @@ export const revertPayReservation = async (id: string) => {
           return "Reserva deshabilitada";
     } catch (error) {
         console.log("resultpayerr", error);
-        return `${error} no se pudo habilitar la reserva `; 
+        return `${error} no se pudo deshabilitar la reserva `; 
     }
 };
 
