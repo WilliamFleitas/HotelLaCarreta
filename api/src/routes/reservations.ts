@@ -117,7 +117,7 @@ route.post("/webhooknotify",   async (req: Request, res: Response) => {
     
   } catch (error) {
     console.log(error);
-    res.status(400)
+    res.status(200)
   }
   
 });

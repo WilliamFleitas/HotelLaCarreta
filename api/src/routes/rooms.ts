@@ -1,16 +1,56 @@
+
+import dayjs from "dayjs";
 import { Router, Request, Response } from "express";
+// import { Op } from "sequelize";
 const { Reservation } = require("../database");
 const route = Router();
 const { Room } = require("../database");
 
-route.get("/", async (_req: Request, res: Response) => {
+route.get("/", async (req: Request, res: Response) => {
+  const {date } = req.query;
   try {
-    const rooms = await Room.findAll({ include: Reservation });
-  if (rooms.length > 0) {
-    res.status(200).send(rooms);
-  } else {
-    res.status(200).send("No se encontraron habitaciónes");
-  }
+    
+
+    console.log("dategetrooms", date);
+    if(date){
+      const rooms = await Room.findAll({ 
+        include: Reservation, 
+        
+        });
+
+      
+      const roomsFilter = rooms?.filter((e: any) => { 
+
+        const allReservationsOfARoom: []= e.Reservations.map((e:any) => e.entryDate).flat(Infinity);
+
+        const findReservation = allReservationsOfARoom.find((e: any) => {
+          return (
+            dayjs(e).format("YYYY/MM/DD") === dayjs(date as string).format("YYYY/MM/DD")
+          );
+        });
+
+        console.log("findreservation", dayjs(findReservation).format("YYYY/MM/DD"));
+        console.log("todas las reservaciones", allReservationsOfARoom, allReservationsOfARoom.find((e: any) => {
+          return (
+            dayjs(e).format("YYYY/MM/DD") === dayjs(date as string).format("YYYY/MM/DD")
+          );
+        }) ? "incluye" : "noprlt" );
+        console.log(allReservationsOfARoom);
+       return !findReservation ? e : false;
+      });
+      // console.log("romsada", roomsFilter);
+    
+      
+      res.status(200).send(roomsFilter);
+    }else{
+      const rooms = await Room.findAll({ include: Reservation });
+      if (rooms.length > 0) {
+        res.status(200).send(rooms);
+      } else {
+        res.status(400).send("No se encontraron habitaciones");
+      }
+    }
+    
   } catch (error) {
     res.status(400).send(error)
   }

@@ -108,7 +108,7 @@ export const CheckRoom = ({ roomId, reserved, price, roomName }: CheckRoomProps)
     
 
     return (
-      (current && current <= dayjs().startOf("day")) ||
+      (current && current <= dayjs().startOf("hour")) ||
       arrDays.find((e: any) => {
         return (
           dayjs(e).format("YYYY/MM/DD") === dayjs(current).format("YYYY/MM/DD")

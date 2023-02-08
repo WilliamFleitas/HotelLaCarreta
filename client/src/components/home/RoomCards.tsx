@@ -40,10 +40,8 @@ export const RoomCards = () => {
       :
       <div className="text-[#696969] justify-center items-center text-center py-12 leading-[25px]	">
       <div className="">
-      <div className="items-center justify-center text-center">
-      <div className="bg-[#B35642] h-[18vh] w-full pt-5 text-white ">
-        <h3>Check in y check out aca</h3>
-      </div>
+      <div className="w-screen h-full items-center justify-center text-center">
+        <h3><Check/></h3>
       </div>
       </div>
 
