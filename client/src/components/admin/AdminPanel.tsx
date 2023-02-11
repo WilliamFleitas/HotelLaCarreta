@@ -6,19 +6,25 @@ import ReservationsTable from "./ReservationsTable";
 import RoomsTable from "./RoomsTable";
 
 const AdminPanel = () => {
-  const current = useAppSelector((state) => state.admin.current);
-  const dispatch = useAppDispatch();
-
-  switch (current) {
-    case "habitaciones":
-      return <RoomsTable />;
-    case "reservas":
-      return <ReservationsTable />;
-    case "productos":
-      return <ProductsTable />;
-    default:
-      return <RoomsTable />;
-  }
-};
+  // const current = useAppSelector((state) => state.admin.current);
+  // const dispatch = useAppDispatch();
+   return (
+        <div>
+       <RoomsTable />
+       <ReservationsTable />
+      <ProductsTable />
+      </div>
+   )     
+  };
+  // switch (current) {
+  //   case "habitaciones":
+  //     return <RoomsTable />;
+  //   case "reservas":
+  //     return <ReservationsTable />;
+  //   case "productos":
+  //     return <ProductsTable />;
+  //   default:
+  //     return <RoomsTable />;
+  // }
 
 export default AdminPanel;

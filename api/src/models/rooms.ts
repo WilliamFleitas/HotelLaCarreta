@@ -40,7 +40,7 @@ module.exports = (sequelize: any) => {
         allowNull: false
       },
       roomZone: {
-        type: DataTypes.STRING,
+        type: DataTypes.ENUM("Rustica", "Moderna"),
         allowNull: false
       },
       room_features: {

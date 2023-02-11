@@ -10,7 +10,7 @@ export const Footer = () => {
   const {width} = useWindowSize();
 
     return (
-        <div className="text-center items-center justify-center   bg-[#B35642] mt-24 border-t-2 border-black h-full w-screen p-5 overflow-x-hidden" > 
+        <div className="text-center items-center justify-center   bg-[#B35642] mt-24 border-t-2 border-black h-full w-screen p-5 " > 
         <section id="footer">
           {
             width >=768 ? 

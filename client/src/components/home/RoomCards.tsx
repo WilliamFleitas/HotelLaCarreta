@@ -2,9 +2,9 @@ import React, {useEffect} from "react";
 import { RoomCard } from "./RoomCard";
 import { useAppDispatch, useAppSelector } from "../../hooks";
 import { getAllRooms } from "../../redux/slices/RoomSlice/RoomAction";
-import { Check } from "./Check";
 import useWindowSize from "../customHooks/useWindowSize";
 import { Link } from "react-router-dom";
+import { CheckFilter } from "./CheckFilter";
 
 
 export const RoomCards = () => {
@@ -20,7 +20,7 @@ export const RoomCards = () => {
       {
         width < 768 ?  <div className=" text-center pt-10  flex flex-col justify-center ">
         <h2 className="text-[#B35642] text-[24px] p-5">¡Vea nuestras habitaciones!</h2>
-        <Check/>
+        <CheckFilter/>
         <h2 className="text-[#B35642] pt-16 text-[20px]">Habitaciones disponibles</h2>
         <div className="flex flex-col items-center justify-center pt-16  pb-15 ">
         {typeof rooms === "object" && rooms.length > 0 ? 
@@ -39,15 +39,12 @@ export const RoomCards = () => {
      </div>
       :
       <div className="text-[#696969] justify-center items-center text-center py-12 leading-[25px]	">
-      <div className="">
-      <div className="items-center justify-center text-center">
-      <div className="bg-[#B35642] h-[18vh] w-full pt-5 text-white ">
-        <h3>Check in y check out aca</h3>
-      </div>
-      </div>
-      </div>
-
+    
       <h2 className="text-[40px] py-10 text-[#E2725B]">Vea nuestras habitaciones!</h2>
+      
+        <CheckFilter/>
+      
+
       <div className={typeof rooms === "object" && rooms.length > 0 ? ` grid grid-cols-2 lg:grid-cols-3 p-5 py-10 text-center items-center justify-center lg:p-2 lg:w-screen lgg:p-8 lgg:w-full` : `p-5 py-10 text-center items-center justify-center lg:p-2 lg:w-screen lgg:p-8 lgg:w-full`}>
       {typeof rooms === "object" && rooms.length > 0 ? (
         rooms.map((rooms, index) => {

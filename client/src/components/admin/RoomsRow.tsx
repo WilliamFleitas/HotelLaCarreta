@@ -13,22 +13,26 @@ const RoomsRow = ({
   images,
   price,
   enabled,
+  roomZone,
+  room_features,
+  room_services,
+  bathroom_features
 }: Room) => {
   const [edit, setEdit] = useState(false);
   return (
     <>
       <div
-        className={`flex flex-row w-full bg-gray-100 gap-4 items-center justify-between rounded-xl p-4 ${
+        className={`flex flex-row w-full text-black bg-[#ac796e] gap-4 items-center justify-between rounded-xl p-4 border-2 ${
           !enabled && "bg-gray-200"
-        }`}
+        } ${edit && "rounded-b-none"}`}
       >
         <img src={images[0]} alt="" className="w-32 h-fit rounded-lg " />
         <div className="flex flex-col content-start w-full">
           <p className={`text-lg ${!enabled && "line-through"}`}>{name}</p>
-          <p className="text-sm text-gray-500">
+          <p className="text-sm text-[#2f2e2e]">
             Capacidad: {capacity.toString()}
           </p>
-          <p>{preDescription}</p>
+          <p className="text-[#2f2e2e]">{preDescription}</p>
           <p className="bg-orange-300 px-2 py-1 w-fit rounded-lg">
             {price.toString()} GS / noche
           </p>
@@ -36,7 +40,7 @@ const RoomsRow = ({
 
         <div className="flex flex-col items-center gap-2 h-full justify-between">
           <AiFillEdit
-            className="text-gray-600 w-6 h-fit cursor-pointer"
+            className="text-gray-600 hover:text-zinc-400 w-6 h-fit cursor-pointer"
             onClick={() => setEdit(!edit)}
           />
           <FaToggleOn
@@ -47,7 +51,7 @@ const RoomsRow = ({
         </div>
       </div>
       {edit && (
-        <div className="w-full bg-gray border border-gray-400 rounded-xl flex flex-col items-center">
+        <div className="w-full bg-[#ac796e] border-2 border-gray-400 rounded-b-xl flex flex-col items-center">
           <EditRoomForm
             edit={edit}
             setEdit={setEdit}
@@ -59,6 +63,10 @@ const RoomsRow = ({
               preDescription,
               images,
               price,
+              roomZone,
+              room_features,
+              bathroom_features,
+              room_services,
               enabled,
             }}
           />

@@ -14,17 +14,76 @@ export interface RoomsDetails {
 	room_services: string[];
   id: string;
   Reservations: any[];
-}
+};
+
+interface BookingIdType {
+  payment: string;
+  payAmount: number;
+  adults: number,
+  childs: number,
+  name: string,
+  entryDate: string,
+};
+
+interface DebtType {
+  meta : {status: string, description: string | undefined},
+  debt: {
+    label: string,
+    payStatus: {
+      status: string;
+    },
+    objStatus: {
+      status: string;
+    },
+    payUrl: string
+  } | undefined,
+  amount: {
+    value: string, paid: string
+  } | undefined,
+
+};
+export interface checkType {
+  date: string;
+  roomType: "Moderna" | "Rustica" | "";
+} 
 
 interface RoomsState {
   roomList: Array<RoomsDetails>;
+  bookingById: BookingIdType;
   roomDetail: RoomsDetails;
+  debtDetail: DebtType;
+  checkFilters: checkType;
   higherPriceRoomList: Array<RoomsDetails>
   error: string;
   loading: boolean;
-}
+};
+
 const initialState: RoomsState = {
   roomList: [],
+  debtDetail: {
+    meta : {status: "", description: "" || undefined},
+  debt: {
+    label: "",
+    payStatus: {
+      status: ""
+    },
+    objStatus: {
+      status: ""
+    },
+    payUrl: "",
+  } || undefined,
+  amount: {
+    value: "", paid: ""
+  } || undefined
+  },
+  bookingById: {
+    payment: "",
+    payAmount: 0,
+    adults: 0,
+    childs: 0,
+    name: "",
+    entryDate: "",
+  },
   higherPriceRoomList: [],
   roomDetail: {
       name: "",
@@ -40,6 +99,10 @@ const initialState: RoomsState = {
 	    room_services: [],
       id: "",
       Reservations: [],
+  },
+  checkFilters: {
+    date: "",
+    roomType: "",
   },
   error: "",
   loading: false,
@@ -57,6 +120,12 @@ const RoomSlice = createSlice({
     },
     roomById(state, action: PayloadAction<RoomsDetails>) {
       state.roomDetail = action.payload;
+    },
+    setDebtDetail(state, action: PayloadAction<DebtType>){
+      state.debtDetail = action.payload;
+    },
+    bookingById(state, action: PayloadAction<BookingIdType>) {
+      state.bookingById = action.payload;
     },
     setErrors(state, action: PayloadAction<string>) {
       state.error = action.payload;
@@ -82,8 +151,11 @@ const RoomSlice = createSlice({
     setLoading(state, action: PayloadAction<boolean>) {
       state.loading = action.payload;
     },
+    setCheckFilters(state, action: PayloadAction<checkType>) {
+      state.checkFilters = action.payload;
+    },
   }
 });
 
 export default RoomSlice.reducer;
-export const { getRooms, roomById, setErrors, clearRoomDetail, setLoading, setHigherPriceRooms } = RoomSlice.actions;
+export const { getRooms, roomById, setErrors, clearRoomDetail, setLoading, setHigherPriceRooms, bookingById, setDebtDetail, setCheckFilters } = RoomSlice.actions;

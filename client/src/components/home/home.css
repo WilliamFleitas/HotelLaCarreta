@@ -2,3 +2,46 @@
     text-shadow: 0 0 2px #c9b505;
 } 
 
+.wrapper {
+    position: relative;
+}
+
+#slide {
+    position: absolute;
+    right: -50%;
+    -webkit-animation: slide 0.5s forwards;
+    -webkit-animation-delay: 2s;
+    animation: slide 0.4s forwards;
+    animation-delay: 0.1s;
+}
+
+@-webkit-keyframes slide {
+    50% { top: 1; }
+}
+
+@keyframes slide {
+    100% { right: 0; }
+}
+
+
+.wrapper2 {
+    position: relative;
+}
+
+#slide2 {
+    position: relative;
+    left: -100%;
+    -webkit-animation: slide2 0.5s forwards;
+    -webkit-animation-delay: 2s;
+    animation: slide2 0.7s forwards;
+    animation-delay: 0.1s;
+}
+
+@-webkit-keyframes slide2 {
+    100% { left: 1; }
+}
+
+@keyframes slide2 {
+    100% { left: 0; }
+}
+

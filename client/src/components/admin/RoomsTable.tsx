@@ -15,19 +15,19 @@ const RoomsTable = () => {
   }, [dispatch]);
   
   return (
-    <div className="w-full min-h-screen bg-gray-300 flex flex-col items-center justify-start">
-      <div className="flex flex-col w-11/12 bg-white rounded-xl min-h-[600px] px-6 py-4 gap-4 mt-6">
+    <div className="w-full min-h-screen pt-10 flex flex-col items-center justify-start bg-[#928282]">
+      <div className="flex flex-col w-11/12 bg-[#2f2e2e] border-2 rounded-xl min-h-[600px] px-6 py-4 gap-4 mt-6">
         <div className="flex flex-row items-center justify-between">
-          <p className="text-gray-700 text-xl">Habitaciones</p>
+          <p className="text-white text-xl">Habitaciones</p>
           <Link to="/createRoom">
-          <IoMdAddCircle className="h-8 w-8 cursor-pointer text-green-600 hover:scale-110 hover:text-green-400 duration-300" />
+          <IoMdAddCircle className="h-8 w-8 cursor-pointer text-black hover:scale-110 hover:text-zinc-400 duration-300" />
           </Link>
         </div>
 
         {rooms.length &&
-          rooms.map((room: Room) => (<div key={room.id}>
+          rooms.map((room) => (<div key={room.id as string}>
             <RoomsRow
-              id={room.id}
+              id={room.id as string}
               name={room.name}
               capacity={room.capacity}
               description={room.description}
@@ -35,6 +35,11 @@ const RoomsTable = () => {
               images={room.images}
               price={room.price}
               enabled={room.enabled}
+              roomZone={room.roomZone}
+              room_features={room.room_features}
+              room_services={room.room_services}
+              bathroom_features={room.bathroom_features}
+
             />
             </div>
           ))}

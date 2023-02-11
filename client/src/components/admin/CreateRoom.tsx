@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { string, z } from "zod";
+import { z } from "zod";
 import { useForm } from "react-hook-form";
 import axios from "axios";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -76,7 +76,7 @@ const RoomSchema = z.object({
 
 type roomsType = z.infer<typeof RoomSchema>;
 
-interface featureType {
+export interface featureType {
   room_features: string;
   room_services: string;
   bathroom_features: string;
@@ -96,6 +96,7 @@ export const CreateRoom = () => {
   } = useForm<roomsType>({
     resolver: zodResolver(RoomSchema),
   });
+
   const BackUrl = (import.meta.env.VITE_BACK_URL as string);
   const initialForm: featureType = {
     room_features: "",

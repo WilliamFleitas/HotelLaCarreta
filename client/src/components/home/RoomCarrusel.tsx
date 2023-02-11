@@ -112,7 +112,7 @@ export const RoomCarrusel = () => {
               </div>
               <Link to={`/roomdetail/${rooms.id}`}>
                 
-              <button className="text-white  rounded-lg bg-[#B35642] p-2 px-5 hover:bg-opacity-[80%]"> RESERVAR ➜</button>
+              <button className="text-white  rounded-lg bg-[#B35642] p-2 px-5 hover:bg-opacity-[80%] shadow-md shadow-[#ee7256]"> RESERVAR ➜</button>
               
               </Link>
             </div>

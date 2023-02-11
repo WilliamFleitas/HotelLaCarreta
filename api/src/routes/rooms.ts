@@ -1,16 +1,79 @@
+
+import dayjs from "dayjs";
 import { Router, Request, Response } from "express";
+import { Op } from "sequelize";
 const { Reservation } = require("../database");
 const route = Router();
 const { Room } = require("../database");
 
-route.get("/", async (_req: Request, res: Response) => {
+route.get("/", async (req: Request, res: Response) => {
+  const {date, roomType } = req.query;
   try {
-    const rooms = await Room.findAll({ include: Reservation });
-  if (rooms.length > 0) {
-    res.status(200).send(rooms);
-  } else {
-    res.status(200).send("No se encontraron habitaciónes");
-  }
+    
+
+    console.log("dategetrooms", date);
+    if(date && !roomType){
+      const rooms = await Room.findAll({ 
+        include: Reservation
+       });
+      
+      const roomsFilter = rooms?.filter((e: any) => { 
+
+        const allReservationsOfARoom: []= e.Reservations.map((e:any) => e.payment === "complete" ? e.reservedDays : null).flat(Infinity);
+          console.log(allReservationsOfARoom);
+        const findReservation = allReservationsOfARoom.find((e: any) => {
+          return (
+            dayjs(e).format("YYYY/MM/DD") === dayjs(date as string).format("YYYY/MM/DD")
+          );
+        });
+         
+       return !findReservation ? e : false;
+      });
+    
+      
+      res.status(200).send(roomsFilter);
+    } else if(!date && roomType){
+      const rooms = await Room.findAll({ include: Reservation, where: {
+        roomZone: {
+          [Op.like]: roomType
+        },
+      } });
+      res.status(200).send(rooms);
+    }
+    else if(date  && roomType){
+      const rooms = await Room.findAll({ 
+        include: Reservation, 
+        where: { 
+            roomZone: roomType
+          },
+       });
+
+      const roomsFilter = rooms?.filter((e: any) => { 
+
+        const allReservationsOfARoom: []= e.Reservations.map((e:any) => e.payment === "complete" ? e.reservedDays : null).flat(Infinity);
+
+        const findReservation = allReservationsOfARoom.find((e: any) => {
+          return (
+            dayjs(e).format("YYYY/MM/DD") === dayjs(date as string).format("YYYY/MM/DD")
+          );
+        });
+
+       return !findReservation ? e : false;
+      });
+      // console.log("romsada", roomsFilter);
+    
+      
+      res.status(200).send(roomsFilter);
+    }
+    else{
+      const rooms = await Room.findAll({ include: Reservation });
+      if (rooms.length > 0) {
+        res.status(200).send(rooms);
+      } else {
+        res.status(400).send("No se encontraron habitaciones");
+      }
+    }
+    
   } catch (error) {
     res.status(400).send(error)
   }
@@ -58,9 +121,10 @@ route.put("/:id", async (req: Request, res: Response) => {
     });
     console.log(room);
     res.status(200).send("Habitacion editada correctamente");
-  } catch (error) {
+  } catch (error: any) {
     console.log(error);
-    res.status(400).send("No se ha podido editar la habitacion");
+    res.status(400).send(`No se ha podido editar la habitacion ${error.response}`)
+    
   }
 });
 
@@ -83,6 +147,8 @@ route.put("/toggle/:id", async (req: Request, res: Response) => {
   }
 });
 
+
+// ##enpoint que postea las habitaciones
 route.post("/", async (req: Request, res: Response) => {
   try {
     if(!req.body.name || !req.body.description || !req.body.preDescription || !req.body.images || !req.body.price || !req.body.capacity){
