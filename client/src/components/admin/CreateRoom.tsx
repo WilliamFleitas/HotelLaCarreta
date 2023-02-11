@@ -76,7 +76,7 @@ const RoomSchema = z.object({
 
 type roomsType = z.infer<typeof RoomSchema>;
 
-interface featureType {
+export interface featureType {
   room_features: string;
   room_services: string;
   bathroom_features: string;

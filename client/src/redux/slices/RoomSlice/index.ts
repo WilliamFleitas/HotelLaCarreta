@@ -19,11 +19,16 @@ export interface RoomsDetails {
 interface BookingIdType {
   payment: string;
   payAmount: number;
+  adults: number,
+  childs: number,
+  name: string,
+  entryDate: string,
 };
 
 interface DebtType {
   meta : {status: string, description: string | undefined},
   debt: {
+    label: string,
     payStatus: {
       status: string;
     },
@@ -37,12 +42,17 @@ interface DebtType {
   } | undefined,
 
 };
+export interface checkType {
+  date: string;
+  roomType: "Moderna" | "Rustica" | "";
+} 
 
 interface RoomsState {
   roomList: Array<RoomsDetails>;
   bookingById: BookingIdType;
   roomDetail: RoomsDetails;
   debtDetail: DebtType;
+  checkFilters: checkType;
   higherPriceRoomList: Array<RoomsDetails>
   error: string;
   loading: boolean;
@@ -53,6 +63,7 @@ const initialState: RoomsState = {
   debtDetail: {
     meta : {status: "", description: "" || undefined},
   debt: {
+    label: "",
     payStatus: {
       status: ""
     },
@@ -68,6 +79,10 @@ const initialState: RoomsState = {
   bookingById: {
     payment: "",
     payAmount: 0,
+    adults: 0,
+    childs: 0,
+    name: "",
+    entryDate: "",
   },
   higherPriceRoomList: [],
   roomDetail: {
@@ -84,6 +99,10 @@ const initialState: RoomsState = {
 	    room_services: [],
       id: "",
       Reservations: [],
+  },
+  checkFilters: {
+    date: "",
+    roomType: "",
   },
   error: "",
   loading: false,
@@ -132,8 +151,11 @@ const RoomSlice = createSlice({
     setLoading(state, action: PayloadAction<boolean>) {
       state.loading = action.payload;
     },
+    setCheckFilters(state, action: PayloadAction<checkType>) {
+      state.checkFilters = action.payload;
+    },
   }
 });
 
 export default RoomSlice.reducer;
-export const { getRooms, roomById, setErrors, clearRoomDetail, setLoading, setHigherPriceRooms, bookingById, setDebtDetail } = RoomSlice.actions;
+export const { getRooms, roomById, setErrors, clearRoomDetail, setLoading, setHigherPriceRooms, bookingById, setDebtDetail, setCheckFilters } = RoomSlice.actions;

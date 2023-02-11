@@ -1,18 +1,29 @@
 import axios from "axios";
-import { bookingById, clearRoomDetail, getRooms, roomById, RoomsDetails, setDebtDetail, setErrors, setHigherPriceRooms, setLoading } from ".";
+import { bookingById, checkType, clearRoomDetail, getRooms, roomById, RoomsDetails, setCheckFilters, setDebtDetail, setErrors, setHigherPriceRooms, setLoading } from ".";
 import { AppDispatch } from "../../../store";
 
 const urlBack: string = (import.meta.env.VITE_BACK_URL as string);
 
-export const getAllRooms = () => (dispatch: AppDispatch) => {
+export const getAllRooms = (date?: string, roomType?: string) => (dispatch: AppDispatch) => {
+    dispatch(setLoading(true));
 
-    axios.get(`${urlBack}/rooms`).then(({data}) => {
+    const url : string = date || roomType ? `${urlBack}/rooms?date=${date}&roomType=${roomType}` : `${urlBack}/rooms`;
+
+    axios.get(url).then(({data}) => {
        
             dispatch(getRooms(data));
         
     }).catch((error) => {
-        console.log(error);
+        setErrors("Hubo un error cargando las habitaciones, intente recargando la pagina");
+    }).finally(() => {
+        dispatch(setLoading(false));
     });
+};
+
+export const setCheckFiltersAction = (date: string, roomType: string) => (dispatch: AppDispatch) => {
+    const obj = {date, roomType} as checkType;
+    dispatch(setCheckFilters(obj));
+    dispatch(getAllRooms(date!, roomType!));
 };
 
 export const getHigherPrice = () => (dispatch: AppDispatch) => {

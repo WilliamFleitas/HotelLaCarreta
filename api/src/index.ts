@@ -25,9 +25,9 @@ app.use((_req: Request, res: Response, next: NextFunction) => {
 app.use(express.json()); // transforma la req.body a un objeto
 app.use(morgan("dev"));
 app.use("/", routes);
-
+//acordarse de poner el force true
 sequelize
-  .sync({  })
+  .sync({ })
   .then(() => {
     app.listen(BACKEND_PORT, () => {
       console.log("Database connected");

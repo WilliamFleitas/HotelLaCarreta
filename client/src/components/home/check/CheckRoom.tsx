@@ -12,19 +12,20 @@ import { setErrors } from "../../../redux/slices/RoomSlice";
 import axios from "axios";
 import { setDebt } from "../../customHooks/PaymentFunctions";
 
-const BookingSchema = z.object({
-  checkIn: z.string(),
-  checkOut: z.string(),
-  adults: z
-    .number()
-    .min(1, { message: "Debe haber por lo menos un adulto" })
-    .max(7, { message: " El limite de habitaciones es de 7 personas" }),
-  childs: z
-    .number()
-    .max(7, { message: " El limite de habitaciones es de 7 personas" }),
-});
+// const BookingSchema = z.object({
+//   checkIn: z.string(),
+//   checkOut: z.string(),
+//   adults: z
+//     .number()
+//     .min(1, { message: "Debe haber por lo menos un adulto" })
+//     .max(7, { message: " El limite de habitaciones es de 7 personas" }),
+//   childs: z
+//     .number()
+//     .max(7, { message: " El limite de habitaciones es de 7 personas" }),
+// });
 
-type bookingType = z.infer<typeof BookingSchema>;
+
+// type bookingType = z.infer<typeof BookingSchema>;
 
 const { RangePicker } = DatePicker;
 const dateFormat = "YYYY/MM/DD";
@@ -53,11 +54,13 @@ interface CheckRoomProps {
 interface bookingDataType {
   name: string;
   dni: string | undefined;
+  email: string;
 }
 
 interface errorsType {
-  bookingNombre: string;
+  bookingName: string;
   bookingDni: string;
+  bookingEmail: string;
   bookingButton: string;
 }
 
@@ -78,6 +81,7 @@ export const CheckRoom = ({ roomId, reserved, price, roomName }: CheckRoomProps)
     nightQuantity: 0,
     name: "",
     dni: "",
+    email: "",
     roomId: "",
     payment: "none",
   };
@@ -90,13 +94,16 @@ export const CheckRoom = ({ roomId, reserved, price, roomName }: CheckRoomProps)
   const [guesSwitch, setGuestSwitch] = useState(false);
   const [showRate, setShowRate] = useState(false);
   const [bookingButtonSwitch, setBookingButtonSwitch] = useState(false);
+  const [disableButton, setDisableButton] = useState(false);
   const [bookingData, setBookingData] = useState<bookingDataType>({
     name: "",
     dni: "",
+    email: "",
   });
   const [checkErrors, setCheckErrors] = useState<errorsType>({
-    bookingNombre: "",
+    bookingName: "",
     bookingDni: "",
+    bookingEmail: "",
     bookingButton: "",
   });
  
@@ -177,34 +184,51 @@ export const CheckRoom = ({ roomId, reserved, price, roomName }: CheckRoomProps)
   };
 
   const handleBookingOk = () => {
-    if (bookingData.name.length && roomId) {
-      setBookingInput({
-        ...bookingInput,
-        name: bookingData.name,
-        dni: bookingData.dni,
-        roomId: roomId
-      });
-      setBookingData({...bookingData, name: "", dni: ""})
-      setCheckErrors({ ...checkErrors, bookingNombre: "", bookingDni: "" });
-    } else {
-      setCheckErrors({
-        ...checkErrors,
-        bookingNombre: "Es obligatorio el nombre para la reserva",
-      });
-      setBookingInput({...bookingInput, name: "", dni: ""});
-    }
-  };
-
-  const handleBooking = async ()=> {
+    if(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(bookingData.email) && bookingData.email.length  && bookingData.name.length  &&  roomId){
+      
+        setBookingInput({
+          ...bookingInput,
+          name: bookingData.name,
+          email: bookingData.email,
+          dni: bookingData.dni,
+          roomId: roomId as string
+        });
+        setBookingData({...bookingData, name: "", dni: "", email: "",})
+        setCheckErrors({ ...checkErrors, bookingName: "", bookingDni: "", bookingEmail: ""});
+        return;
+      } else  {
+        if(!bookingData.name.length && !bookingData.email.length){
+          setCheckErrors({
+            ...checkErrors, bookingName: "Ingresar un nombre",
+            bookingEmail: "Ingresar un email al cual notificar"
+          });
+        }
+        else if(!bookingData.name.length){
+          setCheckErrors({
+            ...checkErrors, bookingName: "Ingresar un nombre", bookingEmail: ""
+          });
+        }
+        else if(!/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(bookingData.email) || !bookingData.email.length){
+          setCheckErrors({
+            ...checkErrors, bookingName: "", bookingEmail: "Ingresar un email valido"
+          });
+        }
+        setBookingInput({...bookingInput, name: "", dni: "", email: ""});
+      }
+};
+    
+ 
+  const handleBooking = async ()=> { 
       if(bookingInput.checkIn.length &&
       bookingInput.checkOut.length &&
       bookingInput.reservedDays.length > 0 &&
       bookingInput.adults > 0 &&
       bookingInput.totalPrice > 0 &&
       bookingInput.nightQuantity > 0 &&
-      bookingInput.name.length ){
+      bookingInput.name.length && bookingInput.email.length ){
+        setDisableButton(true);
        const res = await axios.post(`${urlBack}/reservations`, bookingInput);
-
+       
        await setDebt({
         debt: {
             docId: res.data.id,
@@ -217,7 +241,7 @@ export const CheckRoom = ({ roomId, reserved, price, roomName }: CheckRoomProps)
             target: {
                 type: "cip",
                 number: res.data.dni ? res.data.dni : null,
-                label: res.data.name
+                label: res.data.email
             },
             validPeriod: {
                 start: dayjs().format("YYYY-MM-DDTHH:mm:ssZ"),
@@ -225,7 +249,7 @@ export const CheckRoom = ({ roomId, reserved, price, roomName }: CheckRoomProps)
             }
         }
     });
-    
+    setShowRate(false);
       }
       else {
         setCheckErrors({...checkErrors, bookingButton: "Faltan datos para hacer la reserva"});
@@ -400,14 +424,15 @@ export const CheckRoom = ({ roomId, reserved, price, roomName }: CheckRoomProps)
                   : 1}
               </h3>
               <h3>Reserva a nombre de: {bookingInput.name ? bookingInput.name: "Inserte un nombre"}</h3>
-
-              <div className={`flex flex-row gap-x-4  ${checkErrors.bookingNombre.length ? "mb-0": "mb-20"}`}>
+              <h3>Notificar a email: {bookingInput.email ? bookingInput.email: "Inserte un email"}</h3>
+              <div className={`grid grid-cols-2 gap-x-1  ${checkErrors.bookingName.length ? "mb-0": "mb-20"}`}>
                 <div className="">
                   <label className="text-sm text-black relative top-[8px] left-3 bg-[#B35642] border-2 border-black w-fit px-1 rounded-xl">
                     Nombre
                   </label>
                   <input
                     placeholder="Nombre del que reserva.."
+                    value={bookingData.name}
                     className={`w-full border border-[#B35642] shadow-inner shadow-black rounded-xl px-3 py-2`}
                     
                     type="text"
@@ -416,13 +441,32 @@ export const CheckRoom = ({ roomId, reserved, price, roomName }: CheckRoomProps)
                       setBookingData({ ...bookingData, name: e.target.value })
                     }
                   />
+                    {
+                checkErrors.bookingName.length ?  <h2 className=" text-white">{checkErrors.bookingName}</h2>  : <></>
+                  }
+                </div>
+                
+                <div className="">
+                  <label className="text-sm text-black relative top-[8px] left-3 bg-[#B35642] border-2 border-black w-fit px-1 rounded-xl">
+                    Email
+                  </label>
+                  <input
+                    placeholder="Email.."
+                    className={`w-full border border-[#B35642] shadow-inner shadow-black rounded-xl px-3 py-2`}
+                    value={bookingData.email.trim()}
+                    type="text"
+                    id="emailBooking"
+                    onChange={(e) =>
+                      setBookingData({ ...bookingData, email: e.target.value })
+                    }
+                  />
+                  {
+                checkErrors.bookingEmail.length ? <h2 className=" text-white">{checkErrors.bookingEmail}</h2> : <></>
+                
+              }
                 </div>
 
-                <div className="pt-2">
-                  <br></br>
-                  <label className="">O</label>
-                </div>
-                <div>
+                <div className="pb-16">
                   <label className="text-sm text-black  relative top-[8px] left-3 bg-[#B35642] border-2 border-black w-fit px-1 rounded-xl">
                     DNI
                   </label>
@@ -449,11 +493,7 @@ export const CheckRoom = ({ roomId, reserved, price, roomName }: CheckRoomProps)
                 </div>
                 
               </div>
-              <div className="flex-col">
-                {
-                checkErrors.bookingNombre.length ? <h2 className="pb-14 text-white">{checkErrors.bookingNombre}</h2> : <></>
-              }
-              </div> 
+            
             </div>
                 
               
@@ -479,13 +519,13 @@ export const CheckRoom = ({ roomId, reserved, price, roomName }: CheckRoomProps)
             <div className="absolute bottom-2 right-[50%] ">
                <h2 className="">Precio total: {bookingInput.totalPrice}GS</h2>
               <button
-                className="w-fit px-2 duration-300 text-[#B35642] bg-white  hover:bg-[#c9c3c3] hover:duration-300 py-2 rounded-lg font-bold  mt-2 shadow-md shadow-[#5f5e5e] border border-[#c9c3c3]"
+                className="w-fit px-2 duration-300 text-[#B35642] bg-white  hover:bg-[#c9c3c3] hover:duration-300 py-2 rounded-lg font-bold  mt-2 shadow-md shadow-[#5f5e5e] border border-[#c9c3c3]" disabled={disableButton}
                 type="button" onClick={handleBooking}
               >
                 RESERVAR
               </button>
               {
-                checkErrors.bookingButton.length ? <h2 className=" text-white">{checkErrors.bookingButton}</h2> : <></>
+                checkErrors.bookingButton.length ? <div><h2 className=" text-white">{checkErrors.bookingButton}</h2></div> : <></>
               }
             </div>
           </div>

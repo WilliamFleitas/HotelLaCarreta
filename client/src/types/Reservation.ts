@@ -21,14 +21,18 @@ export interface MiniRoom {
 }
 
 export interface Room {
-  id: string;
   name: string;
-  capacity: Number;
   description: string;
   preDescription: string;
-  images: Array<string>;
-  price: Number;
+  images: string[];
+  price: number;
+  capacity: number;
   enabled: Boolean;
+  roomZone: string;
+  room_features: string[];
+  bathroom_features: string[];
+  room_services: string[];
+  id: string;
 }
 
 export interface EditRoomProps {

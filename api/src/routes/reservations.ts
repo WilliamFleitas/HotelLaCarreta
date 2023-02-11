@@ -1,6 +1,7 @@
 import { Router, Request, Response } from "express";
-import { deleteReservation, getDebtAdams, payReservation, revertPayReservation} from "./paymentControllers/paymentController";
-import { revertDebtAdams } from "./paymentControllers/paymentController";
+import { deleteDebtAdams, deleteReservation, getDebtAdams, payReservation, revertPayReservation} from "./paymentControllers/paymentController";
+import { revertTransactionAdams } from "./paymentControllers/paymentController";
+const {transporter, revertReservationEmail} = require("../transport/index");
 const route = Router();
 const { Reservation} = require("../database");
 import dayjs from "dayjs";
@@ -62,6 +63,7 @@ route.post("/webhooknotify",   async (req: Request, res: Response) => {
   try {
     const body = req;
     const id = body.body.debt.docId;
+    const labelDebt = body.body.debt.label;
     const statusPay = body.body.debt.payStatus.status;
     const statusObj = body.body.debt.objStatus.status; 
     console.log("vari", statusPay, statusObj);
@@ -70,7 +72,7 @@ route.post("/webhooknotify",   async (req: Request, res: Response) => {
 
       try {
         if(Number(body.body.debt.amount.value) === Number(body.body.debt.amount.paid)){
-          const result = await payReservation(id);
+          const result = await payReservation(id, labelDebt);
           console.log("resultdelresult", result);
           console.log("es paid y success", body.body);
         }
@@ -78,9 +80,15 @@ route.post("/webhooknotify",   async (req: Request, res: Response) => {
           res.status(200).send("llego");
       } catch (error) {
        const debResult = await getDebtAdams(id);
-       console.log("holandass", debResult.data.debt.refs.txList[0].txId);
-       const revertDebt = await revertDebtAdams(debResult.data.debt.refs.txList[0].txId);
-       console.log(revertDebt);
+       const emailUser = debResult?.data?.debt?.target.label
+       console.log("holandass", debResult.data);
+       const revertDebt = await revertTransactionAdams(debResult.data.debt.refs.txList[0].txId);
+       console.log(revertDebt.data);
+       transporter.sendMail(
+        revertReservationEmail(emailUser),
+          (err: any, info: any) =>
+            err ? console.log(err) : console.log("se envio elcorreo de reverción", info.response)
+        );
         console.log("trycatchpayerror", error);
         res.status(200);
       }
@@ -106,8 +114,22 @@ route.post("/webhooknotify",   async (req: Request, res: Response) => {
     else if(statusPay === "pending" && statusObj === "expired"){
       console.log("el pago expiro, eliminar la reserva", body.body);
       
-      const deletePayReservation = await deleteReservation(id);
-      console.log("fecha de la deuda pasada eliminar",deletePayReservation);
+       await deleteReservation(id);
+      const debResult = await getDebtAdams(id);
+       const emailUser = debResult?.data?.debt?.target.label
+       console.log("holandass", debResult.data);
+       if(debResult.data?.debt?.refs !== null){
+        const revertDebt = await revertTransactionAdams(debResult.data.debt.refs.txList[0].txId);
+        console.log(revertDebt.data);
+        transporter.sendMail(
+         revertReservationEmail(emailUser),
+           (err: any, info: any) =>
+             err ? console.log(err) : console.log("se envio elcorreo de reverción", info.response)
+         );
+       }
+       
+        
+      await deleteDebtAdams(id);
       res.status(200)
     }
     else{
@@ -128,9 +150,10 @@ route.post("/webhooknotify",   async (req: Request, res: Response) => {
 route.post("/", async (req: Request, res: Response) => {
   try {
     
-    const { name,  checkIn, checkOut, totalPrice, roomId, reservedDays, adults, payment, childs, nightQuantity, dni  } = req.body;
+    const { name, email,  checkIn, checkOut, totalPrice, roomId, reservedDays, adults, payment, childs, nightQuantity, dni  } = req.body;
     const reservation = await Reservation.create({
       name,
+      email,
       entryDate: checkIn,
       exitDate: checkOut,
       payAmount: totalPrice,

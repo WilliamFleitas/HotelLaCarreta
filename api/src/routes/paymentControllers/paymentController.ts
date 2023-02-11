@@ -1,16 +1,18 @@
 const { Reservation } = require("../../database");
+const {transporter, payReservationEmail} = require("../../transport/index");
 const apiKey: string = process.env.ADAMS_APIKEY as string;
 const apiUrl: string = process.env.ADAMSPAY_URL as string;
 const axios = require("axios");
 console.log(apiKey);
 console.log(apiUrl);
 
-export const payReservation = async (id: string) => {
+export const payReservation = async (id: string, labelDebt: string) => {
     
     try {
         
         const response = await Reservation.findByPk(id);
         console.log("asdas", response);
+        
         if(response){
             console.log("idpay", id);
             const result = await Reservation.update({payment: "complete"}, {
@@ -18,6 +20,11 @@ export const payReservation = async (id: string) => {
                   id: id,
                 },
               });
+            transporter.sendMail(
+              payReservationEmail(response, labelDebt),
+                (err: any, info: any) =>
+                  err ? console.log(err) : console.log("se envio elcorreo", info.response)
+              );
               console.log("resultpay", result);
               return "Reserva habilitada";
         }
@@ -41,14 +48,19 @@ export const getDebtAdams =  async (id: string) => {
   };
   
 //revierte una deuda
-export const revertDebtAdams =  async (id: string) => {
+export const revertTransactionAdams =  async (id: string) => {
   const debtResult = await  axios.delete(`${apiUrl}/api/v1/tx/${id}`, { headers: {
         'apikey': apiKey,
       }});
     return debtResult;
 };
 
-
+export const deleteDebtAdams =  async (id: string) => {
+  const debtResult = await  axios.delete(`${apiUrl}/api/v1/debts/${id}`, { headers: {
+        'apikey': apiKey,
+      }});
+    return debtResult;
+};
 
 export const revertPayReservation = async (id: string) => {
 

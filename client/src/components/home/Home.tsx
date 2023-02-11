@@ -3,7 +3,6 @@ import { Contenido } from "./Contenido";
 import { CarrouselFondo } from "./CarrouselFondo";
 
 import "./home.css";
-import { Check } from "./Check";
 import { Welcome } from "./Welcome";
 import { RoomCarrusel } from "./RoomCarrusel";
 import { Highlights } from "./Highlights";
@@ -12,6 +11,7 @@ import { Facilities } from "./Facilities";
 import { AboutHome } from "./AboutHome";
 import { Events } from "./Events";
 import { Footer } from "./footer/Footer";
+import { CheckFilter } from "./CheckFilter";
 
 const Home = () => {
   const {width} = useWindowSize();
@@ -19,7 +19,7 @@ const Home = () => {
     <div className="flex flex-col items-center	h-full w-screen overflow-x-hidden" >
       <CarrouselFondo/>
 
-      <Check/>
+      <CheckFilter/>
       
       {
         width < 768 ? 
