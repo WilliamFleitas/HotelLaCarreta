@@ -206,7 +206,7 @@ export const CreateRoom = () => {
       }
     }
     else {
-      console.log("imglength", newImages)
+      
       setImages([...images, ...newImages.slice(0, 5)]); 
       
     }
@@ -248,7 +248,6 @@ export const CreateRoom = () => {
           window.location.reload();
 
         }).catch((res) => {
-          console.log(res)
           alert("No se creo la habitación")
         })
       }

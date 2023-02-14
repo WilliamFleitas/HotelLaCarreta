@@ -12,10 +12,9 @@ export const PaymentRoute = () => {
 
     const result = useAppSelector((state) => state.rooms.debtDetail);
     const bookingId = useAppSelector((state) => state.rooms.bookingById);
-    console.log("result", result);
-    console.log("result", bookingId);
+    
     const { loading, error } = useAppSelector((state) => state.rooms);
-    console.log("erro", error);
+    
     const dispatch = useAppDispatch();
     //el getbookinid tiene que ser comparado con el notify de la api, no usar la funcion, hacer otra
     useEffect(() => {

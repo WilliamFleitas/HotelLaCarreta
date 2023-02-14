@@ -78,7 +78,7 @@ const EditRoomForm = ({ edit, setEdit, data }: EditRoomProps) => {
     resolver: zodResolver(EditRoomSchema),
   });
   const BackUrl = (import.meta.env.VITE_BACK_URL as string);
-  console.log("data1", data)
+  
   
 
   const initialForm: featureType = {
@@ -120,7 +120,6 @@ const EditRoomForm = ({ edit, setEdit, data }: EditRoomProps) => {
       }
     }
     else {
-      console.log("imglength", newImages)
       setImages([...images, ...newImages.slice(0, 5)]); 
       
     }
@@ -231,7 +230,6 @@ const onSubmit = handleSubmit(
         // window.location.reload();
 
       }).catch((res) => {
-        console.log(res)
         alert("No se actualizo la habitación")
       })
     }
@@ -245,9 +243,7 @@ useEffect(() => {
   setPreImages(data.images);
 }, []);
 const asdas: any = images.concat(preImages as any) as any;
-console.log(asdas);
-console.log("asd2", newRoomFeature);
-console.log("asd", images);
+
   return (
     <form className="pt-[40px] my-10 rounded-lg bg-[#928282] text-black p-4 flex flex-col w-[335px] h-full justify-center items-center align-center text-center border-2" onSubmit={ onSubmit}>
       <p className="text-lg font-bold">Editar habitación</p>

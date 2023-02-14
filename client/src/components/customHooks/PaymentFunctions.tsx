@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const urlBack: string = (import.meta.env.VITE_BACK_URL as string);
+
 const urlPayment: string = (import.meta.env.VITE_ADAMSPAY_URL as string);
 const apiKey: string = (import.meta.env.VITE_ADAMS_APIKEY as string);
 
@@ -27,10 +27,6 @@ interface debtType {
 export const setDebt = (body: debtType) => {
     axios.post(`${urlPayment}/api/v1/debts`, body, { headers: {
         'apikey': apiKey,
-      }}).then((e ) => {console.log("asdsa", e.data)
-        window.location.href = e.data.debt.payUrl;}).catch((e) => console.log(e.response.data));
+      }}).then((e ) => {
+        window.location.href = e.data.debt.payUrl;}).catch(() => {});
 };
-
-export const notifyDebt = () => {
-    console.log()
-}
