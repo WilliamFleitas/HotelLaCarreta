@@ -3,6 +3,7 @@ import roomSlice from "./redux/slices/RoomSlice";
 import adminSlice from "./redux/adminSlice";
 import facilitieSlice from "./redux/slices/FacilitiesSlice";
 import gallerySlice from "./redux/slices/GallerySlice";
+import userSlice from "./redux/userSlice/index";
 
 const store = configureStore({
   reducer: {
@@ -10,6 +11,7 @@ const store = configureStore({
     admin: adminSlice,
     facilities: facilitieSlice,
     gallery: gallerySlice,
+    user: userSlice
   },
   
 });

@@ -32,7 +32,7 @@ export const RoomDetail = () => {
       )
     ) {
       alert("No se encontro la habitación");
-      window.location.replace(`/home`);
+      window.location.replace(`/`);
     } else {
       dispatch(getRoomId(id as string) as any);
     }
@@ -48,7 +48,7 @@ export const RoomDetail = () => {
   }
   if (error) {
     alert(error);
-    window.location.replace(`/home`);
+    window.location.replace(`/`);
   }
 
   return (<div>

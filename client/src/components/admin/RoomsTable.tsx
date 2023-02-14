@@ -9,7 +9,6 @@ import { Link } from "react-router-dom";
 const RoomsTable = () => {
     const dispatch = useAppDispatch();
     const rooms = useAppSelector((state) => state.rooms.roomList); 
-    console.log(rooms);
     useEffect(() => {
       dispatch(getAllRooms());
   }, [dispatch]);

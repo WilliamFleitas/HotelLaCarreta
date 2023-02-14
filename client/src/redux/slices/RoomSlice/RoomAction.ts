@@ -33,7 +33,7 @@ export const getHigherPrice = () => (dispatch: AppDispatch) => {
             dispatch(setHigherPriceRooms(data));
         
     }).catch((error) => {
-        console.log(error);
+        
     });
 };
 
@@ -44,7 +44,7 @@ export const getRoomId = (id: string) => (dispatch: AppDispatch) => {
     dispatch(roomById(data));
     }).catch((errors) => {
         dispatch(setErrors(errors.response.data))
-        console.log(errors);
+        
     }).finally(() => {
         dispatch(setLoading(false));
     });
@@ -56,7 +56,7 @@ export const getBookingById = (id: string ) => (dispatch: AppDispatch) => {
             dispatch(bookingById(data));
         }).catch((errors) => {
             dispatch(setErrors(errors.response.data))
-            console.log(errors);
+           
         }).finally(() => {
             dispatch(setLoading(false));
         });

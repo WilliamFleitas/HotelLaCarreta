@@ -10,14 +10,14 @@ const { BACKEND_PORT } = process.env;
 const app = express();
 
 //middlewares
-console.log("entroendindex");
+
 //Admitir llamados del front
 app.use((_req: Request, res: Response, next: NextFunction) => {
   res.header("Access-Control-Allow-Origin", "*"); // update to match the domain you will make the request from
   res.header("Access-Control-Allow-Credentials", "true");
   res.header(
     "Access-Control-Allow-Headers",
-    "Origin, X-Requested-With, Content-Type, Accept, Authorization"
+    "Origin, X-Requested-With, Content-Type, Accept, Authorization, auth-token"
   );
   res.header("Access-Control-Allow-Methods", "GET, POST, OPTIONS, PUT, DELETE");
   next();
@@ -27,7 +27,7 @@ app.use(morgan("dev"));
 app.use("/", routes);
 //acordarse de poner el force true
 sequelize
-  .sync({ })
+  .sync({force : true })
   .then(() => {
     app.listen(BACKEND_PORT, () => {
       console.log("Database connected");
