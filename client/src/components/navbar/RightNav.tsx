@@ -7,7 +7,7 @@ const itemStyle = "pl-4 py-4 hover:opacity-[70%]";
 
 const RightNav = () => {
   const changeLanguage = (lan: string) => {
-    console.log(lan);
+    
   };
 
   return (

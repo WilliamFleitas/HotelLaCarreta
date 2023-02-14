@@ -32,7 +32,6 @@ route.get("/bookingid/:id", async (req: Request, res: Response) => {
       }
     
   } catch (error) {
-    console.log(error);
     res.status(400).send("Algo fallo por favor intente más tarde");
   }
   
@@ -45,11 +44,9 @@ route.get("/adams/debtbyid/:id", async (req: Request, res: Response) => {
 
     const debtAdams = result?.data? result?.data : result.response?.data;
 
-    console.log("resultasdas1", result?.data? result?.data : result.response?.data);
 
     const statusDebt = debtAdams.meta.status;
 
-    console.log("resultasdas2", statusDebt);
     if(statusDebt === "error"){
       res.status(400).send(debtAdams.meta.description);
     }
@@ -66,30 +63,24 @@ route.post("/webhooknotify",   async (req: Request, res: Response) => {
     const labelDebt = body.body.debt.label;
     const statusPay = body.body.debt.payStatus.status;
     const statusObj = body.body.debt.objStatus.status; 
-    console.log("vari", statusPay, statusObj);
     //si la notify es igual a paid y el paid value es igual al paid amount se reserva la habitacion, si es solo una notify de pago partial no hace nada y notifica 200, 
     if(statusPay === "paid" && statusObj === "success"){
 
       try {
         if(Number(body.body.debt.amount.value) === Number(body.body.debt.amount.paid)){
-          const result = await payReservation(id, labelDebt);
-          console.log("resultdelresult", result);
-          console.log("es paid y success", body.body);
+           await payReservation(id, labelDebt);
         }
 
           res.status(200).send("llego");
       } catch (error) {
        const debResult = await getDebtAdams(id);
        const emailUser = debResult?.data?.debt?.target.label
-       console.log("holandass", debResult.data);
-       const revertDebt = await revertTransactionAdams(debResult.data.debt.refs.txList[0].txId);
-       console.log(revertDebt.data);
+       await revertTransactionAdams(debResult.data.debt.refs.txList[0].txId);
        transporter.sendMail(
         revertReservationEmail(emailUser),
           (err: any, info: any) =>
             err ? console.log(err) : console.log("se envio elcorreo de reverción", info.response)
         );
-        console.log("trycatchpayerror", error);
         res.status(200);
       }
     }
@@ -99,28 +90,24 @@ route.post("/webhooknotify",   async (req: Request, res: Response) => {
       const actualDate = dayjs().format("YYYY-MM-DDTHH:mm:ss");
 
       if(debtEnd < actualDate){
-        const deletePayReservation = await deleteReservation(id);
-        console.log("fecha de la deuda pasada eliminar",deletePayReservation);
+         await deleteReservation(id);
         res.status(200)
         
       }
       else {
-        const revertReervation = await revertPayReservation(id);
-        console.log("se revirtio una deuda", revertReervation);
+         await revertPayReservation(id);
         res.status(200).send("llego");
       }
       
     }
     else if(statusPay === "pending" && statusObj === "expired"){
-      console.log("el pago expiro, eliminar la reserva", body.body);
       
        await deleteReservation(id);
       const debResult = await getDebtAdams(id);
        const emailUser = debResult?.data?.debt?.target.label
-       console.log("holandass", debResult.data);
        if(debResult.data?.debt?.refs !== null){
-        const revertDebt = await revertTransactionAdams(debResult.data.debt.refs.txList[0].txId);
-        console.log(revertDebt.data);
+         await revertTransactionAdams(debResult.data.debt.refs.txList[0].txId);
+        
         transporter.sendMail(
          revertReservationEmail(emailUser),
            (err: any, info: any) =>
@@ -133,12 +120,10 @@ route.post("/webhooknotify",   async (req: Request, res: Response) => {
       res.status(200)
     }
     else{
-      console.log("entro al else", body.body, body.body.debt.payStatus.status);
       res.status(200).send("llego");
     }
     
   } catch (error) {
-    console.log(error);
     res.status(200)
   }
   

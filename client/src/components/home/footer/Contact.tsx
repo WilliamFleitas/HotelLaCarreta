@@ -54,7 +54,7 @@ export const Contact = () => {
     });
 
     const onSubmit = handleSubmit( async ({name,message, subject, lastName, email}) => {
-        console.log({name,message, subject, lastName, email})
+        console.log("contact", {name,message, subject, lastName, email})
     });
 
   return (

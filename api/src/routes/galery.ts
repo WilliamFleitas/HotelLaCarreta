@@ -1,7 +1,9 @@
 import { Router, Request, Response } from "express";
+import { checkRoleAuth } from "../libs/roleAuth";
+import { TokenValidation } from "../libs/validateToken";
 const route = Router();
 const { Post } = require("../database");
-
+const rolType: string = process.env.ROL_TYPE as string;
 
 route.get("/", async (req: Request, res: Response) => {
     try {
@@ -23,7 +25,6 @@ route.get("/", async (req: Request, res: Response) => {
           distinct: true,
           limit: options.offset,
           order: [['updatedAt', 'DESC']] });
-          console.log(result);
         if (result.rows.length > 0) {
           res.status(200).send(result);
         } else {
@@ -36,7 +37,7 @@ route.get("/", async (req: Request, res: Response) => {
     }
   });
 
-route.post("/", async (req: Request, res: Response) => {
+route.post("/",TokenValidation, checkRoleAuth(rolType), async (req: Request, res: Response) => {
     try {
       const result = await Post.create(req.body);
       res.status(200).send(result);

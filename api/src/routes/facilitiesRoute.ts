@@ -1,6 +1,8 @@
 const { Facilitie } = require("../database");
 import { Router, Request, Response } from "express";
-
+import { checkRoleAuth } from "../libs/roleAuth";
+import { TokenValidation } from "../libs/validateToken";
+const rolType: string = process.env.ROL_TYPE as string;
 
 const route = Router();
 
@@ -17,7 +19,7 @@ route.get("/", async (_req: Request, res: Response) => {
     }
   });
 
-route.post("/", async (req: Request, res: Response) => {
+route.post("/", TokenValidation, checkRoleAuth(rolType), async (req: Request, res: Response) => {
     try {
       const result = await Facilitie.create(req.body);
       if(result.length < 0){

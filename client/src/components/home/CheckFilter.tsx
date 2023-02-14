@@ -6,7 +6,6 @@ import { useAppDispatch, useAppSelector } from "../../hooks";
 import { useNavigate } from "react-router-dom";
 import { getAllRooms, setCheckFiltersAction } from "../../redux/slices/RoomSlice/RoomAction";
 import { checkType } from "../../redux/slices/RoomSlice";
-import e from "express";
 
 const { RangePicker } = DatePicker;
 const dateFormat = "YYYY/MM/DD";
@@ -28,14 +27,14 @@ export const CheckFilter = () => {
   })
 
   const onChangeDate: DatePickerProps["onChange"] = (date, dateString) => {
-    console.log(dateString);
+    
     const bookIn = dayjs(dateString).format("YYYY-MM-DDTHH:mm:ssZ[Z]");
-    console.log("bookin", bookIn);
+    
     setCheckFilters({...checkFilters, date: dateString});
   };
   
   const onChangeSelect = (e: React.ChangeEvent<HTMLSelectElement>) => {
-      console.log(e.target.value);
+    console.log(e.target.value);
       const roomTypeVar = e.target.value as "Rustica" | "Moderna" | "";
       setCheckFilters({...checkFilters, roomType: roomTypeVar});
   };
@@ -51,7 +50,7 @@ export const CheckFilter = () => {
 
   useEffect(() => {
     dispatch(getAllRooms(filters.date, filters.roomType));
-  }, [filters]);
+  }, [dispatch]);
 
   return (
     <div className="flex text-center items-center justify-center overflow-x-hidden">
