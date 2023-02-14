@@ -4,7 +4,7 @@ import routes from "./routes/index";
 const { sequelize } = require("./database");
 const morgan = require("morgan");
 
-const { BACKEND_PORT } = process.env;
+const { PORT } = process.env;
 // , CLIENT_URL, WEBHOOK_URL
 //creamos el servidor
 const app = express();
@@ -29,9 +29,9 @@ app.use("/", routes);
 sequelize
   .sync({ })
   .then(() => {
-    app.listen(BACKEND_PORT, () => {
+    app.listen(PORT, () => {
       console.log("Database connected");
-      console.log("Server running on ", BACKEND_PORT);
+      console.log("Server running on ", PORT);
     });
   })
   .catch((error: any) => {
