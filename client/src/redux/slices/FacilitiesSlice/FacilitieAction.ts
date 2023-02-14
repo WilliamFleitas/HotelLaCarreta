@@ -8,6 +8,6 @@ export const getAllFacilities = () => (dispatch: AppDispatch) => {
     axios.get(`${urlBack}/facilities`).then(({data}) => {
         dispatch(setFacilities(data));
     }).catch((error) => {
-        console.log(error);
+       
     })
 };

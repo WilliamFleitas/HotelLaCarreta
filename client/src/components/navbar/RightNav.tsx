@@ -32,7 +32,7 @@ const RightNav = () => {
       {/* <div className={itemStyle}>
         <p>Tema Oscuro</p>
       </div> */}
-      <NavLink to="/home" className={itemStyle}>
+      <NavLink to="/" className={itemStyle}>
         Home
       </NavLink>
       <NavLink to="/gallery" className={itemStyle}>

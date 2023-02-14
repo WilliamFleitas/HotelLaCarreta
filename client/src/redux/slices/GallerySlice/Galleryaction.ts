@@ -12,6 +12,6 @@ export const getAllPost = (page?:number) => (dispatch: AppDispatch) => {
     dispatch(setPostList(data.rows ? data.rows : data));
     dispatch(setPostLength(data.count));
 }).catch((error) => {
-console.log(error);
+
 }); 
 };
