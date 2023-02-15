@@ -33,8 +33,8 @@ sequelize.models = Object.fromEntries(capsEntries);
 
 // const { Reservation, Room} = sequelize.models;
 
-sequelize.models.Room.hasMany(sequelize.models.Reservation);
-sequelize.models.Reservation.belongsTo(sequelize.models.Room);
+sequelize?.models?.Room.hasMany(sequelize?.models?.Reservation);
+sequelize?.models?.Reservation.belongsTo(sequelize?.models?.Room);
 
 module.exports = {
   sequelize,
