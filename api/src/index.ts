@@ -27,7 +27,7 @@ app.use(morgan("dev"));
 app.use("/", routes);
 //acordarse de poner el force true
 sequelize
-  .sync({ })
+  .sync({ force: true })
   .then(() => {
     app.listen(PORT, () => {
       console.log("Database connected");

@@ -5,9 +5,7 @@ const fs = require("fs");
 const path = require("path");
 
 const sequelize = new Sequelize(
-  `postgresql://${PGUSER}:${PGPASSWORD}@${PGHOST}:${PGPORT}/${PGDATABASE}`, {
-   
-  }
+  `postgresql://${PGUSER}:${PGPASSWORD}@${PGHOST}:${PGPORT}/${PGDATABASE}`
 );
 
 const basename = path.basename(__filename);
@@ -33,10 +31,10 @@ let capsEntries = entries.map((entry) => [
 ]);
 sequelize.models = Object.fromEntries(capsEntries);
 
-const { Reservation, Room} = sequelize.models;
+// const { Reservation, Room} = sequelize.models;
 
-Room.hasMany(Reservation);
-Reservation.belongsTo(Room);
+sequelize.models.Room.hasMany(sequelize.models.Reservation);
+sequelize.models.Reservation.belongsTo(sequelize.models.Room);
 
 module.exports = {
   sequelize,
