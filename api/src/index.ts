@@ -4,7 +4,7 @@ import routes from "./routes/index";
 const { sequelize } = require("./database");
 const morgan = require("morgan");
 
-const { PORT } = process.env;
+const PORT = process.env.PORT;
 // , CLIENT_URL, WEBHOOK_URL
 //creamos el servidor
 const app = express();
