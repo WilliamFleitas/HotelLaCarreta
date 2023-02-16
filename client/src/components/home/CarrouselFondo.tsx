@@ -57,10 +57,10 @@ export const CarrouselFondo = () => {
     })}
   </div> 
   : 
-  <div className="grid grid-cols-2 text-[#696969] pt-28 pb-20 px-8 lg:pb-24 lg:p-14 lg:pt-24 aser:p-10 aser:pt-36 xl:p-[60px] xl:pb-8 xl:pt-28 lgg:p-[50px] lgg:pt-24 3x1:pt-30 3x1:pb-36 ">
+  <div className="grid grid-cols-2 text-[#696969] pt-28 pb-20 px-8 lg:pb-24 lg:p-14 lg:pt-24 aser:pt-36 xl:p-[60px] xl:pb-8 xl:pt-28 lgg:p-[50px] lgg:pb-[75px] ggg:pb-[150px]  lgg:pt-24 3x1:pt-30 3x1:pb-36 ">
     
-     <div id="slide2" className="p-5 space-y-3 text-[20px] lg:space-y-8 lg:p-0 lg:pt-5 lgg:space-y-5 xl:space-y-10  xl:leading-[36px] xl:p-4 ggg:leading-[28px] gxl:leading-[34px]  1xl:leading-[42px]">
-        <h2 className="text-[#E2725B] text-[40px] leading-10 lg:text-[60px] lg:leading-[60px] aser:text-[50px] aser:leading-[35px] lgg:leading-[75px] xl:leading-[60px] gxl:text-[55px] 3x1:text-[70px] 3x1:leading-[64px] 3x1:p-5">Imagine a place where you can be yourself</h2>
+     <div id="slide2" className="p-5 space-y-3 text-[20px] aser:leading-[23px] lg:space-y-8 lg:p-0 lg:pt-5 lgg:space-y-5 xl:space-y-10   xl:leading-[36px] xl:p-4 ggg:leading-[28px] gxl:leading-[34px]  1xl:leading-[42px]">
+        <h2 className="text-[#E2725B] text-[40px] leading-10 lg:text-[60px] lg:leading-[60px] aser:text-[50px] xl:pt-[0px] aser:leading-[45px] lgg:leading-[75px] ggg:pt-10 xl:leading-[60px] gxl:text-[55px] 3x1:text-[70px] 3x1:leading-[64px] 3x1:p-5">Imagine a place where you can be yourself</h2>
         <p className="pt-2 text-[20px] lg:text-[25px] aser:text-[23px] lg:p-3 lgg:p-0 gxl:text-[30px] 3x1:text-[35px]  3x1:p-5">Lorem ipsum dolor sit amet consectetur adipisicing elit. Odit delectus rem veniam ratione, voluptatibus debitis eveniet esse dicta odio cum, aspernatur quas repellat, voluptate corrupti numquam. Commodi facilis voluptates illo.</p>
 
             <div className="">

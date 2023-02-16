@@ -45,23 +45,25 @@ export const RoomCards = () => {
         <CheckFilter/>
       
 
-      <div className={typeof rooms === "object" && rooms.length > 0 ? ` grid grid-cols-2 lg:grid-cols-3 p-5 py-10 text-center items-center justify-center lg:p-2 lg:w-screen lgg:p-8 lgg:w-full` : `p-5 py-10 text-center items-center justify-center lg:p-2 lg:w-screen lgg:p-8 lgg:w-full`}>
+      <div className={typeof rooms === "object" && rooms.length > 0 ? `md:w-full md:pt-10 md:h-full grid grid-cols-2 lg:grid-cols-3 p-5 py-10 text-center items-center justify-center lg:p-2 lg:pt-14 lgg:p-8 ` : `p-5 py-10 text-center items-center justify-center lg:p-2 lg:w-screen lgg:p-8 lgg:w-full`}>
       {typeof rooms === "object" && rooms.length > 0 ? (
         rooms.map((rooms, index) => {
           return (
-            <div className="px-10 text-center pb-14 lg:px-5 lg:text-start" key={rooms.id}>
-              <img className="h-[200px] w-[260px] border border-[#E2725B] rounded-lg aser:w-screen aser:h-full" src={rooms.images?.[0]} alt={rooms.images?.[0]}/>
-              <h2 className="text-[#E2725B] pt-3 text-[25px] pb-3">{rooms.name}</h2> 
-              <div className=" pt-3  grid grid-cols-2 gap">
-               <h3 className=" text-[20px] pb-3 gap text-center ">●Zona: {rooms.roomZone}</h3>
-               <h3 className=" text-[20px] pb-3 gap text-center ">●Precio: <b className="text-[#E2725B]">{rooms.price}GS.</b></h3>
+            <div className="px-10 pb-14 lg:px-5 lg:text-start md:w-full md:h-full" key={rooms.id}>
+              <img className="h-[200px] w-[260px] border border-[#E2725B] rounded-lg m-auto" src={rooms.images?.[0]} alt={rooms.images?.[0]}/>
+              <h2 className="text-[#E2725B] pt-3 text-[25px] text-center pb-3">{rooms.name}</h2> 
+              <div className=" pt-3 ">
+               <h3 className=" text-[20px] pb-3 gap text-start">●Zona: {rooms.roomZone}</h3>
+               <h3 className=" text-[20px] pb-3 gap text-start ">●Precio: <b className="text-[#E2725B]">{rooms.price}GS.</b></h3>
               </div>
-              <p className="text-[20px] text-center pb-3">{rooms.preDescription}</p>
+              <p className="text-[20px] text-start pb-3">{rooms.preDescription}</p>
+              <div className="flex m-auto text-center items-center align-center justify-center">
               <Link to={`/roomdetail/${rooms.id}`}>
                 
               <button className="text-white  rounded-lg bg-[#B35642] p-2 px-5 hover:bg-opacity-[80%]"> RESERVAR ➜</button>
               
               </Link>
+              </div>
             </div>
           
           )

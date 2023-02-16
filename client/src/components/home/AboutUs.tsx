@@ -77,11 +77,11 @@ export const AboutUs = () => {
                     <p>No se encontraron instalaciones</p>
                     </div> : <></> : facilitiesDiv ? facilities.length ? facilities.map((e, index) => {
                         return (
-                            <div className="border p-5   items-center justify-center space-x-5 w-full  text-white" key={e.id}>
+                            <div className="border p-5  items-center justify-center space-x-5 w-full h-full text-white" key={e.id}>
                                 
                                 <div className="">
                                 <h2 className="   text-[23px] pb-5 ">{e.name}</h2>
-                                <img className="rounded-lg border border-white " src={e.image} alt={e.image}/>
+                                <img className="rounded-lg border m-auto border-white w-[200px] h-[150px]" src={e.image} alt={e.image}/>
                                 <p className="  pt-5">{e.description}</p>
                                 </div>
 

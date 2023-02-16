@@ -70,7 +70,7 @@ export const Gallery = () => {
                   </button>
                 </div>
 
-                <div className="bg-white bg-opacity-[90%] border-2 border-[#B35642]  w-full text-[18px] text-start  pb-4 pt-4 p-2 rounded-b-md  overflow-auto h-[150px]">
+                <div className="break-all bg-white bg-opacity-[90%] border-2 border-[#B35642]  w-full text-[18px] text-start  pb-4 pt-4 p-2 rounded-b-md  overflow-auto h-[150px]">
                   <p>{e.description}</p>
                 </div>
                 <div>

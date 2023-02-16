@@ -3,6 +3,7 @@ import dayjs from "dayjs";
 import { Router, Request, Response } from "express";
 import { checkRoleAuth } from "../libs/roleAuth";
 import { TokenValidation } from "../libs/validateToken";
+
 const { Reservation } = require("../database");
 const route = Router();
 const { Room } = require("../database");
@@ -112,13 +113,16 @@ route.get("/:id", async (req: Request, res: Response) => {
 
 route.put("/:id", TokenValidation, checkRoleAuth(rolType), async (req: Request, res: Response) => {
   try {
+    
      await Room.update(req.body, {
       where: {
         id: req.params.id,
       },
     });
+    
     res.status(200).send("Habitacion editada correctamente");
   } catch (error: any) {
+    
     res.status(400).send(`No se ha podido editar la habitacion ${error.response}`)
     
   }
@@ -145,15 +149,16 @@ route.put("/toggle/:id",  async (req: Request, res: Response) => {
 
 
 // ##enpoint que postea las habitaciones
-route.post("/", TokenValidation, checkRoleAuth(rolType), async (req: Request, res: Response) => {
+route.post("/", TokenValidation,  checkRoleAuth(rolType), async (req: Request, res: Response) => {
   try {
+    console.log("postconsol", req.body, req.header("auth-token"))
     if(!req.body.name || !req.body.description || !req.body.preDescription || !req.body.images || !req.body.price || !req.body.capacity){
       res.status(400).send("Faltan datos para crear la habitación")
     }
     const room = await Room.create(req.body);
     res.status(200).send(room);
   } catch (error) {
-    console.error(error);
+    console.error("errorpost", error);
     res.status(400).send(error);
   }
 });

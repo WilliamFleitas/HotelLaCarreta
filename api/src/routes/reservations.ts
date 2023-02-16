@@ -134,7 +134,7 @@ route.post("/webhooknotify",   async (req: Request, res: Response) => {
 
 route.post("/", async (req: Request, res: Response) => {
   try {
-    
+    console.log(req.body);
     const { name, email,  checkIn, checkOut, totalPrice, roomId, reservedDays, adults, payment, childs, nightQuantity, dni  } = req.body;
     const reservation = await Reservation.create({
       name,
@@ -153,6 +153,7 @@ route.post("/", async (req: Request, res: Response) => {
     await reservation.setRoom(roomId);
     res.status(200).send(reservation);
   } catch (error) {
+    console.log(error);
     res.status(400).send(error);
   }
 });

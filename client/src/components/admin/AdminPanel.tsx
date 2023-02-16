@@ -7,10 +7,9 @@ const AdminPanel = () => {
  
  
    return (
-        <div>
+        <div className="bg-[#928282] rounded-lg">
        <RoomsTable />
        <ReservationsTable />
-      <ProductsTable />
       </div>
    )     
   };

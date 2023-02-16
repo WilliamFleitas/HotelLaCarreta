@@ -230,6 +230,7 @@ export const CreateRoom = () => {
       
       imgUrls = await uploadImageDb(images, "Rooms");
       
+      const session = JSON.parse(window.localStorage.getItem("userSession") as string);
       const newObject = {
         name,
         images: imgUrls,
@@ -243,11 +244,17 @@ export const CreateRoom = () => {
         bathroom_features: newBathroomFeature,
       };
       if(images.length > 0 ){
-        axios.post(`${BackUrl}/rooms`, newObject).then((res) => {
+        
+        axios.post(`${BackUrl}/rooms`, newObject, {
+          headers: {
+              "auth-token":`${session}`
+          },
+      }).then((res) => {
           alert("Se creo la habitación");
-          window.location.reload();
+          window.location.replace('/admin/dashboard');
 
         }).catch((res) => {
+          console.log(res);
           alert("No se creo la habitación")
         })
       }

@@ -18,7 +18,7 @@ const RoomsTable = () => {
       <div className="flex flex-col w-11/12 bg-[#2f2e2e] border-2 rounded-xl min-h-[600px] px-6 py-4 gap-4 mt-6">
         <div className="flex flex-row items-center justify-between">
           <p className="text-white text-xl">Habitaciones</p>
-          <Link to="/createRoom">
+          <Link to="/admin/dashboard/createroom">
           <IoMdAddCircle className="h-8 w-8 cursor-pointer text-black hover:scale-110 hover:text-zinc-400 duration-300" />
           </Link>
         </div>
