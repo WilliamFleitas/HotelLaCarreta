@@ -14,8 +14,8 @@ const RoomsTable = () => {
   }, [dispatch]);
   
   return (
-    <div className="w-full min-h-screen pt-10 flex flex-col items-center justify-start bg-[#928282]">
-      <div className="flex flex-col w-11/12 bg-[#2f2e2e] border-2 rounded-xl min-h-[600px] px-6 py-4 gap-4 mt-6">
+    <div className="w-full min-h-screen flex flex-col items-center justify-start ">
+      <div className="flex flex-col w-11/12 bg-[#2f2e2e] border-2 rounded-xl min-h-[600px] px-6 py-4 gap-4 ">
         <div className="flex flex-row items-center justify-between">
           <p className="text-white text-xl">Habitaciones</p>
           <Link to="/admin/dashboard/createroom">

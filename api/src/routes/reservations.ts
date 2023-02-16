@@ -80,7 +80,7 @@ route.post("/webhooknotify",   async (req: Request, res: Response) => {
     const labelDebt = body.body.debt.label;
     const statusPay = body.body.debt.payStatus.status;
     const statusObj = body.body.debt.objStatus.status; 
-    //si la notify es igual a paid y el paid value es igual al paid amount se reserva la habitacion, si es solo una notify de pago partial no hace nada y notifica 200, 
+    
     if(statusPay === "paid" && statusObj === "success"){
 
       try {

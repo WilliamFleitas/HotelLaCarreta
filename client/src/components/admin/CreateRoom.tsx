@@ -263,7 +263,7 @@ export const CreateRoom = () => {
   
  
   return (
-    <form className="pt-[40px] text-black p-4 flex flex-col w-[335px] h-full justify-center items-center align-center text-center border-2" onSubmit={ onSubmit}>
+    <form className="pt-[40px] text-black p-4 mt-14 flex flex-col w-[405px] h-full justify-center items-center align-center text-center border-2 shadow-lg shadow-black" onSubmit={ onSubmit}>
       <p className="text-lg font-bold">Crear habitación</p>
       <div className=" text-black flex flex-col w-full ">
         <label className="text-sm text-black relative top-[8px] left-3 bg-[#B35642] border-2 border-black w-fit px-1 rounded-xl">Nombre de la habitación</label>

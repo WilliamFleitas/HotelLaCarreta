@@ -15,6 +15,7 @@ export interface RoomsDetails {
 	room_services: string[];
   id: string;
   Reservations: any[];
+  RoomId: string;
 };
 
 interface BookingIdType {
@@ -101,6 +102,7 @@ const initialState: RoomsState = {
 	    room_services: [],
       id: "",
       Reservations: [],
+      RoomId: "",
   },
   checkFilters: {
     date: "",
@@ -152,6 +154,7 @@ const RoomSlice = createSlice({
 	    room_services: [],
       id: "",
       Reservations: [],
+      RoomId: "",
     };
     },
     setLoading(state, action: PayloadAction<boolean>) {

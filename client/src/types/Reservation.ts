@@ -1,8 +1,15 @@
 import { Dispatch, SetStateAction } from "react";
+import { RoomsDetails } from "../redux/slices/RoomSlice";
 
 export interface ReservationRowType {
   id: string;
-  room: Room
+  room: RoomsDetails
+  reservation: ReservationType;
+}
+
+export interface ReservationAllRowType {
+  id: string;
+  room: RoomsDetails
   reservation: ReservationType[];
 }
 
