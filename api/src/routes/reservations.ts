@@ -4,6 +4,7 @@ import { revertTransactionAdams } from "./paymentControllers/paymentController";
 const {transporter, revertReservationEmail} = require("../transport/index");
 const route = Router();
 const { Reservation} = require("../database");
+const {Op} = require("sequelize");
 import dayjs from "dayjs";
 
 route.get("/", async (_req: Request, res: Response) => {
@@ -15,6 +16,22 @@ route.get("/", async (_req: Request, res: Response) => {
   }
 });
 
+route.get("/admin/filteredres", async (_req: Request, res: Response) => {
+  const result = await Reservation.findAll(
+    { where: {
+      entryDate: {
+        [Op.gte]: dayjs()
+      }
+    },
+      order: [ ['entryDate', 'ASC']]
+    }
+  );
+  if (result) {
+    res.status(200).send(result);
+  } else {
+    res.status(400).send("no se encontro nada");
+  }
+});
 
 route.get("/bookingid/:id", async (req: Request, res: Response) => {
   try {

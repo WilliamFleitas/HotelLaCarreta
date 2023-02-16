@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "../../hooks";
-import { getAllRooms } from "../../redux/slices/RoomSlice/RoomAction";
+import { getAllRooms, getFilteredReservations } from "../../redux/slices/RoomSlice/RoomAction";
 import { ReservationType } from "../../types/Reservation";
 
 
@@ -8,7 +8,8 @@ import ReservationsRow from "./ReservationsRow";
 
 const ReservationsTable = () => {
   const rooms = useAppSelector((state) => state.rooms.roomList);
-
+  const filteredRes = useAppSelector((state) => state.rooms.filteredReservations);
+  console.log("filterss", filteredRes)
 
   const filterRooms = rooms.filter((e) => e.Reservations.length > 0);
   console.log("filter", filterRooms);
@@ -17,6 +18,7 @@ const ReservationsTable = () => {
   
   useEffect(() => {
     dispatch(getAllRooms());
+    dispatch(getFilteredReservations());
   }, [dispatch]);
   return (
     <>

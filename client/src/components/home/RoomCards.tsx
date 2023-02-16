@@ -57,7 +57,7 @@ export const RoomCards = () => {
                <h3 className=" text-[20px] pb-3 gap text-start ">●Precio: <b className="text-[#E2725B]">{rooms.price}GS.</b></h3>
               </div>
               <p className="text-[20px] text-start pb-3">{rooms.preDescription}</p>
-              <div className="flex m-auto text-center items-center align-center justify-center">
+              <div className="flex m-auto text-start items-start justify-start ">
               <Link to={`/roomdetail/${rooms.id}`}>
                 
               <button className="text-white  rounded-lg bg-[#B35642] p-2 px-5 hover:bg-opacity-[80%]"> RESERVAR ➜</button>

@@ -1,5 +1,5 @@
 import axios from "axios";
-import { bookingById, checkType, clearRoomDetail, getRooms, roomById, RoomsDetails, setCheckFilters, setDebtDetail, setErrors, setHigherPriceRooms, setLoading } from ".";
+import { bookingById, checkType, clearRoomDetail, getRooms, roomById, RoomsDetails, setCheckFilters, setDebtDetail, setErrors, setFilteredReservations, setHigherPriceRooms, setLoading } from ".";
 import { AppDispatch } from "../../../store";
 
 const urlBack: string = (import.meta.env.VITE_BACK_URL as string);
@@ -33,9 +33,17 @@ export const getHigherPrice = () => (dispatch: AppDispatch) => {
             dispatch(setHigherPriceRooms(data));
         
     }).catch((error) => {
-        
+        setErrors("Hubo un error cargando las habitaciones, intente recargando la pagina");
     });
 };
+
+export const getFilteredReservations = () => (dispatch: AppDispatch) => {
+    axios.get(`${urlBack}/reservations/admin/filteredres`).then(({data}) => {
+        dispatch(setFilteredReservations(data));
+    }).catch((error) => {
+        setErrors("Hubo un error cargando las reservas, intente recargando la pagina");
+    });
+}
 
 export const getRoomId = (id: string) => (dispatch: AppDispatch) => {
     dispatch(setLoading(true));
