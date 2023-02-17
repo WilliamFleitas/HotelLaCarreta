@@ -2,6 +2,21 @@
     text-shadow: 0 0 2px #c9b505;
 } 
 
+.welcomeS {
+    box-shadow: 0px 15px 25px -10px rgb(85, 84, 84);
+    
+}
+
+.dragableF {
+    -webkit-user-drag: none; 
+    user-select: none;
+    -moz-user-select: none;
+    -webkit-user-drag: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+        pointer-events: none;
+    
+}
 
 .wrapper {
     position: relative;

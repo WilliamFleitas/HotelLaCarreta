@@ -1,14 +1,30 @@
-import React, {useEffect} from "react";
+import React, {useEffect, useState} from "react";
 import { Room } from "../../types/Reservation";
 import RoomsRow from "./RoomsRow";
 import { IoMdAddCircle } from "react-icons/io";
 import { useAppDispatch, useAppSelector } from "../../hooks";
 import { getAllRooms } from "../../redux/slices/RoomSlice/RoomAction";
 import { Link } from "react-router-dom";
+import axios from "axios";
 
 const RoomsTable = () => {
     const dispatch = useAppDispatch();
     const rooms = useAppSelector((state) => state.rooms.roomList); 
+    const [enabledButton, setEnabledButton] = useState(true);
+  
+    const handleEnable = (id:string) => {
+      const BackUrl = (import.meta.env.VITE_BACK_URL as string);
+    
+      // console.log("sess", session);
+        axios.put(`${BackUrl}/rooms/toggle/${id}`).then(() => {
+          setEnabledButton(!enabledButton);
+          alert("Se actualizo la habitación");
+        }).catch((e) => alert(`No se pudo actualizar la habitación: ${ e}`));
+        
+    };
+    useEffect(() => {
+      dispatch(getAllRooms());
+  }, [enabledButton]);
     useEffect(() => {
       dispatch(getAllRooms());
   }, [dispatch]);
@@ -38,6 +54,7 @@ const RoomsTable = () => {
               room_features={room.room_features}
               room_services={room.room_services}
               bathroom_features={room.bathroom_features}
+              handleEnable={handleEnable}
 
             />
             </div>

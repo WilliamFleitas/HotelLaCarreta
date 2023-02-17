@@ -51,6 +51,7 @@ export interface Room {
   room_services: string[];
   id: string;
   Reservations?: ReservationType[];
+  handleEnable?: any;
 }
 
 export interface EditRoomProps {

@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom";
 import { getAllRooms, setCheckFiltersAction } from "../../redux/slices/RoomSlice/RoomAction";
 import { checkType } from "../../redux/slices/RoomSlice";
 
+
 const { RangePicker } = DatePicker;
 const dateFormat = "YYYY/MM/DD";
 
@@ -47,35 +48,36 @@ export const CheckFilter = () => {
     navigate("/rooms");
     
   };
+  
 
   useEffect(() => {
     dispatch(getAllRooms(filters.date, filters.roomType));
   }, [dispatch]);
 
   return (
-    <div className="flex text-center items-center justify-center overflow-x-hidden">
-      <div className="bg-[#B35642] w-screen  h-full text-center- justify-center items-center p-5">
-        <h3 className="text-[2.5vh] text-white">Revisar disponibilidad de habitaciones</h3>
+    <div className=" flex text-center items-center justify-center overflow-x-hidden shadow-md border-t-2 border-[#c7c3c3] shadow-[#4a4949]">
+      <div className=" bg-[#B35642] w-screen  h-full text-center- justify-center items-center p-5" data-aos-delay="50" >
+        <h3 className="animation text-[3vh] text-white" data-aos-duration="900" data-aos-easing="ease-in-out" data-aos='zoom-in'>Revisar disponibilidad de habitaciones</h3>
 
-        <div className="flex flex-row text-center justify-center items-center text-[18px] text-[#B35642] font-bold">
+        <div className="animation flex flex-row text-center justify-center items-center text-[18px] text-[#B35642] font-bold" data-aos-duration="900" data-aos-easing="ease-in-out" data-aos='zoom-in'>
 
           <div>
-            <div className="">
+            <div className="" >
               <h2 className="text-white">Elegir fecha</h2>
               <DatePicker
                 disabledDate={disabledDate}
                 format={dateFormat}
                 onChange={onChangeDate}
                 id="checkIn"
-                className="p-3 border-2 shadow-md shadow-[#B35642] border-[#B35642] hover:border-[#B35642] font-bold text-[#c7cbce]"
+                className="p-3 border-2 shadow-inner shadow-[#d7d4d4] border-[#acabab] hover:border-[#6c6b6b] font-bold text-[#c7cbce]"
               />
             </div>
           </div>
 
           <div className="p-5">
-          <h2 className="text-white">Elegir Zona de la habitación</h2>
+          <h2 className="text-white ">Elegir Zona de la habitación</h2>
             <select
-            className="p-3 border-2 shadow-md shadow-[#B35642] border-[#B35642] hover:border-[#B35642] w-[190px] font-medium text-[#c7cbce] rounded-md text-center justify-center items-center " onChange={(e) => onChangeSelect(e)}
+            className="p-3 border-2 shadow-inner shadow-[#d7d4d4] border-[#d3d2d2] hover:border-[#6c6b6b] w-[190px] font-medium text-[#c7cbce] rounded-md text-center justify-center items-center " onChange={(e) => onChangeSelect(e)}
             >
           <option className="" value="">
           Todas
@@ -90,7 +92,7 @@ export const CheckFilter = () => {
           </div>
           
           <div className="pl-16 pt-7">
-            <button className="bg-white p-2 rounded-lg" onClick={() => handleCheck()}>Buscar ➜</button>
+            <button className="bg-white p-2 rounded-lg shadow-inner text-[#E2725B] shadow-[#d7d4d4] border-[#d3d2d2] hover:border-[#6c6b6b]" onClick={() => handleCheck()}>Buscar ➜</button>
           </div>
         </div>
 

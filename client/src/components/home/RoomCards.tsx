@@ -38,7 +38,7 @@ export const RoomCards = () => {
       </div>   
      </div>
       :
-      <div className="text-[#696969] justify-center items-center text-center py-12 leading-[25px]	">
+      <div className="text-[#696969] justify-center items-center text-center py-20 leading-[25px]	">
     
       <h2 className="text-[40px] py-10 text-[#E2725B]">Vea nuestras habitaciones!</h2>
       
@@ -49,8 +49,9 @@ export const RoomCards = () => {
       {typeof rooms === "object" && rooms.length > 0 ? (
         rooms.map((rooms, index) => {
           return (
-            <div className="px-10 pb-14 lg:px-5 lg:text-start md:w-full md:h-full" key={rooms.id}>
-              <img className="h-[200px] w-[260px] border border-[#E2725B] rounded-lg m-auto" src={rooms.images?.[0]} alt={rooms.images?.[0]}/>
+            <div className="px-10 pb-14 lg:px-5 lg:text-start md:w-full md:h-full" key={rooms.id} data-aos="flip-left"
+            data-aos-duration="2000">
+              <img className="h-[200px] w-[260px] border border-[#E2725B] rounded-lg m-auto shadow-lg shadow-black" src={rooms.images?.[0]} alt={rooms.images?.[0]}/>
               <h2 className="text-[#E2725B] pt-3 text-[25px] text-center pb-3">{rooms.name}</h2> 
               <div className=" pt-3 ">
                <h3 className=" text-[20px] pb-3 gap text-start">●Zona: {rooms.roomZone}</h3>
@@ -60,7 +61,7 @@ export const RoomCards = () => {
               <div className="flex m-auto text-start items-start justify-start ">
               <Link to={`/roomdetail/${rooms.id}`}>
                 
-              <button className="text-white  rounded-lg bg-[#B35642] p-2 px-5 hover:bg-opacity-[80%]"> RESERVAR ➜</button>
+              <button className="text-white border  rounded-lg bg-[#B35642] p-2 px-5 md:p hover:bg-opacity-[80%] shadow-lg shadow-[#5c5958] "> RESERVAR ➜</button>
               
               </Link>
               </div>

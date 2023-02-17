@@ -8,7 +8,7 @@ interface IProtectedProps {
 
 const Protected = ({ children }: IProtectedProps) => {
   const [display, setDisplay] = useState(false);
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   useEffect(() => {
     const session = window.localStorage.getItem("userSession");
