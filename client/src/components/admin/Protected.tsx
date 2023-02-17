@@ -8,7 +8,7 @@ interface IProtectedProps {
 
 const Protected = ({ children }: IProtectedProps) => {
   const [display, setDisplay] = useState(false);
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   useEffect(() => {
     const session = window.localStorage.getItem("userSession");
@@ -16,9 +16,11 @@ const Protected = ({ children }: IProtectedProps) => {
     if (session) {
         getUserCall()
         .then(({data}) => {
+          console.log("succecprotected", data);
                 setDisplay(true);
         })
-        .catch(() => {
+        .catch((error) => {
+          console.log("errorprotected", error);
           localStorage.removeItem("userSession");
           navigate("/");
         });

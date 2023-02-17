@@ -42,14 +42,14 @@ export const Footer = () => {
       <div className="md:p-5 ">
       <div className="text-black text-[50px] text-center items-center h-full w-full justify-center align-center flex flex-row py-5 space-x-8  md:h-fit ">
         <div className="md:bg-white rounded-lg">
-          <a draggable="false" href="https://es-la.facebook.com/lacarretaposadarural/"  rel="noopener noreferrer" >
+          <a draggable="false" href="https://es-la.facebook.com/lacarretaposadarural/"  rel="noopener noreferrer" target="_blank">
             <button className="hover:bg-white hover:bg-opacity-[70%]">
             <AiOutlineFacebook/>
             </button>
           </a>
         </div>
         <div className="md:bg-white rounded-lg">
-            <a draggable="false" href="https://www.instagram.com/la_carreta_posada/"  rel="noopener noreferrer" >
+            <a draggable="false" href="https://www.instagram.com/la_carreta_posada/"  rel="noopener noreferrer" target="_blank" >
             <button className="hover:bg-white hover:bg-opacity-[70%]">
           <AiOutlineInstagram/>
           </button>
@@ -74,7 +74,7 @@ export const Footer = () => {
       </div>
 
       <div className="md:p-5 ">
-      <div className="text-[#B35642] text-[15px] text-center items-center  justify-center align-center flex flex-row py-8 mt-8 space-x-3 px-5 md:border-t-2   md:bg-white md:rounded-2xl md:text-[3vh]">
+      <div className="text-[#E2725B] text-[15px] text-center items-center  justify-center align-center flex flex-row py-8 mt-8 space-x-3 px-5 md:border-t-2   md:bg-white md:rounded-2xl md:text-[3vh]">
       
         <a className="border border-white shadow-md shadow-black p-2 bg-white md:w-screen md:h-full md:border-none md:shadow-none hover:opacity-[60%]" href={window.location.pathname !== "/aboutus" ? "/aboutus" : "#facilitiesDiv" }>Detalles del hotel</a>
       

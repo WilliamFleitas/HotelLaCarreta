@@ -1,17 +1,33 @@
 import { Dispatch, SetStateAction } from "react";
+import { RoomsDetails } from "../redux/slices/RoomSlice";
 
-export interface Reservation {
-  id: String;
-  email: String;
-  rooms: Array<MiniRoom>;
-  adults: Number;
-  childs: Number;
-  entryDate: String;
-  exitDate: String;
-  price: Number;
-  payment: String;
+export interface ReservationRowType {
+  id: string;
+  room: RoomsDetails
+  reservation: ReservationType;
 }
 
+export interface ReservationAllRowType {
+  id: string;
+  room: RoomsDetails
+  reservation: ReservationType[];
+}
+
+export interface ReservationType {
+  id: string;
+  name: string;
+  email: string;
+  entryDate: string;
+  exitDate: string;
+  payment: string;
+  payAmount:number;
+  reservedDays: string[];
+  nightQuantity: number;
+  adults: number;
+  childs: number;
+  dni: string;
+  roomId: string;
+}
 export interface MiniRoom {
   id: String;
   name: String;
@@ -19,6 +35,7 @@ export interface MiniRoom {
   price: Number;
   image: string;
 }
+
 
 export interface Room {
   name: string;
@@ -33,6 +50,8 @@ export interface Room {
   bathroom_features: string[];
   room_services: string[];
   id: string;
+  Reservations?: ReservationType[];
+  handleEnable?: any;
 }
 
 export interface EditRoomProps {

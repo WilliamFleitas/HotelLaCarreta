@@ -1,90 +1,135 @@
-import React from "react";
-import { Reservation } from "../../types/Reservation";
+import React, { useEffect, useState } from "react";
+import { useAppDispatch, useAppSelector } from "../../hooks";
+import { RoomsDetails } from "../../redux/slices/RoomSlice";
+import {
+  getAllRooms,
+  getFilteredReservations,
+} from "../../redux/slices/RoomSlice/RoomAction";
+import dayjs from "dayjs";
+import ReservationsAllRow from "./ReservationsAllRow";
 
 import ReservationsRow from "./ReservationsRow";
 
 const ReservationsTable = () => {
-  const reservations = [
-    {
-      id: "12ADAL10",
-      email: "iancamu01@hotmail.com",
-      rooms: [
-        {
-          id: "1A12O40A",
-          name: "Habitacion estandar",
-          price: 100,
-          capacity: 2,
-          image:
-            "https://www.stanzahotel.com/wp-content/uploads/2020/07/2020_stanza_hotel_habitacion_sencilla_01.jpg",
-        },
-        {
-          id: "1A12O40A",
-          name: "Habitacion estandar",
-          price: 100,
-          capacity: 2,
-          image:
-            "https://www.stanzahotel.com/wp-content/uploads/2020/07/2020_stanza_hotel_habitacion_sencilla_01.jpg",
-        },
-        {
-          id: "1A12O40A",
-          name: "Habitacion estandar",
-          price: 100,
-          capacity: 2,
-          image:
-            "https://www.stanzahotel.com/wp-content/uploads/2020/07/2020_stanza_hotel_habitacion_sencilla_01.jpg",
-        },
-        {
-          id: "1A12O40A",
-          name: "Habitacion estandar",
-          price: 100,
-          capacity: 2,
-          image:
-            "https://www.stanzahotel.com/wp-content/uploads/2020/07/2020_stanza_hotel_habitacion_sencilla_01.jpg",
-        },
-        {
-          id: "1A12O40A",
-          name: "Habitacion estandar",
-          price: 100,
-          capacity: 2,
-          image:
-            "https://www.stanzahotel.com/wp-content/uploads/2020/07/2020_stanza_hotel_habitacion_sencilla_01.jpg",
-        },
-      ],
-      adults: 4,
-      childs: 2,
-      price: 100,
-      entryDate: "2022-12-01",
-      exitDate: "2022-12-12",
-      payment: "partial",
-    },
-  ];
+  const rooms = useAppSelector((state) => state.rooms.roomList);
+  const filteredRes = useAppSelector(
+    (state) => state.rooms.filteredReservations
+  );
+  console.log("filterss", filteredRes);
+  const filterRooms = rooms.filter((e) => e.Reservations.length > 0);
+  console.log("filterrr", filterRooms);
+
+  const [bookingSwitch, setBookingswitch] = useState();
+  const dispatch = useAppDispatch();
+
+  const [panelSwitch, setPanelSwitch] = useState(false);
+  const [resButton, setResbutton] = useState(false);
+  const [allButton, setAllButton] = useState(false);
+
+  const handleSwitch = (item: string) => {
+    switch (item) {
+      case "reservation":
+        setPanelSwitch(false);
+        setResbutton(true);
+        setAllButton(false);
+
+        break;
+      case "all":
+        setPanelSwitch(true);
+        setAllButton(true);
+        setResbutton(false);
+        break;
+      default:
+        setPanelSwitch(false);
+        setResbutton(true);
+        setAllButton(false);
+    }
+  };
+
+  useEffect(() => {
+    dispatch(getAllRooms());
+    dispatch(getFilteredReservations());
+  }, [dispatch]);
   return (
     <>
-      <div className="w-full h-screen bg-gray-300 flex flex-col items-center justify-center">
-        <div className="flex flex-col w-11/12 bg-white rounded-xl h-[600px] px-6 py-4">
-          <p className="text-gray-700 text-xl">Reservas</p>
-          <div className="select-none w-full grid grid-cols-6 mt-4 place-items-center border border-gray-300 rounded-t-2xl text-gray-500">
-            <p>ID</p>
-            <p>Email</p>
-            <p>Personas</p>
-            <p>Entrada/Salida</p>
-            <p>Pago</p>
-            <p>Total</p>
+      <div className="w-full h-full  flex flex-col items-center justify-center pb-10">
+        <div className="flex flex-col w-11/12 bg-[#2f2e2e] border-x-2   h-full ">
+          <div className="flex flex-row m-auto  gap-5 bg-[#2f2e2e] rounded-lg p-2 ">
+            <button
+              className={`border-2 shadow-sm shadow-white rounded-lg px-2 hover:bg-[#4a4949] hover:shadow-sm  hover:shadow-white ${!panelSwitch ? "shadow-sm shadow-white bg-[#4a4949]": ""}`}
+              onClick={() => handleSwitch("reservation")}
+              disabled={resButton}
+            >
+              Reservas cercanas
+            </button>
+            <button
+              className={`border-2  shadow-sm shadow-white rounded-lg px-2 hover:bg-[#4a4949] hover:shadow-sm  hover:shadow-white ${panelSwitch ? "shadow-sm shadow-white bg-[#4a4949]": ""}`}
+              onClick={() => handleSwitch("all")}
+              disabled={allButton}
+            >
+              Todas las reservas
+            </button>
           </div>
-          {reservations.map((reserva: Reservation) => (
-            <ReservationsRow
-              id={reserva.id}
-              email={reserva.email}
-              rooms={reserva.rooms}
-              adults={reserva.adults}
-              childs={reserva.childs}
-              price={reserva.price}
-              entryDate={reserva.entryDate}
-              exitDate={reserva.exitDate}
-              payment={reserva.payment}
-            />
-          ))}
         </div>
+
+        {!panelSwitch ? (
+          <div className="flex flex-col w-11/12 bg-[#2f2e2e] border-x-2 border-b-2 rounded-xl rounded-t-none h-full px-6 py-4">
+            <p className="text-white text-xl">Reservas cercanas a la fecha {dayjs().format("YYYY/MM/DD")}:</p>
+            { filteredRes ? (
+              filteredRes?.map((res: any) => {
+                const roomRes = rooms?.find((e) => e.id === res.RoomId);
+
+                return (
+                  <div
+                    className="text-center items-center justify-center "
+                    key={res.id.toString()}
+                  >
+                    <div>
+                      <ReservationsRow
+                        id={res.id}
+                        reservation={res}
+                        room={roomRes as RoomsDetails}
+                      />
+                    </div>
+                  </div>
+                );
+              })
+            ) : (
+              <>No se encontraron habitaciones</>
+            )}
+          </div>
+        ) : (
+          <></>
+        )}
+
+        {panelSwitch ? (
+          <div className="flex flex-col w-11/12 bg-[#2f2e2e] border-x-2 border-b-2 rounded-xl rounded-t-none h-full px-6 py-4">
+            <p className="text-white text-xl">Todas las reservas desde la creación:</p>
+
+            {filterRooms ? (
+              filterRooms?.map((res: any) => {
+                return (
+                  <div
+                    className="text-center items-center justify-center "
+                    key={res.id.toString()}
+                  >
+                    <div>
+                      <ReservationsAllRow
+                        id={res.id}
+                        reservation={res.Reservations}
+                        room={res}
+                      />
+                    </div>
+                  </div>
+                );
+              })
+            ) : (
+              <>No se encontraron habitaciones</>
+            )}
+          </div>
+        ) : (
+          <></>
+        )}
       </div>
     </>
   );

@@ -1,8 +1,12 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Room } from "../../types/Reservation";
 import { FaToggleOn } from "react-icons/fa";
 import { AiFillEdit } from "react-icons/ai";
 import EditRoomForm from "./EditRoomForm";
+import axios from "axios";
+import { getAllRooms } from "../../redux/slices/RoomSlice/RoomAction";
+import { useAppDispatch } from "../../hooks";
+
 
 const RoomsRow = ({
   id,
@@ -16,9 +20,16 @@ const RoomsRow = ({
   roomZone,
   room_features,
   room_services,
-  bathroom_features
+  bathroom_features,
+  handleEnable
 }: Room) => {
+  const dispatch = useAppDispatch();
   const [edit, setEdit] = useState(false);
+  
+  
+
+  
+
   return (
     <>
       <div
@@ -46,7 +57,7 @@ const RoomsRow = ({
           <FaToggleOn
             className={`w-8 h-fit self-start  cursor-pointer ${
               enabled ? "text-green-600" : "text-red-600 rotate-180"
-            }`}
+            }`} onClick={() => handleEnable(id)}
           />
         </div>
       </div>

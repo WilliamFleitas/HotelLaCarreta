@@ -227,8 +227,7 @@ export const CheckRoom = ({ roomId, reserved, price, roomName }: CheckRoomProps)
       bookingInput.nightQuantity > 0 &&
       bookingInput.name.length && bookingInput.email.length ){
         setDisableButton(true);
-       const res = await axios.post(`${urlBack}/reservations`, bookingInput);
-       
+       const res = await axios.post(`${urlBack}/reservations`, bookingInput)
        await setDebt({
         debt: {
             docId: res.data.id,

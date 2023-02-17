@@ -4,6 +4,7 @@ import { revertTransactionAdams } from "./paymentControllers/paymentController";
 const {transporter, revertReservationEmail} = require("../transport/index");
 const route = Router();
 const { Reservation} = require("../database");
+const {Op} = require("sequelize");
 import dayjs from "dayjs";
 
 route.get("/", async (_req: Request, res: Response) => {
@@ -15,6 +16,22 @@ route.get("/", async (_req: Request, res: Response) => {
   }
 });
 
+route.get("/admin/filteredres", async (_req: Request, res: Response) => {
+  const result = await Reservation.findAll(
+    { where: {
+      entryDate: {
+        [Op.gte]: dayjs()
+      }
+    },
+      order: [ ['entryDate', 'ASC']]
+    }
+  );
+  if (result) {
+    res.status(200).send(result);
+  } else {
+    res.status(400).send("no se encontro nada");
+  }
+});
 
 route.get("/bookingid/:id", async (req: Request, res: Response) => {
   try {
@@ -63,7 +80,7 @@ route.post("/webhooknotify",   async (req: Request, res: Response) => {
     const labelDebt = body.body.debt.label;
     const statusPay = body.body.debt.payStatus.status;
     const statusObj = body.body.debt.objStatus.status; 
-    //si la notify es igual a paid y el paid value es igual al paid amount se reserva la habitacion, si es solo una notify de pago partial no hace nada y notifica 200, 
+    
     if(statusPay === "paid" && statusObj === "success"){
 
       try {
@@ -134,7 +151,7 @@ route.post("/webhooknotify",   async (req: Request, res: Response) => {
 
 route.post("/", async (req: Request, res: Response) => {
   try {
-    
+    console.log(req.body);
     const { name, email,  checkIn, checkOut, totalPrice, roomId, reservedDays, adults, payment, childs, nightQuantity, dni  } = req.body;
     const reservation = await Reservation.create({
       name,
@@ -153,6 +170,7 @@ route.post("/", async (req: Request, res: Response) => {
     await reservation.setRoom(roomId);
     res.status(200).send(reservation);
   } catch (error) {
+    console.log(error);
     res.status(400).send(error);
   }
 });
