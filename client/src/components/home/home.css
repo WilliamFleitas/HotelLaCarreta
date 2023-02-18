@@ -2,6 +2,44 @@
     text-shadow: 0 0 2px #c9b505;
 } 
 
+.welcomeS {
+    box-shadow: 0px 15px 25px -10px rgb(85, 84, 84);
+    
+}
+
+
+@media only screen and (max-width: 768px) {
+    div.ant-picker-dropdown-range  {
+        display: flex;
+        width: 277px;
+        border-radius: 30px;
+        overflow: hidden;
+    }
+
+    
+  }
+  button.ant-btn  {
+    font-size: 10;
+    width: 100%;
+    border-style:  solid;
+    border-color: white;
+    background-color: rgb(77, 112, 128);
+    display: flex;
+    left: -100px;
+  }
+
+  
+.dragableF {
+    -webkit-user-drag: none; 
+    user-select: none;
+    -moz-user-select: none;
+    -webkit-user-drag: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+        pointer-events: none;
+    
+}
+
 .wrapper {
     position: relative;
 }

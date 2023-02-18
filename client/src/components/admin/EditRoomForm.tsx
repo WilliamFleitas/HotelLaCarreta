@@ -8,15 +8,14 @@ import { AiFillCloseCircle } from "react-icons/ai";
 import { MdDelete } from "react-icons/md";
 import { featureType } from "./CreateRoom";
 import { uploadImageDb } from "../../firebaseImg/uploadImageDb";
-
+import Swal from "sweetalert2"
 const trimString = (u: unknown) => (typeof u === "string" ? u.trim() : u);
 
 const EditRoomSchema = z.object({
   name: z.preprocess(
     trimString,
-    z
-      .string()
-      .min(5, { message: "Ingresa por lo menos 5 caracteres" })
+    z.
+    coerce.string().min(1, {message: "ingresa por lo menos un caracter"})
       .max(30, { message: "El limite es de 30 caracteres" })
   ),
 
@@ -24,7 +23,6 @@ const EditRoomSchema = z.object({
     trimString,
     z
       .string()
-      .min(15, { message: "Ingresa por lo menos 15 caracteres" })
       .max(200, { message: "El limite es de 200 caracteres" })
   ),
 
@@ -32,12 +30,11 @@ const EditRoomSchema = z.object({
     trimString,
     z
       .string()
-      .min(15, { message: "Ingresa por lo menos 15 caracteres" })
       .max(50, { message: "El limite es de 50 caracteres" })
   ),
-  price: z.coerce.number().min(1, { message: "Precio es requerido" }),
+  price: z.coerce.number().min(0, { message: "Precio es requerido" }),
 
-  capacity: z.coerce.number().min(1, { message: "Precio es requerido" }),
+  capacity: z.coerce.number().min(0, { message: "Precio es requerido" }),
 
   roomZone: z.enum(["Moderna", "Rustica"]),
 
@@ -45,7 +42,6 @@ const EditRoomSchema = z.object({
     trimString,
     z
       .string()
-      .min(1, { message: "Ingrese por lo menos 2 caracteristicas y vuelva a intentar" })
       .max(60, { message: "El limite es de 60 caracteres" })
   ),
 
@@ -53,7 +49,6 @@ const EditRoomSchema = z.object({
   .preprocess(
     trimString,
     z.coerce.string()
-      .min(1, { message: "Ingrese por lo menos 2 caracteristicas y vuelva a intentar" })
       .max(60, { message: "El limite es de 60 caracteres" })
       
   ),
@@ -62,10 +57,18 @@ const EditRoomSchema = z.object({
     trimString,
     z
       .string()
-      .min(1, { message: "Ingrese por lo menos 2 caracteristicas y vuelva a intentar" })
       .max(60, { message: "El limite es de 60 caracteres" })
   ),
 });
+
+interface InputValuesType {
+  name : string;
+  description: string;
+  preDescription: string;
+  price: number;
+  capacity: number;
+  roomZone: string;
+}
 
 type editRoomsType = z.infer<typeof EditRoomSchema>;
 const EditRoomForm = ({ edit, setEdit, data }: EditRoomProps) => {
@@ -77,6 +80,7 @@ const EditRoomForm = ({ edit, setEdit, data }: EditRoomProps) => {
   } = useForm<editRoomsType>({
     resolver: zodResolver(EditRoomSchema),
   });
+  
   const BackUrl = (import.meta.env.VITE_BACK_URL as string);
   
   
@@ -93,7 +97,14 @@ const EditRoomForm = ({ edit, setEdit, data }: EditRoomProps) => {
   const [newRoomService, setNewRoomService] = useState<string[]>([]);
   const [preImages, setPreImages] = useState<string[]>([]);
   const [images, setImages] = useState<File[]>([]);
-
+  const [inputValues, setInputValues] = useState<InputValuesType>({
+    name : "",
+    description: "",
+    preDescription: "",
+    price: 0,
+    capacity: 0,
+    roomZone: ""
+  });
   let imgUrls: string[] | null;
   let newImages: File[] = [];
 
@@ -212,25 +223,48 @@ const onSubmit = handleSubmit(
     
     imgUrls = await uploadImageDb(images, "Rooms");
     
+    const session = JSON.parse(window.localStorage.getItem("userSession") as string);
     const newObject = {
-      name,
+      name: inputValues?.name,
       images: imgUrls?.concat(preImages),
-      description,
-      preDescription,
-      price,
-      capacity,
-      roomZone,
+      description: inputValues?.description,
+      preDescription: inputValues?.preDescription,
+      price: inputValues.price,
+      capacity: inputValues.capacity,
+      roomZone: inputValues.roomZone,
       room_features: newRoomFeature,
       room_services: newRoomService,
       bathroom_features: newBathroomFeature,
     };
-    if(images.length > 0 ){
-      axios.put(`${BackUrl}/rooms/${data.id}`, newObject).then((res) => {
-        alert("Se actualizo la habitación");
-        // window.location.reload();
-
-      }).catch((res) => {
-        alert("No se actualizo la habitación")
+    if(preImages.length > 0 || images?.length > 0 ){
+      
+      // const headers = {
+      //   "Content-Type": "application/json",
+      //     "auth-token": `${session}`
+      // }
+      axios.put(`${BackUrl}/rooms/${data.id}`, newObject, {
+        headers: {
+            "auth-token":`${session}`
+        },
+    }).then((res) => {
+      
+      Swal.fire({
+        icon: "success",
+        title: "¡Se edito la habitación!",
+        timer: 2000,
+        showConfirmButton: false,
+      }).then((result) => {
+        if (result) {
+          
+      window.location.replace('/admin/dashboard');
+        }
+      })
+      }).catch((err) => {
+        Swal.fire({
+          icon: "error",
+          title: `No se pudo editar la habitación!, ${err.message}`,
+          timer: 2000,
+        })
       })
     }
   }
@@ -241,6 +275,14 @@ useEffect(() => {
   setNewBathroomFeature(data.bathroom_features);
   setNewRoomService(data.room_services);
   setPreImages(data.images);
+  setInputValues({
+    name : data.name,
+    description: data.description,
+    preDescription: data.preDescription,
+    price: data.price,
+    capacity: data.capacity,
+    roomZone: data.roomZone
+  });
 }, []);
 const asdas: any = images.concat(preImages as any) as any;
 
@@ -249,14 +291,14 @@ const asdas: any = images.concat(preImages as any) as any;
       <p className="text-lg font-bold">Editar habitación</p>
       <div className=" text-black flex flex-col w-full ">
         <label className="text-sm text-white border bg-[#2f2e2e]  hover:bg-[#807e7d] rounded-xl relative top-[8px] left-3   w-fit px-1 ">Nombre de la habitación</label>
-        <input className={`w-full border border-black rounded-xl px-3 py-2`} placeholder={data.name} value={data.name} type="text" id="name" {...register("name")} />
+        <input className={`w-full border border-black rounded-xl px-3 py-2`} placeholder={data.name} type="text" id="name" value={inputValues.name}  {...register("name")} onChange={ (e: any) =>setInputValues({...inputValues, name: e.target.value})}/>
 
         {errors?.name && (
           <p className="text-sm text-red-400">{errors.name.message}</p>
         )}
         
         <label className="text-sm text-white border bg-[#2f2e2e]  hover:bg-[#807e7d] rounded-xl    relative top-[8px] left-3 w-fit px-1 ">Descripción</label>
-        <textarea  id="description" placeholder={data.description} value={data.description} className="w-full border border-black rounded-xl px-3 py-2 p-2 text-black h-full text-start" {...register("description")}></textarea>
+        <textarea  id="description" placeholder={data.description} value={inputValues.description} className="w-full border border-black rounded-xl px-3 py-2 p-2 text-black h-full text-start" {...register("description")} onChange={ (e: any) =>setInputValues({...inputValues, description: e.target.value})}></textarea>
 
         {errors.description && (
           <p className="text-sm text-red-400">{errors.description.message}</p>
@@ -266,9 +308,10 @@ const asdas: any = images.concat(preImages as any) as any;
         <input className="w-full border  border-black rounded-xl px-3 py-2 h-18" 
           type="text"
           placeholder={data.preDescription}
-          value={data.preDescription}
+          value={inputValues.preDescription}
           id="preDescription"
-          {...register("preDescription")}
+          {...register("preDescription")} 
+          onChange={ (e: any) =>setInputValues({...inputValues, preDescription: e.target.value})}
         />
 
         {errors.preDescription && (
@@ -329,13 +372,13 @@ const asdas: any = images.concat(preImages as any) as any;
         </div>
         
         <label className="text-sm relative top-[8px] left-3 text-white border bg-[#2f2e2e]  hover:bg-[#807e7d] rounded-xl  w-fit px-1 ">Precio</label>
-         <input className="w-full border border-black  rounded-xl px-3 py-2" type="number" id="price" min="1" placeholder={data.price.toString()} value={data.price} {...register("price")} />
+         <input className="w-full border border-black  rounded-xl px-3 py-2" type="number" id="price" min="1" placeholder={data.price.toString()} value={inputValues.price} {...register("price")} onChange={ (e: any) => setInputValues({...inputValues, price: e.target.value})} />
 
         {errors.price && (
           <p className="text-sm text-red-400">{errors.price.message}</p>
         )}
         <label className="text-sm  relative top-[8px] left-3 text-white border bg-[#2f2e2e]  hover:bg-[#807e7d] rounded-xl  w-fit px-1">Capacidad</label>
-        <input className="w-full border border-black rounded-xl px-3 py-2" type="number" id="capacity" min="1" placeholder={data.capacity.toString()} value={data.capacity} {...register("capacity")} />
+        <input className="w-full border border-black rounded-xl px-3 py-2" type="number" id="capacity" min="1" placeholder={data.capacity.toString()} value={inputValues.capacity} {...register("capacity")} onChange={ (e: any) =>setInputValues({...inputValues, capacity: e.target.value})}/>
 
         {errors.capacity && (
           <p className="text-sm text-red-400">{errors.capacity.message}</p>
@@ -346,7 +389,6 @@ const asdas: any = images.concat(preImages as any) as any;
           <label className="text-sm  relative top-[8px] left-3  w-fit px-1 text-white border bg-[#2f2e2e]  hover:bg-[#807e7d] rounded-xl ">Zona de la habitación</label>
           <select className="w-full border mb-10 border-black rounded-xl px-3 py-2"
             placeholder={data.roomZone}
-            value={data.roomZone}
             id="roomZone"
             {...register("roomZone")}
           >
@@ -381,7 +423,7 @@ const asdas: any = images.concat(preImages as any) as any;
           {newRoomFeature.length > 0 ? (
             newRoomFeature.map((e) => {
               return (
-                <button className=" text-sm p-2 text-black border bg-white border-black rounded-xl ml-2" id="buttoRoomFeat"
+                <button className=" text-sm p-2 text-black border bg-white border-black rounded-xl ml-2" id="buttoRoomFeat" type="button"
                   key={e}
                   onClick={() => handleDeleteFeature(e, "room_features")}
                 >
@@ -422,7 +464,7 @@ const asdas: any = images.concat(preImages as any) as any;
           newBathroomFeature.map((e) => {
             return (
               <button
-              className=" text-sm p-2 text-black border border-black rounded-xl ml-2 bg-white"
+              className=" text-sm p-2 text-black border border-black rounded-xl ml-2 bg-white" type="button"
                 key={e}
                 onClick={() => handleDeleteFeature(e, "bathroom_features")}
               >
@@ -464,7 +506,7 @@ const asdas: any = images.concat(preImages as any) as any;
         {newRoomService.length > 0 ? (
           newRoomService.map((e) => {
             return (
-              <button className=" text-sm p-2 text-black border bg-white border-black rounded-xl ml-2 "
+              <button  type="button" className=" text-sm p-2 text-black border bg-white border-black rounded-xl ml-2 "
                 key={e}
                 onClick={() => handleDeleteFeature(e, "room_services")}
               >

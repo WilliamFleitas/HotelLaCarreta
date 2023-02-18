@@ -1,4 +1,5 @@
 import { createSlice, PayloadAction} from "@reduxjs/toolkit";
+import { ReservationType } from "../../../types/Reservation";
 
 export interface RoomsDetails {
   name: string;
@@ -14,6 +15,7 @@ export interface RoomsDetails {
 	room_services: string[];
   id: string;
   Reservations: any[];
+  RoomId: string;
 };
 
 interface BookingIdType {
@@ -53,6 +55,7 @@ interface RoomsState {
   roomDetail: RoomsDetails;
   debtDetail: DebtType;
   checkFilters: checkType;
+  filteredReservations: ReservationType[];
   higherPriceRoomList: Array<RoomsDetails>
   error: string;
   loading: boolean;
@@ -99,11 +102,13 @@ const initialState: RoomsState = {
 	    room_services: [],
       id: "",
       Reservations: [],
+      RoomId: "",
   },
   checkFilters: {
     date: "",
     roomType: "",
   },
+  filteredReservations: [],
   error: "",
   loading: false,
 };
@@ -121,8 +126,21 @@ const RoomSlice = createSlice({
     roomById(state, action: PayloadAction<RoomsDetails>) {
       state.roomDetail = action.payload;
     },
+    setFilteredReservations(state, action: PayloadAction<ReservationType[]>){
+      state.filteredReservations = action.payload
+    },
     setDebtDetail(state, action: PayloadAction<DebtType>){
       state.debtDetail = action.payload;
+    },
+    clearBookingById(state){
+      state.bookingById = {
+        payment: "",
+        payAmount: 0,
+        adults: 0,
+        childs: 0,
+        name: "",
+        entryDate: "",
+      }
     },
     bookingById(state, action: PayloadAction<BookingIdType>) {
       state.bookingById = action.payload;
@@ -146,7 +164,11 @@ const RoomSlice = createSlice({
 	    room_services: [],
       id: "",
       Reservations: [],
+      RoomId: "",
     };
+    },
+    clearRoomList(state) {
+      state.roomList = [];
     },
     setLoading(state, action: PayloadAction<boolean>) {
       state.loading = action.payload;
@@ -158,4 +180,4 @@ const RoomSlice = createSlice({
 });
 
 export default RoomSlice.reducer;
-export const { getRooms, roomById, setErrors, clearRoomDetail, setLoading, setHigherPriceRooms, bookingById, setDebtDetail, setCheckFilters } = RoomSlice.actions;
+export const { getRooms, roomById, setErrors, clearRoomDetail, setLoading, setHigherPriceRooms, bookingById, setDebtDetail, setCheckFilters, setFilteredReservations, clearRoomList, clearBookingById } = RoomSlice.actions;

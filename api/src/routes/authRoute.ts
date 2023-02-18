@@ -61,8 +61,7 @@ route.get("/profile", TokenValidation, checkRoleAuth(rolType), async (req: Reque
         res.status(200).send(result);
     }
     } catch (error: any) {
-        
-        res.status(400).send(error.message);
+        res.status(400).send(error);
     }
 });
 

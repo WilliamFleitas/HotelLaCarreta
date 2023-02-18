@@ -177,7 +177,6 @@ export const CheckRoom = ({ roomId, reserved, price, roomName }: CheckRoomProps)
         ...bookingInput,
         totalPrice: childsAmount! + daysAmount,
       });
-      return;
     }
     setBookingInput({ ...bookingInput, totalPrice: daysAmount });
     setShowRate(true);
@@ -227,8 +226,7 @@ export const CheckRoom = ({ roomId, reserved, price, roomName }: CheckRoomProps)
       bookingInput.nightQuantity > 0 &&
       bookingInput.name.length && bookingInput.email.length ){
         setDisableButton(true);
-       const res = await axios.post(`${urlBack}/reservations`, bookingInput);
-       
+       const res = await axios.post(`${urlBack}/reservations`, bookingInput)
        await setDebt({
         debt: {
             docId: res.data.id,
@@ -260,26 +258,27 @@ export const CheckRoom = ({ roomId, reserved, price, roomName }: CheckRoomProps)
 
   return (
     <div className="text-black text-center items-center justify-center">
-      <h2 className="text-[#B35642] text-[30px] pb-8">Cotización</h2>
-      <div className="flex flex-row justify-center p-5 space-x-3">
-        <div>
-          <h3 className="text-[#B35642] text-[24px]">Check In/Check Out</h3>
-          <div className="">
+      <h2 className="text-[#B35642] text-[25px] md:text-[30px] pb-8">Cotización</h2>
+      <div className=" md:flex md:flex-row justify-center  md:p-5 md:space-x-3">
+        <div className="">
+          <h3 className=" text-[#B35642] text-[18px] md:text-[24px] pb-5 md:pb-0">Check In/Check Out</h3>
+          <div className=" m-auto text-center justify-center items-center">
             <RangePicker
               disabledDate={disabledDate}
+              showTime
               format={dateFormat}
               onChange={handleRangePicker}
               id="checkIn"
-              className="p-3 border-2 shadow-md shadow-[#B35642] border-[#B35642] hover:border-[#B35642] font-bold text-[#c7cbce]"
+              className=" p-2 md:p-3 border-2 shadow-md shadow-[#B35642] border-[#B35642] hover:border-[#B35642] font-bold text-[#39678a]"
             />
           </div>
         </div>
 
         <div className="relative text-center items-center justify-center ">
-          <h3 className="text-[#B35642] text-[24px]">Guest</h3>
+          <h3 className="text-[#B35642] text-[24px] py-4 md:py-0">Guest</h3>
 
           <div
-            className="flex flex-row gap-5 p-[11.4px] rounded-lg border-[2px] border-[#B35642]  text-[#c0c0c0] font-bold shadow-md shadow-[#B35642]"
+            className="flex flex-row gap-5 p-[11.4px] text-center items-center justify-center rounded-lg border-[2px] border-[#B35642]  text-[#c0c0c0] font-bold shadow-md shadow-[#B35642]"
             onClick={() => setGuestSwitch(true)}
           >
             <div className="">
@@ -288,7 +287,7 @@ export const CheckRoom = ({ roomId, reserved, price, roomName }: CheckRoomProps)
 
             <h3>childs: {bookingInput.childs}</h3>
 
-            <div className="pt-1">
+            <div className=" md:pt-1">
               <BsFillPersonFill />
             </div>
           </div>
@@ -387,7 +386,7 @@ export const CheckRoom = ({ roomId, reserved, price, roomName }: CheckRoomProps)
           bookingInput.adults > 0 ? (
             <button
               type="button"
-              className="px-4 duration-300  py-2 text-[#B35642] bg-white text-[20px]  hover:duration-300  rounded-lg font-bold  border-[#E2725B] p-3 3x1:ml-5 hover:border-[#E2725B] hover:bg-zinc-100 shadow-md shadow-[#B35642] "
+              className="px-4 duration-300  py-2 text-[#B35642] bg-white md:text-[20px]  hover:duration-300  rounded-lg font-bold  border-[#E2725B] p-3 md:3x1:ml-5 hover:border-[#E2725B] hover:bg-zinc-100 shadow-md shadow-[#B35642] "
               onClick={() => showPrice()}
             >
               Ver tarifa
@@ -409,9 +408,9 @@ export const CheckRoom = ({ roomId, reserved, price, roomName }: CheckRoomProps)
       bookingInput.checkOut &&
       bookingInput.adults &&
       showRate ? (
-        <div className="p-10 items-center justify-center text-center ">
-          <div className="bg-[#B35642]  grid grid-cols-2 px-10  gap-x-20 p-5 rounded-lg relative pb-10 shadow-lg shadow-[#5f5e5e]">
-            <div className="p-5 text-start ">
+        <div className="text-[20px] p-2 md:p-10 items-start justify-start text-start ">
+          <div className="bg-[#B35642]  md:grid md:grid-cols-2 md:px-10 leading-8 md:leading-0 md:gap-x-20 p-5 rounded-lg relative pb-10 shadow-lg shadow-[#5f5e5e]">
+            <div className="md:p-5 md:text-start ">
               <h3>
                 Del {bookingInput?.checkIn} hasta el {bookingInput.checkOut}
               </h3>
@@ -425,15 +424,15 @@ export const CheckRoom = ({ roomId, reserved, price, roomName }: CheckRoomProps)
               </h3>
               <h3>Reserva a nombre de: {bookingInput.name ? bookingInput.name: "Inserte un nombre"}</h3>
               <h3>Notificar a email: {bookingInput.email ? bookingInput.email: "Inserte un email"}</h3>
-              <div className={`grid grid-cols-2 gap-x-1  ${checkErrors.bookingName.length ? "mb-0": "mb-20"}`}>
+              <div className={`py-5 md:py-0 md:grid md:grid-cols-2 md:gap-x-1  ${checkErrors.bookingName.length ? "mb-0": "mb-20"}`}>
                 <div className="">
-                  <label className="text-sm text-black relative top-[8px] left-3 bg-[#B35642] border-2 border-black w-fit px-1 rounded-xl">
+                  <label className="md:text-sm text-black relative top-[8px] left-3 bg-[#B35642] border-2 border-black rounded-xl w-fit px-1 ">
                     Nombre
                   </label>
                   <input
                     placeholder="Nombre del que reserva.."
                     value={bookingData.name}
-                    className={`w-full border border-[#B35642] shadow-inner shadow-black rounded-xl px-3 py-2`}
+                    className={`md:w-full border border-[#B35642] shadow-inner shadow-black rounded-xl md:px-3 md:py-2`}
                     
                     type="text"
                     id="nameBooking"
@@ -447,12 +446,12 @@ export const CheckRoom = ({ roomId, reserved, price, roomName }: CheckRoomProps)
                 </div>
                 
                 <div className="">
-                  <label className="text-sm text-black relative top-[8px] left-3 bg-[#B35642] border-2 border-black w-fit px-1 rounded-xl">
+                  <label className="md:text-sm text-black relative top-[8px] left-3 bg-[#B35642] border-2 border-black w-fit px-1 rounded-xl">
                     Email
                   </label>
                   <input
                     placeholder="Email.."
-                    className={`w-full border border-[#B35642] shadow-inner shadow-black rounded-xl px-3 py-2`}
+                    className={`md:w-full border border-[#B35642] shadow-inner shadow-black rounded-xl md:px-3 md:py-2`}
                     value={bookingData.email.trim()}
                     type="text"
                     id="emailBooking"
@@ -466,13 +465,13 @@ export const CheckRoom = ({ roomId, reserved, price, roomName }: CheckRoomProps)
               }
                 </div>
 
-                <div className="pb-16">
-                  <label className="text-sm text-black  relative top-[8px] left-3 bg-[#B35642] border-2 border-black w-fit px-1 rounded-xl">
+                <div className="pb-5 md:pb-16">
+                  <label className="md:text-sm text-black  relative top-[8px] left-3 bg-[#B35642] border-2 border-black w-fit md:px-1 rounded-xl">
                     DNI
                   </label>
                   <input 
                     placeholder="DNI del que reserva.."
-                    className={`w-full border shadow-inner  shadow-black border-[#B35642] rounded-xl px-3 py-2`}
+                    className={`md:w-full border shadow-inner  shadow-black border-[#B35642] rounded-xl md:px-3 md:py-2`}
                     type="number"
                     id="dniBooking"
                     onChange={(e) =>
@@ -481,12 +480,12 @@ export const CheckRoom = ({ roomId, reserved, price, roomName }: CheckRoomProps)
                   />
                 </div>
                 
-                <div className="">
+                <div className="text-center items-center justify-center">
                   <button
                     onClick={handleBookingOk}
                     type="button"
                     id="bookingOk"
-                    className="duration-300 text-[#B35642]   rounded-lg bg-white  hover:bg-[#c9c3c3] hover:duration-300 mt-[23.8px]  h-fit gap-x-0 px-3 py-2 font-bold  shadow-md shadow-[#5f5e5e] border border-[#c9c3c3]"
+                    className="duration-300 text-[#B35642]   rounded-lg bg-white  hover:bg-[#c9c3c3] hover:duration-300 mt-[23.8px]  h-fit gap-x-0 px-3 py-2 font-bold  shadow-md shadow-[#5f5e5e] border border-[#c9c3c3] m-auto"
                   >
                     OK
                   </button>
@@ -497,8 +496,8 @@ export const CheckRoom = ({ roomId, reserved, price, roomName }: CheckRoomProps)
             </div>
                 
               
-            <div className="justify-end items-end text-end ">
-              <div className="p-5 text-start  bg-white rounded-md shadow-lg shadow-[#5f5e5e]">
+            <div className="md:justify-end md:items-end md:text-end ">
+              <div className="p-5 mb-10 md:text-start  bg-white rounded-md shadow-lg shadow-[#5f5e5e]">
                 <ul>
                   <li>- Menores de 10 años pagan el 50%.</li>
                   <li>
@@ -516,16 +515,16 @@ export const CheckRoom = ({ roomId, reserved, price, roomName }: CheckRoomProps)
               </div>
             </div>
 
-            <div className="absolute bottom-2 right-[50%] ">
+            <div className="md:absolute md:bottom-2 md:right-[50%] items-center justify-center text-center">
                <h2 className="">Precio total: {bookingInput.totalPrice}GS</h2>
               <button
-                className="w-fit px-2 duration-300 text-[#B35642] bg-white  hover:bg-[#c9c3c3] hover:duration-300 py-2 rounded-lg font-bold  mt-2 shadow-md shadow-[#5f5e5e] border border-[#c9c3c3]" disabled={disableButton}
+                className="w-fit md:px-2 duration-300 text-[#B35642] bg-white  hover:bg-[#c9c3c3] hover:duration-300 py-2 rounded-lg font-bold  mt-2 shadow-md shadow-[#5f5e5e] border border-[#c9c3c3]" disabled={disableButton}
                 type="button" onClick={handleBooking}
               >
                 RESERVAR
               </button>
               {
-                checkErrors.bookingButton.length ? <div><h2 className=" text-white">{checkErrors.bookingButton}</h2></div> : <></>
+                checkErrors.bookingButton.length ? <div><h2 className=" md:text-white">{checkErrors.bookingButton}</h2></div> : <></>
               }
             </div>
           </div>

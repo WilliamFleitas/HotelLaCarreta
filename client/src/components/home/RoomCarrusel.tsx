@@ -9,24 +9,34 @@ export const RoomCarrusel = () => {
   const dispatch = useAppDispatch();
   const rooms = useAppSelector((state) => state.rooms.roomList);
   const {width} = useWindowSize();
-  let myInterval: ReturnType<typeof setInterval> | undefined;
+  var myIntervalRoom: ReturnType<typeof setInterval> | undefined;
   
   let [currentImg, setCurrentImg] = useState(0);
   const quantity = rooms.length -1;
 
   const nextImg = () => {
-    clearInterval(myInterval);
+    clearInterval(myIntervalRoom);
     setCurrentImg(currentImg === quantity ? 0 : currentImg + 1);
   };
 
   const goToSlide = (index: number) => {
-      clearInterval(myInterval);
+      clearInterval(myIntervalRoom);
       setCurrentImg(index);
   };
 
   useEffect(() => {
-    clearInterval(myInterval);
-    myInterval = setInterval(nextImg, 18000);
+    if(rooms.length > 1){
+      myIntervalRoom =  setTimeout(function(){
+        
+        
+        return nextImg();
+     }, 10000);
+     return  ()=> {
+      clearTimeout(myIntervalRoom);
+    }
+     
+  }
+  
   }, [currentImg]);
 
   useEffect(() => {
@@ -70,7 +80,7 @@ export const RoomCarrusel = () => {
         rooms.slice(0, 6).map((rooms, index) => {
           
           return (
-            <div key={rooms.id}>
+            <div key={rooms.id} >
               {currentImg === index && (
                 <div>
                   <RoomCard key={rooms.id} rooms={rooms} />
@@ -96,23 +106,24 @@ export const RoomCarrusel = () => {
     <div className="text-[#696969] justify-center items-center text-center p-5 py-5 leading-[25px]	">
       <div className="p-5 lgg:p-10">
       <h2 className="text-[40px] py-5 text-[#E2725B]">Habitaciones</h2>
-      <p className="text-[20px] ">Las habitaciones de la posada cuentan con todo lo que necesitas para relajarte de la forma más placentera durante su estadía en el campo, Lorem ipsum dolor sit amet consectetur adipisicing elit. Neque ad voluptatum unde distinctio.</p>
+      <p className="text-[25px] ">Las habitaciones de la posada cuentan con todo lo que necesitas para relajarte de la forma más placentera durante su estadía en el campo, Lorem ipsum dolor sit amet consectetur adipisicing elit. Neque ad voluptatum unde distinctio.</p>
       </div>
 
-      <div className={typeof rooms === "object" && rooms.length > 0 ? ` grid grid-cols-2 lg:grid-cols-3 p-5 py-10 text-center items-center justify-center lg:p-2 lg:w-screen lgg:p-8 lgg:w-full` : `  p-5 py-10 text-center items-center justify-center lg:p-2 lg:w-screen lgg:p-8 lgg:w-full` }>
+      <div className={typeof rooms === "object" && rooms.length > 0 ? ` w-full pb-20 grid grid-cols-2 lg:grid-cols-3 p-5 py-10 text-center items-center justify-center lg:p-2  lgg:p-8 gap-x-10 ` : `  p-5  py-10 text-center items-center justify-center lg:p-2 lg:w-screen lgg:p-8 lgg:w-full` } >
       {typeof rooms === "object" && rooms.length > 0 ? (
         rooms.slice(0,6).map((rooms, index) => {
           return (
-            <div className="px-10 text-center pb-14 lg:px-5 lg:text-start" key={rooms.id}>
-              <img className="h-[200px] w-[260px] border border-[#E2725B] rounded-lg aser:w-screen aser:h-full" src={rooms.images?.[0]} alt={rooms.images?.[0]}/>
+            <div className="m-auto h-full w-full mb-10 pb-10 px-10 text-center  lg:px-5 lg:text-start "  key={rooms.id}  data-aos="flip-left"
+            data-aos-duration="2000">
+              <img className="h-[200px] w-[260px] border border-[#d2a39d] shadow-lg shadow-[#5c5958] rounded-lg" src={rooms.images?.[0]} alt={rooms.images?.[0]}/>
               <h2 className="text-[#E2725B] pt-3 text-[25px] pb-3">{rooms.name}</h2> 
-              <div className=" pt-3  grid grid-cols-2 gap">
-               <h3 className=" text-[20px] pb-3 gap text-center ">●Zona: {rooms.roomZone}</h3>
-               <h3 className=" text-[20px] pb-3 gap text-center ">●Precio: <b className="text-[#E2725B]">{rooms.price}GS.</b></h3>
+              <div className=" pt-3 ">
+               <h3 className=" text-[20px] pb-3 gap text-start ">●Zona: {rooms.roomZone}</h3>
+               <h3 className=" text-[20px]  pb-3 gap text-start ">●Precio: <b className="text-[#E2725B]">{rooms.price}GS.</b></h3>
               </div>
               <Link to={`/roomdetail/${rooms.id}`}>
                 
-              <button className="text-white  rounded-lg bg-[#B35642] p-2 px-5 hover:bg-opacity-[80%] shadow-md shadow-[#ee7256]"> RESERVAR ➜</button>
+              <button className="text-white border  rounded-lg bg-[#B35642] p-2 px-5 md:p hover:bg-opacity-[80%] shadow-lg shadow-[#5c5958] "> RESERVAR ➜</button>
               
               </Link>
             </div>

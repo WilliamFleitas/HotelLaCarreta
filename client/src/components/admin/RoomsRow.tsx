@@ -1,8 +1,13 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Room } from "../../types/Reservation";
 import { FaToggleOn } from "react-icons/fa";
 import { AiFillEdit } from "react-icons/ai";
 import EditRoomForm from "./EditRoomForm";
+import axios from "axios";
+import { getAllRooms } from "../../redux/slices/RoomSlice/RoomAction";
+import { useAppDispatch } from "../../hooks";
+import { Link } from "react-router-dom";
+
 
 const RoomsRow = ({
   id,
@@ -16,9 +21,16 @@ const RoomsRow = ({
   roomZone,
   room_features,
   room_services,
-  bathroom_features
+  bathroom_features,
+  handleEnable
 }: Room) => {
+  const dispatch = useAppDispatch();
   const [edit, setEdit] = useState(false);
+  
+  
+
+  
+
   return (
     <>
       <div
@@ -28,7 +40,7 @@ const RoomsRow = ({
       >
         <img src={images[0]} alt="" className="w-32 h-fit rounded-lg " />
         <div className="flex flex-col content-start w-full">
-          <p className={`text-lg ${!enabled && "line-through"}`}>{name}</p>
+        <Link to={`/roomdetail/${id}`}><p className={`text-lg ${!enabled && "line-through"}`}>{name}</p> </Link>  
           <p className="text-sm text-[#2f2e2e]">
             Capacidad: {capacity.toString()}
           </p>
@@ -46,7 +58,7 @@ const RoomsRow = ({
           <FaToggleOn
             className={`w-8 h-fit self-start  cursor-pointer ${
               enabled ? "text-green-600" : "text-red-600 rotate-180"
-            }`}
+            }`} onClick={() => handleEnable(id)}
           />
         </div>
       </div>

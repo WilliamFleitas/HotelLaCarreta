@@ -4,6 +4,8 @@ import { revertTransactionAdams } from "./paymentControllers/paymentController";
 const {transporter, revertReservationEmail} = require("../transport/index");
 const route = Router();
 const { Reservation} = require("../database");
+const { emailContactToAdmin } = require("../transport/index");
+const {Op} = require("sequelize");
 import dayjs from "dayjs";
 
 route.get("/", async (_req: Request, res: Response) => {
@@ -15,22 +17,43 @@ route.get("/", async (_req: Request, res: Response) => {
   }
 });
 
+route.get("/admin/filteredres", async (_req: Request, res: Response) => {
+  const result = await Reservation.findAll(
+    { where: {
+      entryDate: {
+        [Op.gte]: dayjs()
+      }
+    },
+      order: [ ['entryDate', 'ASC']]
+    }
+  );
+  if (result) {
+    res.status(200).send(result);
+  } else {
+    res.status(400).send("no se encontro nada");
+  }
+});
 
 route.get("/bookingid/:id", async (req: Request, res: Response) => {
+  const {id} = req.params;
   try {
-    const {id} = req.params;
+    
     if(!/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/.test(id)){
       res.status(400).send("Ingrese un ID valido");
+      return;
   } 
+      if(id !== null){
+        const result = await Reservation.findByPk(id);
+        if(!result){
+          res.status(400).send("No se encontro la reserva")
+        }else{
+          res.status(200).send(result);
+        }
+      }  
       
-      const result = await Reservation.findByPk(id);
-      
-      if(!result){
-        res.status(400).send("No se encontro la habitación")
-      }else{
-        res.status(200).send(result);
+      else {
+        res.status(400).send("ID INVALIDO")
       }
-    
   } catch (error) {
     res.status(400).send("Algo fallo por favor intente más tarde");
   }
@@ -56,6 +79,19 @@ route.get("/adams/debtbyid/:id", async (req: Request, res: Response) => {
     
 });
 
+route.post("/emailcontact", async (req: Request, res: Response) => {
+
+  const body = req.body;
+
+  
+   transporter.sendMail(
+    emailContactToAdmin(body),
+      (err: any, info: any) =>
+        err ? res.status(400).send(err) : res.status(200).send(`Se envio el correo de contactos con la administración  , ${info.response}`)
+    );
+
+});
+
 route.post("/webhooknotify",   async (req: Request, res: Response) => {
   try {
     const body = req;
@@ -63,7 +99,7 @@ route.post("/webhooknotify",   async (req: Request, res: Response) => {
     const labelDebt = body.body.debt.label;
     const statusPay = body.body.debt.payStatus.status;
     const statusObj = body.body.debt.objStatus.status; 
-    //si la notify es igual a paid y el paid value es igual al paid amount se reserva la habitacion, si es solo una notify de pago partial no hace nada y notifica 200, 
+    
     if(statusPay === "paid" && statusObj === "success"){
 
       try {
@@ -134,7 +170,6 @@ route.post("/webhooknotify",   async (req: Request, res: Response) => {
 
 route.post("/", async (req: Request, res: Response) => {
   try {
-    
     const { name, email,  checkIn, checkOut, totalPrice, roomId, reservedDays, adults, payment, childs, nightQuantity, dni  } = req.body;
     const reservation = await Reservation.create({
       name,

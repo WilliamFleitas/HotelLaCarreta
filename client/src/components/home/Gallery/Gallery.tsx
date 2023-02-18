@@ -51,26 +51,26 @@ export const Gallery = () => {
             );
           })
         ) : (
-          <div>No se encontraron productos</div>
+          <div>No se encontraron publicaciones</div>
         )}
       </div>
       
     </div> 
     :
     <div className="pt-[70px] xl:pt-[60px] 1xl:pt-[40px]  text-black p-5 text-center items-center justify-center">
-      <h2 className="text-[35px] text-[#B35642] pt-3 pb-10">Publicaciones de La Carreta</h2>
-      <div className={typeof posts === "object" && posts.length > 0 ? "grid grid-cols-5 "  : "pt-8"}>
+      <h2 className="text-[35px] text-[#E2725B] pt-14 pb-10">Publicaciones de La Carreta</h2>
+      <div className={typeof posts === "object" && posts.length > 0 ? "grid grid-cols-5 gap-2"  : "pt-8"}>
         {
           typeof posts === "object" && posts.length > 0 ? posts.slice(0, 5).map((e, index) => {
             return (
-              <div className="p-1 " key={e.id}>
+              <div className="p-1 bg-[#B35642] rounded-lg shadow-md shadow-black" key={e.id} data-aos-duration="900" data-aos-easing="ease-in-out" data-aos='zoom-in'>
                 <div>
                 <button type="button" onClick={() => handleModal(true, index)}>
                   <img className="h-[330px] w-screen object-cover border-2 border-[#B35642] rounded-t-lg 1xl:h-[450px]" src={e.image}/>
                   </button>
                 </div>
 
-                <div className="bg-white bg-opacity-[90%] border-2 border-[#B35642]  w-full text-[18px] text-start  pb-4 pt-4 p-2 rounded-b-md  overflow-auto h-[150px]">
+                <div className="break-all bg-white bg-opacity-[90%] border-2 border-[#B35642]  w-full text-[18px] text-start  pb-4 pt-4 p-2 rounded-b-md  overflow-auto h-[150px]">
                   <p>{e.description}</p>
                 </div>
                 <div>
@@ -81,7 +81,7 @@ export const Gallery = () => {
                 </div>
               </div>
             )
-          }) : <div className="text-center items-center"><h2>No se encontraron productos...</h2></div>
+          }) : <div className="text-center items-center"><h2>No se encontraron publicaciones...</h2></div>
         }
       </div>
     </div> 

@@ -32,11 +32,11 @@ export const GalleryPhotos = () => {
           <h2 className="ccw:text-[25px] cvo:text-[28px]">
             Galleria de imagenes
           </h2>
-          <div className=" pt-3">
+          <div className=" pt-3" >
             {typeof postList === "object" && postList.length > 0 ? (
               postList.map((e, index) => {
                 return (
-                  <div className="p-5" key={e.id}>
+                  <div className="p-5" key={e.id} >
                     <button onClick={() => handleModal(true, index)}>
                     <img
                       
@@ -61,14 +61,14 @@ export const GalleryPhotos = () => {
         </div>
       ) : (
         <div className="text-black p-5 pt-14 text-center items-center justify-center flex flex-col">
-          <h2 className="text-[40px] text-[#B35642] pt-3 pb-10">Galeria</h2>
+          <h2 className="text-[40px] text-[#E2725B] pt-3 pb-10">Galeria</h2>
 
-          <div className={typeof postList === "object" && postList.length > 0 ? "p-5 bg-[#B35642] rounded-lg  h-[1200px] overflow-scroll  align-start justify-center text-center items-center " : "p-5 bg-[#B35642] rounded-lg  h-full w-screen overflow-hidden  align-start justify-center text-center items-center "}>
+          <div className={typeof postList === "object" && postList.length > 0 ? "p-5 bg-[#B35642] rounded-lg  h-[1200px] overflow-scroll overflow-x-hidden border-2 align-start justify-center text-center items-center shadow-lg shadow-black" : "p-5 bg-[#B35642] rounded-lg  h-full w-screen overflow-hidden  align-start justify-center text-center items-center "}>
             <div className={typeof postList === "object" && postList.length > 0 ? "gap-2 columns-3" : ""}>
               {typeof postList === "object" && postList.length > 0 ? (
                 postList.map((e, index) => {
                   return (
-                    <div className="p-3 " key={e.id}>
+                    <div className="p-3 " key={e.id} data-aos-duration="900" data-aos-easing="ease-in-out" data-aos='zoom-in'>
                       <button type="button" onClick={() => handleModal(true, index)}>
                       <img
                         className="rounded-lg h-full  w-screen object-cover border border-white"

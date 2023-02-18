@@ -15,7 +15,7 @@ export const Welcome = () => {
   const carroImageLarge = [fotoAncha1, fotoAncha2];
 
   return (
-    <div className="p-0  overflow-hidden">
+    <div className={` border-t-3 p-0  overflow-hidden ${width > 768 ? "welcomeS" : ""} `}>
       {width < 768 ? (
         <div className="h-[530px] p-7 pt-6 tcw:h-full tcw:w-screen tcw:p-0 tcw:pt-20 tsw:pt-28 md:grid md:grid-cols-2 md:text-center md:justify-center ">
           <h2 className="text-[25px] text-[#B35642] text-center">
@@ -55,37 +55,38 @@ export const Welcome = () => {
             </div>
           </div>
           </div>
+
         </div>
       ) : (
-        <div className="text-white bg-[#B35642] p-5 h-[800px] lg:p-8">
-          <h2 className="text-[45px] text-center py-14 lg:py-10">
+        <div className=" top text-white bg-[#B35642] border-y-4 border-double  border-[#bf9a9a]   p-5 h-[800px] lg:p-8  z-50" >
+          <h2 className="welcomeS animation text-[45px] text-center py-14 lg:py-10 rounded-lg" data-aos-duration="1400"  data-aos='zoom-in'>
             Bienvenido a La Carreta
           </h2>
           
-          <div className="grid grid-cols-2">
-            <p className="text-[25px] text-center p-5 pt-36 leading-8 lg:text-[30px]">
+          <div className=" grid grid-cols-2" data-aos-duration="1400"  data-aos='zoom-in'>
+            <p className=" text-center md:text-[25px] p-5 pt-36 leading-8 lg:text-[30px] rounded-lg">
               Lorem ipsum dolor sit amet, consectetur adipisicing elit. Tempora
               exercitationem officiis voluptatum hic similique tempore quasi,
               facere cumque, unde maiores placeat repellendus voluptas
               consequatur labore assumenda, sunt optio? Eius, distinctio.
             </p>
-            <div className=" grid grid-cols-2 grid-rows-2 pt-14 p-3 lgg:p-10">
+            <div className=" grid grid-cols-2 grid-rows-2 pt-14 p-3 lgg:p-10 rounded-lg">
               
-            <div className="w-full col-span-2 row-span-2 ">
+            <div className=" w-full col-span-2 row-span-2 ">
                 <SuperCarru
-                  className="h-[200px] w-screen object-cover rounded-xl border-2 border-white mt-5 mb-5 lg:h-[250px]"
+                  className="welcomeS h-[200px] w-screen object-cover rounded-xl border-2 border-white mt-5 mb-5 lg:h-[250px]"
                   file={carroImageLarge}
                 />
               </div>
               <div className="w-full pr-1">
                 <SuperCarru
-                  className="w-screen h-[200px] rounded-xl border-2 border-white object-cover lg:h-[230px]"
+                  className="welcomeS w-screen h-[200px] rounded-xl border-2 border-white object-cover lg:h-[230px]"
                   file={carroImage}
                 />
               </div>
               <div className="w-full pl-1">
                 <SuperCarru
-                  className="w-screen rounded-xl h-[200px] border-2 border-white object-cover lg:h-[230px]"
+                  className="welcomeS w-screen rounded-xl h-[200px] border-2 border-white object-cover lg:h-[230px]"
                   file={carroImage}
                 />
               </div>
