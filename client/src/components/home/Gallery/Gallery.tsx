@@ -51,7 +51,7 @@ export const Gallery = () => {
             );
           })
         ) : (
-          <div>No se encontraron productos</div>
+          <div>No se encontraron publicaciones</div>
         )}
       </div>
       
@@ -81,7 +81,7 @@ export const Gallery = () => {
                 </div>
               </div>
             )
-          }) : <div className="text-center items-center"><h2>No se encontraron productos...</h2></div>
+          }) : <div className="text-center items-center"><h2>No se encontraron publicaciones...</h2></div>
         }
       </div>
     </div> 

@@ -15,7 +15,7 @@ export const Welcome = () => {
   const carroImageLarge = [fotoAncha1, fotoAncha2];
 
   return (
-    <div className="welcomeS border-t-3p-0  overflow-hidden ">
+    <div className={` border-t-3 p-0  overflow-hidden ${width > 768 ? "welcomeS" : ""} `}>
       {width < 768 ? (
         <div className="h-[530px] p-7 pt-6 tcw:h-full tcw:w-screen tcw:p-0 tcw:pt-20 tsw:pt-28 md:grid md:grid-cols-2 md:text-center md:justify-center ">
           <h2 className="text-[25px] text-[#B35642] text-center">

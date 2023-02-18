@@ -11,7 +11,6 @@ const rolType: string = process.env.ROL_TYPE as string;
 
 route.get("/", async (req: Request, res: Response) => {
   const {date, roomType } = req.query;
-  console.log(date, roomType);
   try {
     
 
@@ -151,7 +150,6 @@ route.put("/toggle/:id",  async (req: Request, res: Response) => {
 // ##enpoint que postea las habitaciones
 route.post("/", TokenValidation,  checkRoleAuth(rolType), async (req: Request, res: Response) => {
   try {
-    console.log("postconsol", req.body, req.header("auth-token"))
     if(!req.body.name || !req.body.description || !req.body.preDescription || !req.body.images || !req.body.price || !req.body.capacity){
       res.status(400).send("Faltan datos para crear la habitación")
     }

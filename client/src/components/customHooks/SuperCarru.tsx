@@ -10,15 +10,22 @@ export const SuperCarru = (props: Props) => {
 
     const [actualImage, setActualImage] = useState(0);
 
-    let myInterval: ReturnType<typeof setInterval> | undefined;
+    var myIntervalSuperCarru: ReturnType<typeof setInterval> | undefined;
+    
     
     const nextImg = () => {
-        clearInterval(myInterval);
         setActualImage(actualImage === props.file.length - 1 ? 0 : actualImage + 1);
       };
 
       useEffect(() => {
-        myInterval = setInterval(nextImg, 14000);
+       
+      myIntervalSuperCarru =  setTimeout(function(){
+        
+        
+           return nextImg();
+        }, 10000);
+
+        return  ()=> {clearTimeout(myIntervalSuperCarru);}
       }, [actualImage]);
 
     return (

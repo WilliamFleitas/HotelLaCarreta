@@ -4,6 +4,7 @@ import { revertTransactionAdams } from "./paymentControllers/paymentController";
 const {transporter, revertReservationEmail} = require("../transport/index");
 const route = Router();
 const { Reservation} = require("../database");
+const { emailContactToAdmin } = require("../transport/index");
 const {Op} = require("sequelize");
 import dayjs from "dayjs";
 
@@ -34,20 +35,25 @@ route.get("/admin/filteredres", async (_req: Request, res: Response) => {
 });
 
 route.get("/bookingid/:id", async (req: Request, res: Response) => {
+  const {id} = req.params;
   try {
-    const {id} = req.params;
+    
     if(!/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/.test(id)){
       res.status(400).send("Ingrese un ID valido");
+      return;
   } 
+      if(id !== null){
+        const result = await Reservation.findByPk(id);
+        if(!result){
+          res.status(400).send("No se encontro la reserva")
+        }else{
+          res.status(200).send(result);
+        }
+      }  
       
-      const result = await Reservation.findByPk(id);
-      
-      if(!result){
-        res.status(400).send("No se encontro la habitación")
-      }else{
-        res.status(200).send(result);
+      else {
+        res.status(400).send("ID INVALIDO")
       }
-    
   } catch (error) {
     res.status(400).send("Algo fallo por favor intente más tarde");
   }
@@ -71,6 +77,19 @@ route.get("/adams/debtbyid/:id", async (req: Request, res: Response) => {
       res.status(200).send(debtAdams);
     }
     
+});
+
+route.post("/emailcontact", async (req: Request, res: Response) => {
+
+  const body = req.body;
+
+  
+   transporter.sendMail(
+    emailContactToAdmin(body),
+      (err: any, info: any) =>
+        err ? res.status(400).send(err) : res.status(200).send(`Se envio el correo de contactos con la administración  , ${info.response}`)
+    );
+
 });
 
 route.post("/webhooknotify",   async (req: Request, res: Response) => {
@@ -151,7 +170,6 @@ route.post("/webhooknotify",   async (req: Request, res: Response) => {
 
 route.post("/", async (req: Request, res: Response) => {
   try {
-    console.log(req.body);
     const { name, email,  checkIn, checkOut, totalPrice, roomId, reservedDays, adults, payment, childs, nightQuantity, dni  } = req.body;
     const reservation = await Reservation.create({
       name,
@@ -170,7 +188,6 @@ route.post("/", async (req: Request, res: Response) => {
     await reservation.setRoom(roomId);
     res.status(200).send(reservation);
   } catch (error) {
-    console.log(error);
     res.status(400).send(error);
   }
 });

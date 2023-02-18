@@ -56,8 +56,22 @@ const revertReservationEmail = (emailUser: string) => {
   }
 };
 
+const emailContactToAdmin = (prop: {name: string, lastname: string, subject: string, message: string, email: string}) => {
+
+  return {
+    from: `${prop.name}  ${prop.lastname}`,
+    to: `will-f1@hotmail.com`,
+    subject: `${prop.subject}`,
+    text : `
+    mensaje: ${prop.message},
+    email del usuario: ${prop.email}
+    `
+  }
+};
+
 module.exports = {
     payReservationEmail,
     revertReservationEmail,
+    emailContactToAdmin ,
     transporter
 }

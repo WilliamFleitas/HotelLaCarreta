@@ -6,6 +6,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { uploadImageDb } from "../../firebaseImg/uploadImageDb";
 import { MdDelete } from "react-icons/md";
 import { NavLink, useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
 
 const ACCEPTED_IMAGE_TYPES = [
   "image/jpeg",
@@ -249,12 +250,25 @@ export const CreateRoom = () => {
             },
           })
           .then((res) => {
-            alert("Se creo la habitación");
-            window.location.replace("/admin/dashboard");
+            Swal.fire({
+              icon: "success",
+              title: "¡Se creo la habitación!",
+              timer: 2000,
+              showConfirmButton: false,
+            }).then((result) => {
+              if (result) {
+                
+                window.location.replace("/admin/dashboard");
+              }
+            })
+            
           })
-          .catch((res) => {
-            console.log(res);
-            alert("No se creo la habitación");
+          .catch((err) => {
+            Swal.fire({
+              icon: "error",
+              title: `No se pudo crear la habitación!, ${err.message}`,
+              timer: 2000,
+            })
           });
       }
     }

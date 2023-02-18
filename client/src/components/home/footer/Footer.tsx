@@ -43,21 +43,21 @@ export const Footer = () => {
       <div className="text-black text-[50px] text-center items-center h-full w-full justify-center align-center flex flex-row py-5 space-x-8  md:h-fit ">
         <div className="md:bg-white rounded-lg">
           <a draggable="false" href="https://es-la.facebook.com/lacarretaposadarural/"  rel="noopener noreferrer" target="_blank">
-            <button className="hover:bg-white hover:bg-opacity-[70%]">
+            <button className="hover:bg-white hover:rounded-md hover:bg-opacity-[70%]">
             <AiOutlineFacebook/>
             </button>
           </a>
         </div>
         <div className="md:bg-white rounded-lg">
             <a draggable="false" href="https://www.instagram.com/la_carreta_posada/"  rel="noopener noreferrer" target="_blank" >
-            <button className="hover:bg-white hover:bg-opacity-[70%]">
+            <button className="hover:bg-white hover:rounded-md hover:bg-opacity-[70%]">
           <AiOutlineInstagram/>
           </button>
           </a>
           </div>
         <div className="md:bg-white rounded-lg">
             <button onClick={() => {
-              window.location.href = 'mailto:posadalacarretasp@gmail.com'}} className="hover:bg-white hover:bg-opacity-[70%]">
+              window.location.href = 'mailto:posadalacarretasp@gmail.com'}} className="hover:bg-white hover:rounded-md hover:bg-opacity-[70%]">
           <AiOutlineMail/>
           </button>
         </div>
@@ -76,12 +76,12 @@ export const Footer = () => {
       <div className="md:p-5 ">
       <div className="text-[#E2725B] text-[15px] text-center items-center  justify-center align-center flex flex-row py-8 mt-8 space-x-3 px-5 md:border-t-2   md:bg-white md:rounded-2xl md:text-[3vh]">
       
-        <a className="border border-white shadow-md shadow-black p-2 bg-white md:w-screen md:h-full md:border-none md:shadow-none hover:opacity-[60%]" href={window.location.pathname !== "/aboutus" ? "/aboutus" : "#facilitiesDiv" }>Detalles del hotel</a>
+        <a className="border border-white shadow-md shadow-black p-2 bg-white md:w-screen md:h-full md:border-none md:shadow-none hover:opacity-[60%]" href={"/aboutus"  }>Detalles del hotel</a>
       
 
-        <a className="border border-white p-2 bg-white shadow-md shadow-black md:w-screen md:h-full md:border-none md:shadow-none hover:opacity-[60%]" href={window.location.pathname !== "/aboutus" ? "/aboutus" : "#proyChange" }>Proyecto de intercambio</a>
+        <a className="border border-white p-2 bg-white shadow-md shadow-black md:w-screen md:h-full md:border-none md:shadow-none hover:opacity-[60%]" href={"/aboutus"  }>Proyecto de intercambio</a>
 
-        <a className="border border-white p-2 bg-white shadow-md shadow-black md:w-screen md:h-full md:border-none md:shadow-none hover:opacity-[60%]" href={window.location.pathname !== "/aboutus" ? "/aboutus" : "#proyRural" }>Proyecto rural
+        <a className="border border-white p-2 bg-white shadow-md shadow-black md:w-screen md:h-full md:border-none md:shadow-none hover:opacity-[60%]" href={"/aboutus"}>Proyecto rural
         </a>
       </div>
       </div>

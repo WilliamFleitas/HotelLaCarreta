@@ -132,6 +132,16 @@ const RoomSlice = createSlice({
     setDebtDetail(state, action: PayloadAction<DebtType>){
       state.debtDetail = action.payload;
     },
+    clearBookingById(state){
+      state.bookingById = {
+        payment: "",
+        payAmount: 0,
+        adults: 0,
+        childs: 0,
+        name: "",
+        entryDate: "",
+      }
+    },
     bookingById(state, action: PayloadAction<BookingIdType>) {
       state.bookingById = action.payload;
     },
@@ -157,6 +167,9 @@ const RoomSlice = createSlice({
       RoomId: "",
     };
     },
+    clearRoomList(state) {
+      state.roomList = [];
+    },
     setLoading(state, action: PayloadAction<boolean>) {
       state.loading = action.payload;
     },
@@ -167,4 +180,4 @@ const RoomSlice = createSlice({
 });
 
 export default RoomSlice.reducer;
-export const { getRooms, roomById, setErrors, clearRoomDetail, setLoading, setHigherPriceRooms, bookingById, setDebtDetail, setCheckFilters, setFilteredReservations } = RoomSlice.actions;
+export const { getRooms, roomById, setErrors, clearRoomDetail, setLoading, setHigherPriceRooms, bookingById, setDebtDetail, setCheckFilters, setFilteredReservations, clearRoomList, clearBookingById } = RoomSlice.actions;

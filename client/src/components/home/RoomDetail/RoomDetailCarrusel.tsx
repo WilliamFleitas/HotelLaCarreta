@@ -18,7 +18,7 @@ export const RoomDetailCarrusel = () => {
       {typeof rooms === "object" && rooms.length > 0 ? (
         rooms.slice(0, 3).map((rooms, index) => {
           return (
-            <div className="px-10 text-start pb-14 lg:px-5 lg:text-start" key={rooms.id}>
+            <div className="px-10 text-start pb-14 lg:px-5 lg:text-start h-[300px]" key={rooms.id}>
               <img className="h-[200px] w-[260px] border border-[#E2725B] rounded-lg aser:w-screen aser:h-full" src={rooms.images?.[0]} alt={rooms.images?.[0]}/>
               <h2 className="text-[#E2725B] pt-3 text-[25px] pb-3">{rooms.name}</h2> 
               <div className=" pt-3  grid grid-cols-2 gap">
@@ -27,7 +27,7 @@ export const RoomDetailCarrusel = () => {
               </div>
               <Link to={`/roomdetail/${rooms.id}`}>
                 
-              <button className="text-white  rounded-lg bg-[#B35642] p-2 px-5 hover:bg-opacity-[80%]"> RESERVAR ➜</button>
+              <button className="text-white pt-  rounded-lg bg-[#B35642] p-2 px-5 hover:bg-opacity-[80%]"> RESERVAR ➜</button>
               
               </Link>
             
@@ -44,7 +44,7 @@ export const RoomDetailCarrusel = () => {
       )}
        </div> 
        <Link to="/rooms">
-       <button className="text-white  rounded-lg bg-[#B35642] p-2 px-5  border-[#D3B616] hover:bg-[#c25f48] hover:border-[#7a6a10]"> VER MÁS ➜</button>
+       <button className="text-white mt-36  rounded-lg bg-[#B35642] p-2 px-5  border-[#D3B616] hover:bg-[#c25f48] hover:border-[#7a6a10]"> VER MÁS ➜</button>
        </Link>
         </div>
     )
