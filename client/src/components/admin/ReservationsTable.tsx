@@ -15,9 +15,7 @@ const ReservationsTable = () => {
   const filteredRes = useAppSelector(
     (state) => state.rooms.filteredReservations
   );
-  console.log("filterss", filteredRes);
   const filterRooms = rooms.filter((e) => e.Reservations.length > 0);
-  console.log("filterrr", filterRooms);
 
   const [bookingSwitch, setBookingswitch] = useState();
   const dispatch = useAppDispatch();
@@ -52,7 +50,7 @@ const ReservationsTable = () => {
   }, [dispatch]);
   return (
     <>
-      <div className="w-full h-full  flex flex-col items-center justify-center pb-10">
+      <div className="min-w-[500px] w-full h-full  flex flex-col items-center justify-center pb-10">
         <div className="flex flex-col w-11/12 bg-[#2f2e2e] border-x-2   h-full ">
           <div className="flex flex-row m-auto  gap-5 bg-[#2f2e2e] rounded-lg p-2 ">
             <button
@@ -75,7 +73,7 @@ const ReservationsTable = () => {
         {!panelSwitch ? (
           <div className="flex flex-col w-11/12 bg-[#2f2e2e] border-x-2 border-b-2 rounded-xl rounded-t-none h-full px-6 py-4">
             <p className="text-white text-xl">Reservas cercanas a la fecha {dayjs().format("YYYY/MM/DD")}:</p>
-            { filteredRes ? (
+            { filteredRes.length ? (
               filteredRes?.map((res: any) => {
                 const roomRes = rooms?.find((e) => e.id === res.RoomId);
 
@@ -95,7 +93,7 @@ const ReservationsTable = () => {
                 );
               })
             ) : (
-              <>No se encontraron habitaciones</>
+              <div>No se encontraron reservaciones cercanas</div>
             )}
           </div>
         ) : (
@@ -106,7 +104,7 @@ const ReservationsTable = () => {
           <div className="flex flex-col w-11/12 bg-[#2f2e2e] border-x-2 border-b-2 rounded-xl rounded-t-none h-full px-6 py-4">
             <p className="text-white text-xl">Todas las reservas desde la creación:</p>
 
-            {filterRooms ? (
+            {filterRooms.length ? (
               filterRooms?.map((res: any) => {
                 return (
                   <div
@@ -124,7 +122,7 @@ const ReservationsTable = () => {
                 );
               })
             ) : (
-              <>No se encontraron habitaciones</>
+              <div><h2>No se encontraron habitaciones</h2></div>
             )}
           </div>
         ) : (

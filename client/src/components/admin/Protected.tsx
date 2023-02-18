@@ -16,11 +16,9 @@ const Protected = ({ children }: IProtectedProps) => {
     if (session) {
         getUserCall()
         .then(({data}) => {
-          console.log("succecprotected", data);
                 setDisplay(true);
         })
         .catch((error) => {
-          console.log("errorprotected", error);
           localStorage.removeItem("userSession");
           navigate("/");
         });

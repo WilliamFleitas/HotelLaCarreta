@@ -23,14 +23,16 @@ const Home = () => {
       <div className="z-8">
       <CarrouselFondo />
       </div>
-      <div className="animation delay-150 duration-300" data-aos-duration="500" data-aos-easing="ease-in-out" data-aos='fade-up'>
+      
       <CheckFilter/>
-      </div>
       {
         width < 768 ? 
         <><Welcome/>
         <RoomCarrusel/>
         <Highlights/>
+        <Facilities/>
+        <div><Ubication/></div>
+        <Events/>
         </> 
         :
         <>

@@ -18,7 +18,7 @@ export const AboutUs = () => {
     };
     const {width} = useWindowSize();
     return (
-        <div className="text-[#696969] pt-6 text-center justify-center items-center  p-5 overflow-clip tsw:p-14 md:mt-20 aser:pt-36" data-aos-duration="900" data-aos-easing="ease-in-out" data-aos='zoom-in'>
+        <div className="text-[#696969] pt-6 text-center justify-center items-center  p-5 overflow-clip tsw:p-14 md:mt-14 aser:pt-14" data-aos-duration="900" data-aos-easing="ease-in-out" data-aos='zoom-in'>
             
             <h2 className="text-[23px] text-[#E2725B] md:text-[26px] aser:text-[35px] lg:text-[40px]  ggg:text-[48px] ">Sobre nosotros</h2>
 

@@ -9,24 +9,34 @@ export const RoomCarrusel = () => {
   const dispatch = useAppDispatch();
   const rooms = useAppSelector((state) => state.rooms.roomList);
   const {width} = useWindowSize();
-  let myInterval: ReturnType<typeof setInterval> | undefined;
+  var myIntervalRoom: ReturnType<typeof setInterval> | undefined;
   
   let [currentImg, setCurrentImg] = useState(0);
   const quantity = rooms.length -1;
 
   const nextImg = () => {
-    clearInterval(myInterval);
+    clearInterval(myIntervalRoom);
     setCurrentImg(currentImg === quantity ? 0 : currentImg + 1);
   };
 
   const goToSlide = (index: number) => {
-      clearInterval(myInterval);
+      clearInterval(myIntervalRoom);
       setCurrentImg(index);
   };
 
   useEffect(() => {
-    clearInterval(myInterval);
-    myInterval = setInterval(nextImg, 18000);
+    if(rooms.length > 1){
+      myIntervalRoom =  setTimeout(function(){
+        
+        
+        return nextImg();
+     }, 10000);
+     return  ()=> {
+      clearTimeout(myIntervalRoom);
+    }
+     
+  }
+  
   }, [currentImg]);
 
   useEffect(() => {

@@ -1,12 +1,12 @@
 import axios from "axios";
-import { bookingById, checkType, clearRoomDetail, getRooms, roomById, RoomsDetails, setCheckFilters, setDebtDetail, setErrors, setFilteredReservations, setHigherPriceRooms, setLoading } from ".";
+import { bookingById, checkType, clearBookingById, clearRoomDetail, clearRoomList, getRooms, roomById, RoomsDetails, setCheckFilters, setDebtDetail, setErrors, setFilteredReservations, setHigherPriceRooms, setLoading } from ".";
 import { AppDispatch } from "../../../store";
 
 const urlBack: string = (import.meta.env.VITE_BACK_URL as string);
 
 export const getAllRooms = (date?: string, roomType?: string) => (dispatch: AppDispatch) => {
     dispatch(setLoading(true));
-
+    dispatch(clearRoomList());
     const url : string = date || roomType ? `${urlBack}/rooms?date=${date}&roomType=${roomType}` : `${urlBack}/rooms`;
 
     axios.get(url).then(({data}) => {
@@ -60,6 +60,7 @@ export const getRoomId = (id: string) => (dispatch: AppDispatch) => {
 
 export const getBookingById = (id: string ) => (dispatch: AppDispatch) => {
     dispatch(setLoading(true));
+    dispatch(clearBookingById());
         axios.get(`${urlBack}/reservations/bookingid/${id}`).then(({data}) => {
             dispatch(bookingById(data));
         }).catch((errors) => {
@@ -71,7 +72,7 @@ export const getBookingById = (id: string ) => (dispatch: AppDispatch) => {
     
 };
 
-export const getDebtAdams = (id: string ) => (dispatch: AppDispatch) => {
+export const getDebtAdams = (id: string ):any => (dispatch: AppDispatch) => {
     dispatch(setLoading(true));
         axios.get(`${urlBack}/reservations/adams/debtbyid/${id}`).then(({data}) => {
             dispatch(setDebtDetail(data));

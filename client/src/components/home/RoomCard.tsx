@@ -17,11 +17,12 @@ export const RoomCard = ({rooms}:CardProps) => {
             <h2 className="bg-white m-2 h-[40px] p-2 rounded-lg text-[#B35642] text-[20px] border-2 border-[#D3B616]">{rooms.name}</h2>
 
             <div className="rounded-lg pt-4 " key={rooms.id}>
-            <img key={rooms.id} className="rounded-lg h-[200px] object-fit border-2 border-[#D3B616]" src={rooms.images[0]} alt={`${rooms.images[0]}_image`}/>
+            <img key={rooms.id} className="rounded-lg h-[200px] w-screen object-fit border-2 border-[#D3B616]" src={rooms.images[0]} alt={`${rooms.images[0]}_image`}/>
             </div>
             
             <div className="pt-4 text-white" >
             <h3 className="text-[20px] pb-4">Precio por noche: {rooms.price}</h3>
+            <h4>Zona de la habitación: {rooms.roomZone}</h4>
             <p>{rooms.preDescription}</p>
             
             </div>

@@ -6,6 +6,7 @@ import EditRoomForm from "./EditRoomForm";
 import axios from "axios";
 import { getAllRooms } from "../../redux/slices/RoomSlice/RoomAction";
 import { useAppDispatch } from "../../hooks";
+import { Link } from "react-router-dom";
 
 
 const RoomsRow = ({
@@ -39,7 +40,7 @@ const RoomsRow = ({
       >
         <img src={images[0]} alt="" className="w-32 h-fit rounded-lg " />
         <div className="flex flex-col content-start w-full">
-          <p className={`text-lg ${!enabled && "line-through"}`}>{name}</p>
+        <Link to={`/roomdetail/${id}`}><p className={`text-lg ${!enabled && "line-through"}`}>{name}</p> </Link>  
           <p className="text-sm text-[#2f2e2e]">
             Capacidad: {capacity.toString()}
           </p>

@@ -12,17 +12,23 @@ export const CarrouselFondo = () => {
   const { width} = useWindowSize();
   const [actualImage, setActualImage] = useState(0);
 
-  let myInterval: ReturnType<typeof setInterval> | undefined;
+  var myIntervalFondo: ReturnType<typeof setInterval> | undefined;
   const quantity = carroImage.length -1;
   const nextImg = () => {
-    clearInterval(myInterval);
-    clearInterval(myInterval);
+    clearInterval(myIntervalFondo);
+    clearInterval(myIntervalFondo);
     setActualImage(actualImage === quantity ? 0 : actualImage + 1);
   };
 
   useEffect(() => {
-    clearInterval(myInterval);
-    myInterval = setInterval(nextImg, 9000);
+    myIntervalFondo =  setTimeout(function(){
+        
+        
+      return nextImg();
+   }, 10000);
+
+   return  ()=> {clearTimeout(myIntervalFondo);}
+   
   }, [actualImage]);
 
   return (
@@ -31,7 +37,7 @@ export const CarrouselFondo = () => {
         
     {carroImage?.map((image: string, index: number): any => {
       return (
-        <div key={image} >
+        <div key={image} className="relative">
           {actualImage === index && (
             <div>
               <img draggable="false"
@@ -41,7 +47,7 @@ export const CarrouselFondo = () => {
                 loading="lazy"
               />
 
-              <div className="borderText absolute top-[250px] items-center w-[310px] tcw:justify-center text-center  text-white tcw:w-screen tsw:pt-20" draggable="false">
+              <div className="borderText absolute top-[200px] items-center w-[310px] tcw:justify-center text-center  text-white tcw:w-screen tsw:pt-20" draggable="false">
                 <h1 className="text-[70px] pl-2 pb-6 ">La Carreta </h1>
                 <h2 className=" text-[20px] tsw:text-[25px] pb-14 pl-2  ">Posada Rural</h2>
                 <Link to="/gallery">

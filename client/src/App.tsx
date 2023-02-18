@@ -14,10 +14,11 @@ import { Login } from "./components/admin/Login";
 import { useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "./hooks";
 import { getUserData } from "./redux/userSlice/userAction";
-
 import Protected from "./components/admin/Protected";
 import AOS from 'aos';
 import 'aos/dist/aos.css';
+import ScrollToTop from "./components/customHooks/ScrollToTop";
+
 
   
 function App() {
@@ -42,7 +43,9 @@ function App() {
     <div className="flex flex-col items-center justify-center content-center">
       <NavbarDisplayer />
       <NavBar />
+      <ScrollToTop/>
       <Routes>
+        
         <Route index element={<Home />} />
         <Route path="/home" element={<Home />} />
 

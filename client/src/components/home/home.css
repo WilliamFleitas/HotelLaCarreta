@@ -7,6 +7,28 @@
     
 }
 
+
+@media only screen and (max-width: 768px) {
+    div.ant-picker-dropdown-range  {
+        display: flex;
+        width: 277px;
+        border-radius: 30px;
+        overflow: hidden;
+    }
+
+    
+  }
+  button.ant-btn  {
+    font-size: 10;
+    width: 100%;
+    border-style:  solid;
+    border-color: white;
+    background-color: rgb(77, 112, 128);
+    display: flex;
+    left: -100px;
+  }
+
+  
 .dragableF {
     -webkit-user-drag: none; 
     user-select: none;

@@ -8,7 +8,7 @@ import { AiFillCloseCircle } from "react-icons/ai";
 import { MdDelete } from "react-icons/md";
 import { featureType } from "./CreateRoom";
 import { uploadImageDb } from "../../firebaseImg/uploadImageDb";
-
+import Swal from "sweetalert2"
 const trimString = (u: unknown) => (typeof u === "string" ? u.trim() : u);
 
 const EditRoomSchema = z.object({
@@ -236,7 +236,6 @@ const onSubmit = handleSubmit(
       room_services: newRoomService,
       bathroom_features: newBathroomFeature,
     };
-    console.log("newobj", newObject);
     if(preImages.length > 0 || images?.length > 0 ){
       
       // const headers = {
@@ -248,12 +247,24 @@ const onSubmit = handleSubmit(
             "auth-token":`${session}`
         },
     }).then((res) => {
-        alert("Se actualizo la habitación");
-        window.location.replace('/admin/dashboard');
-
-      }).catch((res) => {
-        console.log("asd", res);
-        alert("No se actualizo la habitación")
+      
+      Swal.fire({
+        icon: "success",
+        title: "¡Se edito la habitación!",
+        timer: 2000,
+        showConfirmButton: false,
+      }).then((result) => {
+        if (result) {
+          
+      window.location.replace('/admin/dashboard');
+        }
+      })
+      }).catch((err) => {
+        Swal.fire({
+          icon: "error",
+          title: `No se pudo editar la habitación!, ${err.message}`,
+          timer: 2000,
+        })
       })
     }
   }

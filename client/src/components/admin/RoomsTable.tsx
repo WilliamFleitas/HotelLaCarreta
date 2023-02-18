@@ -15,10 +15,8 @@ const RoomsTable = () => {
     const handleEnable = (id:string) => {
       const BackUrl = (import.meta.env.VITE_BACK_URL as string);
     
-      // console.log("sess", session);
         axios.put(`${BackUrl}/rooms/toggle/${id}`).then(() => {
           setEnabledButton(!enabledButton);
-          alert("Se actualizo la habitación");
         }).catch((e) => alert(`No se pudo actualizar la habitación: ${ e}`));
         
     };
@@ -30,8 +28,8 @@ const RoomsTable = () => {
   }, [dispatch]);
   
   return (
-    <div className="w-full min-h-screen flex flex-col items-center justify-start ">
-      <div className="flex flex-col w-11/12 bg-[#2f2e2e] border-2 rounded-xl min-h-[600px] px-6 py-4 gap-4 ">
+    <div className="min-w-[500px] min-h-[300px] w-full  flex flex-col items-center justify-start ">
+      <div className="flex flex-col w-11/12 bg-[#2f2e2e] border-2 rounded-xl min-h-[300px] px-6 py-4 gap-4 ">
         <div className="flex flex-row items-center justify-between">
           <p className="text-white text-xl">Habitaciones</p>
           <Link to="/admin/dashboard/createroom">
@@ -39,7 +37,7 @@ const RoomsTable = () => {
           </Link>
         </div>
 
-        {rooms.length &&
+        {rooms.length ?
           rooms.map((room) => (<div key={room.id as string}>
             <RoomsRow
               id={room.id as string}
@@ -58,7 +56,8 @@ const RoomsTable = () => {
 
             />
             </div>
-          ))}
+          )) : <div><h2>No se encontraron habitaciones</h2></div>
+        }
       </div>
     </div>
   );

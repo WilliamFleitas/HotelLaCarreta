@@ -151,10 +151,11 @@ export const RoomDetail = () => {
               <></>
             )}
           </div>
+          <CheckRoom roomId={id} reserved={room.Reservations} price={room.price} roomName={room.name}/>
         </div>
       ) : (
         <div>
-          <p>no se encontraron productos</p>{" "}
+          <p>no se encontro la habitacion</p>{" "}
         </div>
       )}
     </div> 
