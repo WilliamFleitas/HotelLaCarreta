@@ -63,9 +63,9 @@ export const Footer = () => {
         </div>
       </div>
 
-      <div className="pt-1 p-1 text-[18px] border-b-4 border-black md:border-none">
+      <div className="pt-1 p-1 text-[20px] border-b-4 border-black md:border-none">
         <h4 className="py-1">Celular: 0975666777</h4>
-        <h4 className="py-1">Email: frijolito@hotmail.com</h4>
+        <h4 className="py-1">Email: posadalacarretasp@gmail.com</h4>
         <p className="py-1">Atendemos de lunes a domingo las 24hs!</p>
       </div>
       </div>

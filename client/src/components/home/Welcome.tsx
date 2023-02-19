@@ -22,11 +22,8 @@ export const Welcome = () => {
             Bienvenido a La Carreta
           </h2>
           <div className="text-center text-black">
-            <p className="text-[15px] p-5 tcw:pt-14">
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Tempora
-              exercitationem officiis voluptatum hic similique tempore quasi,
-              facere cumque, unde maiores placeat repellendus voluptas
-              consequatur labore assumenda, sunt optio? Eius, distinctio.
+            <p className="text-[18px] p-5 tcw:pt-14">
+              Nos enfocamos en brindar un servicio y una experiencía de calidad de manera eficiente para hacer sentir a nuestros huéspedes como en casa, somos un oasis que tiene la mezcla perfecta entre naturaleza y confort para que puedas descansar en paz y olvidarte los problemas de la ciudad, tambien contamos con la mejor gastronomía tipica del Paraguay en nuestro establecimiento.
             </p>
           </div>
 
@@ -65,10 +62,7 @@ export const Welcome = () => {
           
           <div className=" grid grid-cols-2" data-aos-duration="1400"  data-aos='zoom-in'>
             <p className=" text-center md:text-[25px] p-5 pt-36 leading-8 lg:text-[30px] rounded-lg">
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Tempora
-              exercitationem officiis voluptatum hic similique tempore quasi,
-              facere cumque, unde maiores placeat repellendus voluptas
-              consequatur labore assumenda, sunt optio? Eius, distinctio.
+            Nos enfocamos en brindar un servicio y una experiencía de calidad de manera eficiente para hacer sentir a nuestros huéspedes como en casa, somos un oasis que tiene la mezcla perfecta entre naturaleza y confort para que puedas descansar en paz y olvidarte los problemas de la ciudad, tambien contamos con la mejor gastronomía tipica del Paraguay en nuestro establecimiento.
             </p>
             <div className=" grid grid-cols-2 grid-rows-2 pt-14 p-3 lgg:p-10 rounded-lg">
               
