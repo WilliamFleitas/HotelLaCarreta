@@ -29,7 +29,7 @@ export const AboutUs = () => {
 
       <div className=" p-5 md:grid md:grid-cols-2 md:p-8 h-full w-full md:space-x-5 lg:pt-24">
         <img
-          className="border border-[#B35642] rounded-lg  md:m-auto items-center justify-center "
+          className="border border-[#929290] rounded-lg  md:m-auto items-center justify-center shadow-lg shadow-black"
           src={fachada}
           alt={fachada}
         />
@@ -50,7 +50,7 @@ export const AboutUs = () => {
         </h2>
         <div className="justify-center items-center align-center ">
           <img
-            className=" border border-[#B35642] rounded-lg md:w-screen"
+            className=" border border-[#929290] rounded-md md:w-screen shadow-lg w-full shadow-black"
             src={vAerea}
             alt={vAerea}
           />
@@ -58,7 +58,7 @@ export const AboutUs = () => {
       </div>
 
       <div className="pt-10">
-        <div className=" text-white text-[25px] pt-7 bg-[#B35642] h-full  w-screen text-center p-5 object-fit border-[1px] border-[#D3B616] ">
+        <div className=" text-white text-[25px] pt-7 bg-[#B35642] h-full  w-screen text-center p-5 object-fit border-[1px] border-[#929290] shadow-lg shadow-black ">
           <h2
             data-aos-duration="900"
             data-aos-easing="ease-in-out"
@@ -86,7 +86,7 @@ export const AboutUs = () => {
               <p>
                 Nuestra misión es la de brindar un servicio de calidad,
                 ofreciendo una atención personalizada con el fin de dar a los
-                clientes una experiencía más humana, más cálida y más única.
+                clientes una experiencia más humana, más cálida y más única.
                 Crecemos y avanzamos buscando ser autosustentables en armonía
                 con la naturaleza.
               </p>
@@ -190,7 +190,7 @@ export const AboutUs = () => {
           )}
         </div>
         <section id="proyChange"></section>
-        <div className="mb-10 mt-14 p-5  md:p-8 h-full w-full  border-t-4 pt-14 border-black bg-zinc-800 shadow-md  shadow-black text-white pb-14">
+        <div className="mb-10 mt-14 p-5  md:p-8 h-full w-full  border-2 pt-14 border-[#929290] bg-zinc-800 shadow-md  shadow-black text-white pb-14">
           <h2 className="text-[30px] text-[#E2725B] md:text-[26px] aser:text-[35px] lg:text-[40px]  ggg:text-[48px] ">
             Proyecto intercambio
           </h2>
@@ -198,9 +198,7 @@ export const AboutUs = () => {
             <p className="text-center pt-8 md:pt-[15%] text-[18px] md:text-[24px] aser:text-[28px] lg:text-[34px] lg:pt-[20%] ggg:text-[38px] ggg:leading-[40px]">
               Mediante el proyecto de intercambio te damos la oportunidad de
               vivir la experiencia del campo, te dejamos unirte a nosotros como
-              trabajadores para hacer los diferentes quehaceres rurales, a
-              cambio de tu trabajo te ofrecemos la estadia gratis más las 3
-              comidas diaras.
+              trabajadores para hacer los diferentes quehaceres rurales y a cambio te damos la estadía completa en la posada sin costo alguno.
             </p>
             <img
               className="border border-[#B35642] rounded-lg mt-8"
@@ -211,23 +209,34 @@ export const AboutUs = () => {
           <section id="proyRural"></section>
         </div>
 
-        <div className=" p-5 md:p-8 h-full w-full  pt-14 border-t-4 border-black bg-zinc-800 shadow-md  shadow-black text-white pb-14">
+        <div className=" p-5 md:p-8 h-full w-full  pt-14 border-2 border-[#929290] bg-zinc-800 shadow-md  shadow-black text-white pb-14">
           <h2 className="text-[30px] text-[#E2725B] md:text-[26px] aser:text-[35px] lg:text-[40px]  ggg:text-[48px] ">
             Proyecto rural
           </h2>
           <div className="md:grid md:grid-cols-2 md:p-5 md:space-x-5 ">
-            <p className="text-center pt-8 md:pt-[15%] text-[18px] md:text-[24px] aser:text-[28px] lg:text-[34px] lg:pt-[20%] ggg:text-[38px] ggg:leading-[40px]">
-              El proyecto rural consiste en aprovechar el espacio del campo para
-              convertirlo en una zona verde, podes contribuir al mismo viniendo
-              a la posada a plantar tu arbol y contribuir con la causa! Si
-              reservas y venis con tu arbolito recibis descuentos!.
+            <p className="text-center pt-8 md:pt-[5px] text-[18px] md:text-[24px] aser:text-[28px] lg:text-[34px] ggg:text-[38px] ggg:leading-[40px]">
+            La Carreta pretende ser una Posada Turística autosustentable y autosostenible con el tiempo, a través de la
+producción orgánica de los alimentos (frutas, hortalizas) y el cuidado del Medio Ambiente a través de uso
+racional de agua, suelo, energía y materia orgánica con enfoque de economía circular de esa manera a contribuir
+en la reducción de huellas de carbono. 
             </p>
             <img
-              className="border border-white rounded-lg mt-8"
+              className="border border-white rounded-lg  m-auto"
               src={fachada}
               alt={fachada}
             />
+            
           </div>
+          <p className="text-center pt-8 md:pt-[10px] text-[18px] md:text-[24px] aser:text-[28px] lg:text-[34px] ggg:text-[38px] ggg:leading-[40px]">En este contexto “La Carreta” ya viene trabajando desde hace casi 4 años
+en la implementación de Huerta Orgánica, principalmente en la plantación de frutas, recuperación de suelo,
+práctica de rotación de cultivos y utilización de abono orgánico, generando fuentes de trabajos en la comunidad.
+La Carreta lleva adelante un programa denominado “HUELLA VERDE” donde los huéspedes de la Posada Rural
+que traen mudas forestales nativas se le hace un descuento por su estadía y plantan en el establecimiento con
+cartel puesto fecha y nombre del huésped. Igualmente quiere contribuir a mantener en el tiempo la Tradicion
+Misionera y a través de ella sobre la conciencia de la necesidad de conservar la Huella Jesuitica en la región,
+incluida el proyecto “Camino de los Jesuitas” en Sudamerica desarrollado con el Apoyo del BID (Banco
+Interamericano de Desarrollo)que es un Proposito Multidestino, compartido por Argentina, Bolivia Brasil,
+Uruguay y Paraguay</p>
         </div>
       </div>
     </div>

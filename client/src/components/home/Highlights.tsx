@@ -14,22 +14,22 @@ export const Highlights = () => {
               <p>
                 Además de ofrecer una hermosa estadía nos identificamos por
                 ofrecer un servicio diferencial, incluyendo en nuestras comidas
-                productos frescos de nuestra granja y huerta órganica.
+                productos frescos de nuestra granja y huerta orgánica.
                 Actualmente también comercializamos los productos de la granja
                 ofreciendo siempre la mejor calidad posible.
               </p>
               <p>
                 Nuestra posada cuenta con el sello de calidad de la
                 SENATUR(Secretaria Nacional de Turismo de Paraguay), además de
-                estar vinculada a la organización de las Posadas Turisticas del
+                estar vinculada a la organización de las Posadas Turísticas del
                 Paraguay
               </p>
               <p>
                 Nuestro alojamiento cuenta con actividades recreativas como
-                también vivir la experiencía del campo, ademas de dar
+                también vivir la experiencia del campo, además de dar
                 alojamiento y reservas para eventos también contamos con un
-                programa de intercambio, si te gusta el campo y queres saber más
-                sobre el trabajo en el te damós la oportunidad de trabajar con
+                programa de intercambio, si te gusta el campo y querés saber más
+                sobre el trabajo en él te damos la oportunidad de trabajar con
                 nosotros a cambio de alojamiento
               </p>
             </div>

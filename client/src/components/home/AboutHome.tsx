@@ -2,7 +2,7 @@ import React from "react";
 import abus from "../../assets/abus.jpeg";
 export const AboutHome = () => {
   return (
-    <div className="text-white bg-[#B35642] p-8 lg:p-14  overflow-x-hidden shadow-lg shadow-[#4d4a4a] border-2 border-double border-[#9e7e7e]">
+    <div className="text-white bg-[#B35642] p-8 lg:p-14  overflow-x-hidden shadow-lg shadow-[#4d4a4a] border-2 border-double border-[#929290]">
       <h2
         className="text-[35px] pt-8 "
         data-aos-duration="1400"
@@ -57,9 +57,9 @@ export const AboutHome = () => {
             <p className="text-[25px] leading-8">
               Nuestra misión es la de brindar un servicio de calidad, ofreciendo
               una atención personalizada con el fin de dar a los clientes una
-              experiencía más humana, más cálida y más única. Crecemos y
+              experiencia más humana, más cálida y más única. Crecemos y
               avanzamos buscando ser autosustentables en armonía con la
-              naturaleza. Promovemos la cultura del Pais y de la comunidad a
+              naturaleza. Promovemos la cultura del país y de la comunidad a
               través de nuestros servicios.
             </p>
           </div>

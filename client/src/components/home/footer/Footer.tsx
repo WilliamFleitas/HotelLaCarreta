@@ -10,7 +10,7 @@ export const Footer = () => {
   const {width} = useWindowSize();
 
     return (
-        <div className="text-center items-center justify-center   bg-[#B35642] mt-24 border-t-2 border-black h-full w-screen p-5 " > 
+        <div className="text-center items-center justify-center   bg-[#B35642] mt-24 border-t-2 border-[#929290] h-full w-screen p-5 shadow-md shadow-black" > 
         <section id="footer">
           {
             width >=768 ? 
@@ -74,7 +74,7 @@ export const Footer = () => {
       </div>
 
       <div className="md:p-5 ">
-      <div className="text-[#E2725B] text-[15px] text-center items-center  justify-center align-center flex flex-row py-8 mt-8 space-x-3 px-5 md:border-t-2   md:bg-white md:rounded-2xl md:text-[3vh]">
+      <div className="text-[#E2725B] text-[15px] text-center items-center  justify-center align-center flex flex-row py-8 mt-8 space-x-3 px-5 md:border-t-2 md:border-[#565655] md:shadow-md md:shadow-black  md:bg-white md:rounded-2xl md:text-[3vh]">
       
         <a className="border border-white shadow-md shadow-black p-2 bg-white md:w-screen md:h-full md:border-none md:shadow-none hover:opacity-[60%]" href={"/aboutus"  }>Detalles del hotel</a>
       
