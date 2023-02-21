@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import useWindowSize from "../customHooks/useWindowSize";
 import { FacilitiesTable } from "./FacilitiesTable";
@@ -25,6 +25,10 @@ const AdminPanel = () => {
       localStorage.removeItem("userSession");
       navigate("/");
    };
+
+   useEffect(() => {
+      window.scrollTo(0, 0);
+   }, [])
 
   return (
    <>

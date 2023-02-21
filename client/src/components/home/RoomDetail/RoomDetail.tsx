@@ -41,7 +41,10 @@ export const RoomDetail = () => {
   
   if (loading) {
     return (
-      <div>
+      <div className="text-black pt-36 mt-36 flex flex-row">
+        <svg className="animate-spin h-5 w-5 mr-3 bg-red-500 " viewBox="0 0 24 24">
+     
+     </svg>
         <h2>Cargando...</h2>
       </div>
     );
@@ -66,7 +69,7 @@ export const RoomDetail = () => {
                 <div  key={`${image}_room${index}`}>
                   {currentImg === index && (
                     <div className="cst:p-10 qn:p-16 sm:p-24" key={`${index}_currentimg${image}`}>
-                      <img className="border-2 border-[#B35642] h-[225px]  w-screen rounded-lg qn:h-[250px] sm:h-[270]" src={image} alt={image}/>
+                      <img className="border-2 border-[#B35642] h-[225px]  w-screen rounded-lg qn:h-[250px] sm:h-[270] object-cover" src={image} alt={image}/>
                     </div>
                   )}
                 </div>
@@ -82,7 +85,7 @@ export const RoomDetail = () => {
             <div key={`${image}_slide${index}`} onClick={() => goToSlide(index)} className="">
               {currentImg === index  ? (
                 <div className="opacity-[100%]" key={`${image}_slideImg${index}`}>
-                  <img className="rounded-lg border-2 border-black h-[35px] w-[50px] qn:h-[55px] qn:w-[75px]" src={image} alt={image}/>
+                  <img className="rounded-lg border-2 border-black h-[35px] w-[50px] qn:h-[55px] qn:w-[75px] object-cover" src={image} alt={image}/>
                 </div>
               ) : (
                 <div className="opacity-[40%]" key={`${image}_slideImgopacity${index}`}>

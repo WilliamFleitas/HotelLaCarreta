@@ -59,6 +59,7 @@ interface RoomsState {
   higherPriceRoomList: Array<RoomsDetails>
   error: string;
   loading: boolean;
+  loadingDetail: boolean;
 };
 
 const initialState: RoomsState = {
@@ -111,6 +112,8 @@ const initialState: RoomsState = {
   filteredReservations: [],
   error: "",
   loading: false,
+  loadingDetail: false,
+
 };
 
 const RoomSlice = createSlice({
@@ -173,6 +176,9 @@ const RoomSlice = createSlice({
     setLoading(state, action: PayloadAction<boolean>) {
       state.loading = action.payload;
     },
+    setLoadingDetail(state, action: PayloadAction<boolean>) {
+      state.loadingDetail = action.payload;
+    },
     setCheckFilters(state, action: PayloadAction<checkType>) {
       state.checkFilters = action.payload;
     },
@@ -180,4 +186,4 @@ const RoomSlice = createSlice({
 });
 
 export default RoomSlice.reducer;
-export const { getRooms, roomById, setErrors, clearRoomDetail, setLoading, setHigherPriceRooms, bookingById, setDebtDetail, setCheckFilters, setFilteredReservations, clearRoomList, clearBookingById } = RoomSlice.actions;
+export const { getRooms, roomById, setErrors, clearRoomDetail, setLoading, setHigherPriceRooms, bookingById, setDebtDetail, setCheckFilters, setFilteredReservations, clearRoomList, clearBookingById, setLoadingDetail } = RoomSlice.actions;

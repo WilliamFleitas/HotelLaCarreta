@@ -9,7 +9,8 @@ import axios from "axios";
 
 const RoomsTable = () => {
     const dispatch = useAppDispatch();
-    const rooms = useAppSelector((state) => state.rooms.roomList); 
+    const rooms = useAppSelector((state) => state.rooms.roomList);
+    const loading = useAppSelector((state) => state.rooms.loading) ;
     const [enabledButton, setEnabledButton] = useState(true);
   
     const handleEnable = (id:string) => {
@@ -56,7 +57,15 @@ const RoomsTable = () => {
 
             />
             </div>
-          )) : <div><h2>No se encontraron habitaciones</h2></div>
+          )) : loading ? (
+            <div className="text-black pt-36 mt-36 items-center justify-center text-center">
+            <svg
+              className="animate-spin h-5 w-5 m-auto bg-red-500 "
+              viewBox="0 0 24 24"
+            ></svg>
+            <h2>Cargando...</h2>
+          </div>
+          ) : <div><h2>No se encontraron habitaciones</h2></div>
         }
       </div>
     </div>

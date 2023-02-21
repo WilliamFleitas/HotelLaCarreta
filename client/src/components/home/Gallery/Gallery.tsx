@@ -10,6 +10,7 @@ import { GalleryPhotos } from "./GalleryPhotos";
 
 export const Gallery = () => {
   const posts = useAppSelector((state) => state.gallery.postList);
+  const loading = useAppSelector((state) => state.gallery.loading);
   const dispatch = useAppDispatch();
   const [showModal, setShowModal] = useState(false);
   const [currentImg, setCurrentImg] = useState(0);
@@ -50,6 +51,14 @@ export const Gallery = () => {
               </div>
             );
           })
+        ) :loading ? (
+          <div className="text-black pt-36 mt-36 items-center justify-center text-center">
+            <svg
+              className="animate-spin h-5 w-5 m-auto bg-red-500 "
+              viewBox="0 0 24 24"
+            ></svg>
+            <h2>Cargando...</h2>
+          </div>
         ) : (
           <div>No se encontraron publicaciones</div>
         )}
@@ -81,7 +90,15 @@ export const Gallery = () => {
                 </div>
               </div>
             )
-          }) : <div className="text-center items-center"><h2>No se encontraron publicaciones...</h2></div>
+          }) : loading ? (
+            <div className="text-black pt-36 mt-36 items-center justify-center text-center">
+              <svg
+                className="animate-spin h-5 w-5 m-auto bg-red-500 "
+                viewBox="0 0 24 24"
+              ></svg>
+              <h2>Cargando...</h2>
+            </div>
+          ) : <div className="text-center items-center"><h2>No se encontraron publicaciones...</h2></div>
         }
       </div>
     </div> 

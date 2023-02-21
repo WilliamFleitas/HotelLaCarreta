@@ -9,11 +9,13 @@ export interface FacilitiesDetail {
 
 interface FacilitieState {
     facilitiesList: Array<FacilitiesDetail>;
+    loading: boolean;
 
 }
 
 const initialState: FacilitieState ={
     facilitiesList: [],
+    loading: false,
 }
 
 const FacilitieSlice = createSlice({
@@ -25,9 +27,12 @@ const FacilitieSlice = createSlice({
           }, 
           clearFacilities(state){
             state.facilitiesList = [];
-          }
+          },
+        setLoading(state, action: PayloadAction<boolean>){
+            state.loading = action.payload;
+        }
     }
 });
 
 export default FacilitieSlice.reducer;
-export const {setFacilities, clearFacilities} = FacilitieSlice.actions;
+export const {setFacilities, clearFacilities, setLoading} = FacilitieSlice.actions;

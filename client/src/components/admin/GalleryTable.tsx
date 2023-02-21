@@ -12,7 +12,8 @@ import { getAllPost } from "../../redux/slices/GallerySlice/Galleryaction";
 
 
 const GallerySchema = z.object({
-    description: z.string().min(5, { message: "Ingresa por lo menos 5 caracteres" })
+    description: z.string().min(5, { message: "Ingresa por lo menos 5 caracteres" }),
+    images: z.instanceof(FileList).nullable()
 });
 
 type facilitiesType = z.infer<typeof GallerySchema>;
@@ -25,12 +26,14 @@ export const GalleryTable = () => {
         formState: {errors},
         handleSubmit,
         setValue,
+        reset
     } = useForm<facilitiesType>({
         resolver: zodResolver(GallerySchema)
     });
 
 
   const gallery = useAppSelector((state) => state.gallery.postList);
+  const loading = useAppSelector((state) => state.gallery.loading);
   const dispatch = useAppDispatch();
 
    
@@ -99,7 +102,13 @@ export const GalleryTable = () => {
                 }).then((result) => {
                   if (result) {
                     
-                    window.location.reload()
+                    dispatch(getAllPost());
+                    reset(formValues => ({
+                      ...formValues,
+                      description: ""
+                    }));
+                    setImages([]);
+                    
                   }
                 })
                 
@@ -109,6 +118,8 @@ export const GalleryTable = () => {
                   icon: "error",
                   title: `No se pudo crear la publicación!, ${err.message}`,
                   timer: 2000,
+                }).then((res) => {
+                  window.location.reload();
                 })
               });
           }
@@ -120,11 +131,11 @@ export const GalleryTable = () => {
   }, [dispatch]);
 
   return (
-    <div className="text-center items-center justify-center">
+    <div className="text-center items-center justify-center pt-5">
         <h2>Agregar publicación</h2>
 
         <div  >
-            <form className="flex flex-col p-5 bg-zinc-300 m-5 border border-black rounded-md text-black text-center items-center justify-center" onSubmit={onSubmit}>
+            <form className="flex flex-col p-5 bg-[#ac796e] m-5 border border-zinc-400 rounded-md text-black text-center items-center justify-center" onSubmit={onSubmit}>
                 
             
             <label className="text-sm text-black relative top-[3px] right-center bg-[#B35642] border-2 border-black w-fit px-1 rounded-xl mt-5">Descripción de la publicación</label>
@@ -137,9 +148,14 @@ export const GalleryTable = () => {
 
 
             <label className="my-5 text-sm text-black relative top-[0px] right-center bg-[#B35642] border-2 border-black w-fit px-1 rounded-xl">Imagen</label>
-            <input className="rounded-md "   type="file" accept=".png, .jpg, .jpeg, .gif"
+            <input className="rounded-md " type="file" accept=".png, .jpg, .jpeg, .gif"
                   id="images"
-                  key="images" onChange={onChangeFiles}/>
+                  key="images" {...register("images")} onChange={onChangeFiles} />
+                  {errors.images && (
+              <p className="pt-5 text-sm text-red-400">
+                {errors.images.message}
+              </p>
+            )}
              <div className="">
                 {images?.map((e: any, index: any) => {
                   return (
@@ -163,7 +179,7 @@ export const GalleryTable = () => {
       <h2>Todas las publicaciones</h2>
 
       <div className="h-[500px] min-w-[600px] overflow-y-auto p-5">
-        {gallery?.map((e) => {
+        { gallery.length > 0 ? gallery.map((e) => {
           return (
             <div key={e.id} className="p-5 grid grid-cols-2 bg-[#ac796e] border-2 border-zinc-400 rounded-md text-black m-auto text-center items-center justify-center">
               
@@ -174,7 +190,15 @@ export const GalleryTable = () => {
               <button className="bg-red-500 border border-black rounded-md w-[80px] h-full m-auto text-black hover:bg-red-300 " type="button" onClick={() => handleDelete(e.id)}>Eliminar</button>
             </div>
           );
-        })}
+        }) : loading ? (
+          <div className="text-black pt-36 mt-36 items-center justify-center text-center">
+          <svg
+            className="animate-spin h-5 w-5 m-auto bg-red-500 "
+            viewBox="0 0 24 24"
+          ></svg>
+          <h2>Cargando...</h2>
+        </div>
+        ) : (<div><h2>No se encontraron publicaciones</h2></div>) }
       </div>
     </div>
   );
