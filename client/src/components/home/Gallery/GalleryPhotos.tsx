@@ -6,6 +6,7 @@ import useWindowSize from "../../customHooks/useWindowSize";
 
 export const GalleryPhotos = () => {
   const {postList, postsLength} = useAppSelector((state) => state.gallery);
+  const loading = useAppSelector((state) => state.gallery.loading);
   
   const dispatch = useAppDispatch();
   const [showModal, setShowModal] = useState(false);
@@ -34,7 +35,7 @@ export const GalleryPhotos = () => {
           </h2>
           <div className=" pt-3" >
             {typeof postList === "object" && postList.length > 0 ? (
-              postList.map((e, index) => {
+              postList.map((e: any, index: number) => {
                 return (
                   <div className="p-5" key={e.id} >
                     <button onClick={() => handleModal(true, index)}>
@@ -53,8 +54,16 @@ export const GalleryPhotos = () => {
                   </div>
                 );
               })
+            ) : loading ? (
+              <div className="text-black pt-36 mt-36 items-center justify-center text-center">
+                <svg
+                  className="animate-spin h-5 w-5 m-auto bg-red-500 "
+                  viewBox="0 0 24 24"
+                ></svg>
+                <h2>Cargando...</h2>
+              </div>
             ) : (
-              <>No se encontraron publicaciones</>
+              <div><h2>No se encontraron publicaciones</h2></div>
             )}
             
           </div>
@@ -66,7 +75,7 @@ export const GalleryPhotos = () => {
           <div className={typeof postList === "object" && postList.length > 0 ? "p-5 bg-[#B35642] rounded-lg  h-[1200px] overflow-scroll overflow-x-hidden border-2 align-start justify-center text-center items-center shadow-lg shadow-black" : "p-5 bg-[#B35642] rounded-lg  h-full w-screen overflow-hidden  align-start justify-center text-center items-center "}>
             <div className={typeof postList === "object" && postList.length > 0 ? "gap-2 columns-3" : ""}>
               {typeof postList === "object" && postList.length > 0 ? (
-                postList.map((e, index) => {
+                postList.map((e: any, index) => {
                   return (
                     <div className="p-3 " key={e.id} data-aos-duration="900" data-aos-easing="ease-in-out" data-aos='zoom-in'>
                       <button type="button" onClick={() => handleModal(true, index)}>
@@ -85,6 +94,14 @@ export const GalleryPhotos = () => {
                     </div>
                   );
                 })
+              ) : loading ? (
+                <div className="text-black pt-36 mt-36 items-center justify-center text-center">
+                  <svg
+                    className="animate-spin h-5 w-5 m-auto bg-red-500 "
+                    viewBox="0 0 24 24"
+                  ></svg>
+                  <h2>Cargando...</h2>
+                </div>
               ) : (
                 <div>
                   <h2>No se encontraron imagenes</h2>

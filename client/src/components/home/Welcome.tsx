@@ -1,18 +1,24 @@
 import React from "react";
 import { SuperCarru } from "../customHooks/SuperCarru";
-import foto1 from "../../assets/carreta1.jpg";
-import foto2 from "../../assets/carreta2.jpg";
-import foto3 from "../../assets/carreta3.jpg";
 import fotoAncha1 from "../../assets/carretaAncho1.jpg";
 import fotoAncha2 from "../../assets/carretaAncho2.jpg";
+import laCarretaEntrada from "../../assets/entradaLaCarreta.jpg";
+import laCarretaVistaVerde from "../../assets/laCarretaVistaVerde.jpg";
+import laCarretaZonaVerde from "../../assets/laCarretaZonaVerde.jpg";
+import laCarretaVistaPradera from "../../assets/laCarretaVistaPradera.jpg";
+import laCarretaPorche from "../../assets/laCarretaPorche.jpg";
+import laCarretaTerere from "../../assets/laCarretaTerere.jpg";
+import laCarretaVacas from "../../assets/laCarretaVacas.jpg";
+import fogonInsta from "../../assets/fogoninsta.jpg";
 import useWindowSize from "../customHooks/useWindowSize";
 
 export const Welcome = () => {
   const { width } = useWindowSize();
 
-  const carroImage = [foto1, foto2, foto3];
+  const carroImage1 = [laCarretaTerere, laCarretaVacas, fogonInsta];
+  const carroImage2 = [laCarretaVistaVerde, laCarretaZonaVerde, laCarretaPorche];
 
-  const carroImageLarge = [fotoAncha1, fotoAncha2];
+  const carroImageLarge = [laCarretaEntrada, laCarretaVistaPradera , fotoAncha1, fotoAncha2, ];
 
   return (
     <div className={` border-t-3 p-0  overflow-hidden ${width > 768 ? "welcomeS" : ""} `}>
@@ -32,21 +38,21 @@ export const Welcome = () => {
             <div className="grid-cols-2 h-[280px] w-screen p-2 space-y-[6px] tcw:space-y-[3px] tsw:h-[350px] grid gap-2 grid-rows-2 items-center">
               <div className="w-full rounded border-2 border-[#B35642]">
                 <SuperCarru
-                  className="h-[130px] w-[144px] tcw:h-[130px] tcw:w-screen tsw:h-[150px]"
-                  file={carroImage}
+                  className="h-[130px] w-[144px] object-cover tcw:h-[130px] tcw:w-screen tsw:h-[150px]"
+                  file={carroImage1}
                 />
               </div>
 
               <div className="w-full col-span-1 row-span-2 rounded border-2 border-[#B35642] ">
                 <SuperCarru
-                  className="h-[270px] tcw:w-screen tsw:h-[325px]"
+                  className="h-[270px] tcw:w-screen object-cover tsw:h-[325px]"
                   file={carroImageLarge}
                 />
               </div>
               <div className="w-full rounded border-2 border-[#B35642]">
                 <SuperCarru
-                  className="h-[130px] w-[144px] tcw:h-[130px] tcw:w-screen rounded tsw:h-[150px]"
-                  file={carroImage}
+                  className="h-[130px] w-[144px] object-cover tcw:h-[130px] tcw:w-screen rounded tsw:h-[150px]"
+                  file={carroImage2}
                 />
               </div>
             </div>
@@ -75,13 +81,13 @@ export const Welcome = () => {
               <div className="w-full pr-1">
                 <SuperCarru
                   className="welcomeS w-screen h-[200px] rounded-xl border-2 border-white object-cover lg:h-[230px]"
-                  file={carroImage}
+                  file={carroImage1}
                 />
               </div>
               <div className="w-full pl-1">
                 <SuperCarru
                   className="welcomeS w-screen rounded-xl h-[200px] border-2 border-white object-cover lg:h-[230px]"
-                  file={carroImage}
+                  file={carroImage2}
                 />
               </div>
               

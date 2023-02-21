@@ -3,6 +3,8 @@ import fachada from "../../assets/fachadaposada.jpeg";
 import vAerea from "../../assets/vistaaerea.png";
 import { useAppDispatch, useAppSelector } from "../../hooks";
 import { getAllFacilities } from "../../redux/slices/FacilitiesSlice/FacilitieAction";
+import proyRural from "../../assets/misionLacarreta.png";
+import proyIntercambio from "../../assets/proyintercambio.jpg";
 import useWindowSize from "../customHooks/useWindowSize";
 
 export const AboutUs = () => {
@@ -195,15 +197,15 @@ export const AboutUs = () => {
             Proyecto intercambio
           </h2>
           <div className="md:grid md:grid-cols-2 md:p-5 md:space-x-5 ">
-            <p className="text-center pt-8 md:pt-[15%] text-[18px] md:text-[24px] aser:text-[28px] lg:text-[34px] lg:pt-[20%] ggg:text-[38px] ggg:leading-[40px]">
+            <p className="text-center  text-[18px] md:text-[24px] aser:text-[28px] lg:text-[34px]  ggg:text-[38px] ggg:leading-[40px] m-auto">
               Mediante el proyecto de intercambio te damos la oportunidad de
               vivir la experiencia del campo, te dejamos unirte a nosotros como
               trabajadores para hacer los diferentes quehaceres rurales y a cambio te damos la estadía completa en la posada sin costo alguno.
             </p>
             <img
-              className="border border-[#B35642] rounded-lg mt-8"
-              src={fachada}
-              alt={fachada}
+              className="border border-[#B35642] rounded-lg mt-8 min-h-[400px] m-auto"
+              src={proyIntercambio}
+              alt={proyIntercambio}
             />
           </div>
           <section id="proyRural"></section>
@@ -221,9 +223,9 @@ racional de agua, suelo, energía y materia orgánica con enfoque de economía c
 en la reducción de huellas de carbono. 
             </p>
             <img
-              className="border border-white rounded-lg  m-auto"
-              src={fachada}
-              alt={fachada}
+              className="border border-[#B35642] rounded-lg min-h-[400px] m-auto"
+              src={proyRural}
+              alt={proyRural}
             />
             
           </div>

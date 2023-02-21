@@ -1,5 +1,5 @@
 import axios from "axios";
-import { bookingById, checkType, clearBookingById, clearRoomDetail, clearRoomList, getRooms, roomById, RoomsDetails, setCheckFilters, setDebtDetail, setErrors, setFilteredReservations, setHigherPriceRooms, setLoading } from ".";
+import { bookingById, checkType, clearBookingById, clearRoomDetail, clearRoomList, getRooms, roomById, RoomsDetails, setCheckFilters, setDebtDetail, setErrors, setFilteredReservations, setHigherPriceRooms, setLoading, setLoadingDetail } from ".";
 import { AppDispatch } from "../../../store";
 
 const urlBack: string = (import.meta.env.VITE_BACK_URL as string);
@@ -27,13 +27,15 @@ export const setCheckFiltersAction = (date: string, roomType: string) => (dispat
 };
 
 export const getHigherPrice = () => (dispatch: AppDispatch) => {
-
+   dispatch(setLoadingDetail(true))
     axios.get(`${urlBack}/rooms/roombyprices`).then(({data}) => {
        
             dispatch(setHigherPriceRooms(data));
         
     }).catch((error) => {
         setErrors("Hubo un error cargando las habitaciones, intente recargando la pagina");
+    }).finally(() => {
+        dispatch(setLoadingDetail(false))
     });
 };
 

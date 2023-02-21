@@ -1,5 +1,7 @@
 import React from "react";
 import abus from "../../assets/abus.jpeg";
+import fotoLlanura from "../../assets/fotoLlanuraLaCarreta.png";
+
 export const AboutHome = () => {
   return (
     <div className="text-white bg-[#B35642] p-8 lg:p-14  overflow-x-hidden shadow-lg shadow-[#4d4a4a] border-2 border-double border-[#929290]">
@@ -48,13 +50,13 @@ export const AboutHome = () => {
 
         <div className="grid grid-cols-2  pt-8 ">
           <img
-            className="rounded-lg shadow-lg shadow-[#4d4a4a] border-2 border-double border-[#9e7e7e] m-auto"
-            src={abus}
-            alt={abus}
+            className="rounded-lg h-[450px] w-full shadow-lg shadow-[#4d4a4a] border-2 border-double border-[#9e7e7e] m-auto"
+            src={fotoLlanura}
+            alt={fotoLlanura}
           />
-          <div className="pl-5 pt-5 ">
+          <div className="pl-5 pt-5 m-auto">
             <h2 className="pb-5 text-[35px]">Nuestra misión</h2>
-            <p className="text-[25px] leading-8">
+            <p className="text-[25px] leading-8 ">
               Nuestra misión es la de brindar un servicio de calidad, ofreciendo
               una atención personalizada con el fin de dar a los clientes una
               experiencia más humana, más cálida y más única. Crecemos y

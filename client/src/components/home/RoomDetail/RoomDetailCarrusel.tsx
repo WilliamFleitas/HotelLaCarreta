@@ -6,10 +6,12 @@ import { getHigherPrice } from "../../../redux/slices/RoomSlice/RoomAction";
 export const RoomDetailCarrusel = () => {
 
     const rooms = useAppSelector((state) => state.rooms.higherPriceRoomList);
+    const loading = useAppSelector((state) => state.rooms.loadingDetail);
     const dispatch = useAppDispatch();
     useEffect(() => {
         dispatch(getHigherPrice());
     }, [dispatch]);
+
 
     return (
         <div className="text-black">
@@ -35,7 +37,9 @@ export const RoomDetailCarrusel = () => {
           
           )
         })
-      ) : (
+      ) : loading ?  <div className="text-black pt-36">
+      <h2>cargando..</h2>
+    </div> : (
         <div className="absolute text-center items-center justify-center aling-center text-[20px] right-[250px]">
           
           <p className=" ">No se encontraron habitaciones...</p>

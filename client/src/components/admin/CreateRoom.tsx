@@ -51,9 +51,6 @@ const RoomSchema = z.object({
     trimString,
     z
       .string()
-      .min(1, {
-        message: "Ingrese por lo menos 2 caracteristicas y vuelva a intentar",
-      })
       .max(60, { message: "El limite es de 60 caracteres" })
   ),
 
@@ -61,9 +58,6 @@ const RoomSchema = z.object({
     trimString,
     z.coerce
       .string()
-      .min(1, {
-        message: "Ingrese por lo menos 2 caracteristicas y vuelva a intentar",
-      })
       .max(60, { message: "El limite es de 60 caracteres" })
   ),
 
@@ -71,9 +65,6 @@ const RoomSchema = z.object({
     trimString,
     z
       .string()
-      .min(1, {
-        message: "Ingrese por lo menos 2 caracteristicas y vuelva a intentar",
-      })
       .max(60, { message: "El limite es de 60 caracteres" })
   ),
 });
@@ -116,14 +107,12 @@ export const CreateRoom = () => {
   const [newRoomService, setNewRoomService] = useState<string[]>([]);
 
   const handleInput = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.value.trim().length === 0) {
-      return;
-    } else {
+    
       setFeatureInput({
         ...featureInput,
         [e.target.id]: e.target.value,
       });
-    }
+    
   };
 
   const addNewFeature = (e: string, name: string) => {
