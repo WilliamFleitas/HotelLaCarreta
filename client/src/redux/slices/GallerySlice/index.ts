@@ -27,8 +27,11 @@ const PostSlice = createSlice({
           setPostLength(state, action: PayloadAction<number>) {
             state.postsLength = action.payload;
           },  
+          clearPost(state){
+            state.postList = []
+          }
     }
 });
 
 export default PostSlice.reducer;
-export const {setPostList, setPostLength} = PostSlice.actions;
+export const {setPostList, setPostLength, clearPost} = PostSlice.actions;

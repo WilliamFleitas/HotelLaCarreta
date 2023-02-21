@@ -106,7 +106,7 @@ export const RoomCarrusel = () => {
     <div className="text-[#696969] justify-center items-center text-center p-5 py-5 leading-[25px]	">
       <div className="p-5 lgg:p-10">
       <h2 className="text-[40px] py-5 text-[#E2725B]">Habitaciones</h2>
-      <p className="text-[25px] ">Las habitaciones de la posada cuentan con todo lo que necesitas para relajarte de la forma más placentera durante su estadía en el campo, Lorem ipsum dolor sit amet consectetur adipisicing elit. Neque ad voluptatum unde distinctio.</p>
+      <p className="text-[25px] ">Las habitaciones de la posada cuentan con todo lo que necesitas para relajarte de la forma más placentera durante su estadía en el campo, actualmente contamos con una zona de habitaciones rústica y otra moderna. ¡Elija la que más le guste!</p>
       </div>
 
       <div className={typeof rooms === "object" && rooms.length > 0 ? ` w-full pb-20 grid grid-cols-2 lg:grid-cols-3 p-5 py-10 text-center items-center justify-center lg:p-2  lgg:p-8 gap-x-10 ` : `  p-5  py-10 text-center items-center justify-center lg:p-2 lg:w-screen lgg:p-8 lgg:w-full` } >

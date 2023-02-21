@@ -37,6 +37,24 @@ route.get("/", async (req: Request, res: Response) => {
     }
   });
 
+  route.delete("/:id", async (req: Request, res: Response) => {
+    const {id} = req.params;
+  
+    try {
+      const result = await Post.findByPk(id);
+      if(result){
+        await result.destroy(id);
+        res.status(200).send("Eliminado con exito");
+      }else 
+      {
+        res.status(400).send("No se encontro la publicación")
+      }
+    } catch (error) {
+      res.status(400).send(error);
+    }
+  
+  });
+
 route.post("/",TokenValidation, checkRoleAuth(rolType), async (req: Request, res: Response) => {
     try {
       const result = await Post.create(req.body);

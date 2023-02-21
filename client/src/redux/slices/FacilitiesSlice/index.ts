@@ -23,8 +23,11 @@ const FacilitieSlice = createSlice({
         setFacilities(state, action: PayloadAction<Array<FacilitiesDetail>>) {
             state.facilitiesList = action.payload;
           }, 
+          clearFacilities(state){
+            state.facilitiesList = [];
+          }
     }
 });
 
 export default FacilitieSlice.reducer;
-export const {setFacilities} = FacilitieSlice.actions;
+export const {setFacilities, clearFacilities} = FacilitieSlice.actions;
