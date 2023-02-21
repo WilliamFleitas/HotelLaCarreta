@@ -8,6 +8,7 @@ import { Link } from "react-router-dom";
 export const RoomCarrusel = () => {
   const dispatch = useAppDispatch();
   const rooms = useAppSelector((state) => state.rooms.roomList);
+  const loading = useAppSelector((state) => state.rooms.loading);
   const {width} = useWindowSize();
   var myIntervalRoom: ReturnType<typeof setInterval> | undefined;
   
@@ -42,6 +43,9 @@ export const RoomCarrusel = () => {
   useEffect(() => {
     dispatch(getAllRooms());
   }, [dispatch]);
+console.log(loading);
+
+
   return (  
   <div className="overflow-x-hidden">
     {
@@ -50,7 +54,7 @@ export const RoomCarrusel = () => {
       <h2 className=" m-2 h-[40px] p-2 rounded-lg text-[#B35642] text-[20px] tcw:pb-14 tsw:pb-0">Elegi tu habitacion deseada!</h2>
       <div className="flex flex-row justify-center pt-5 space-x-5 pb-5 tsw:pt-0">
           {/* slidemap */}
-        { typeof rooms === "object" && rooms.length > 0 ? rooms.slice(0, 6).map((room, index) => {
+        {typeof rooms === "object" && rooms.length > 0 ? rooms.slice(0, 6).map((room, index) => {
           return (
             <div key={room.id} onClick={() => goToSlide(index)} className="text-[30px] ">
               {currentImg === index  ? (
@@ -89,8 +93,16 @@ export const RoomCarrusel = () => {
             </div>
           );
         })
+      ) : loading ? (
+        <div className="text-black pt-36 mt-36 items-center justify-center text-center">
+                <svg
+                  className="animate-spin h-5 w-5 m-auto bg-red-500 "
+                  viewBox="0 0 24 24"
+                ></svg>
+                <h2>Cargando...</h2>
+              </div>
       ) : (
-        <div>
+        <div className="text-black">
           <p>No se encontraron habitaciones</p>
         </div>
       )}
@@ -130,10 +142,17 @@ export const RoomCarrusel = () => {
           
           )
         })
+      ) : loading ? (
+        <div className="text-black pt-36 mt-36 items-center justify-center text-center">
+        <svg
+          className="animate-spin h-5 w-5 m-auto bg-red-500 "
+          viewBox="0 0 24 24"
+        ></svg>
+        <h2>Cargando...</h2>
+      </div>
       ) : (
-        
-        <div className=" text-[20px] ">
-          <p className="">No se encontraron habitaciones...</p>
+        <div className="text-black">
+          <p>No se encontraron habitaciones</p>
         </div>
       )}
        </div>

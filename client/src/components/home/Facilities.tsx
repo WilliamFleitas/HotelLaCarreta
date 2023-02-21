@@ -6,6 +6,7 @@ import { getAllFacilities } from "../../redux/slices/FacilitiesSlice/FacilitieAc
 export const Facilities = () => {
 
  const facilities = useAppSelector((state) => state.facilities.facilitiesList);
+ const loading = useAppSelector((state) => state.facilities.loading);
  const dispatch = useAppDispatch();
  useEffect(() => {
     dispatch(getAllFacilities());
@@ -26,7 +27,15 @@ export const Facilities = () => {
                         )
                     })
                     
-                    :
+                    : loading ? (
+                        <div className="text-black pt-36 mt-36 items-center justify-center text-center">
+                        <svg
+                          className="animate-spin h-5 w-5 m-auto bg-red-500 "
+                          viewBox="0 0 24 24"
+                        ></svg>
+                        <h2>Cargando...</h2>
+                      </div>
+                      ) :
                     <div className=" text-[20px]  pt-14">
                     <p>No se encontraron instalaciones</p>
                     </div>

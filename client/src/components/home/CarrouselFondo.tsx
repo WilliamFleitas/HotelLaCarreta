@@ -2,13 +2,14 @@ import React, { useEffect, useState } from "react";
 import foto1 from "../../assets/carreta1.jpg";
 import foto2 from "../../assets/carreta2.jpg";
 import foto3 from "../../assets/carreta3.jpg";
+import foto4 from "../../assets/carreta4.png";
 import useWindowSize from "../customHooks/useWindowSize";
 import { BsArrowRight } from "react-icons/bs";
 import { Link } from "react-router-dom";
 
 
 export const CarrouselFondo = () => {
-  const carroImage = [foto1, foto2, foto3];
+  const carroImage = [foto1 , foto4, foto2, foto3];
   const { width} = useWindowSize();
   const [actualImage, setActualImage] = useState(0);
 
@@ -25,7 +26,7 @@ export const CarrouselFondo = () => {
         
         
       return nextImg();
-   }, 10000);
+   }, 14000);
 
    return  ()=> {clearTimeout(myIntervalFondo);}
    
@@ -47,11 +48,11 @@ export const CarrouselFondo = () => {
                 loading="lazy"
               />
 
-              <div className="borderText absolute top-[200px] items-center w-[310px] tcw:justify-center text-center  text-white tcw:w-screen tsw:pt-20" draggable="false">
+              <div className="borderText absolute top-[250px] items-center w-[310px] tcw:justify-center text-center  text-white tcw:w-screen tsw:pt-20" draggable="false">
                 <h1 className="text-[70px] pl-2 pb-6 ">La Carreta </h1>
                 <h2 className=" text-[20px] tsw:text-[25px] pb-14 pl-2  ">Posada Rural</h2>
                 <Link to="/gallery">
-                <button className="borderText pl-2  font-sans font-bold text-center text-[15px] items-center border-[1px] border-[#c9b505] p-2 rounded-md bg-[#B35642] hover:bg-[#c25f48] hover:border-white">
+                <button className="borderText pl-2  font-sans font-bold text-center text-[15px] items-center border-[1px] mt-2 border-[#c9b505] p-2 rounded-md bg-[#B35642] hover:bg-[#c25f48] hover:border-white">
                   Descubrir más
                 </button>
                 </Link>
