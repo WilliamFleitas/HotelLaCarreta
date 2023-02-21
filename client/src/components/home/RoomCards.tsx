@@ -52,7 +52,7 @@ export const RoomCards = () => {
             <div className="px-10 pb-14 lg:px-5 lg:text-start md:w-full md:h-full" key={rooms.id} data-aos="flip-left"
             data-aos-duration="2000">
               <img className="h-[200px] w-screen border border-[#E2725B] rounded-lg m-auto shadow-lg shadow-black" src={rooms.images?.[0]} alt={rooms.images?.[0]}/>
-              <h2 className="text-[#E2725B] pt-3 text-[25px] text-center pb-3">{rooms.name}</h2> 
+              <h2 className="text-[#E2725B] pt-8 text-[25px] text-center pb-3">{rooms.name}</h2> 
               <div className=" pt-3 ">
                <h3 className=" text-[20px] pb-3 gap text-start">●Zona: {rooms.roomZone}</h3>
                <h3 className=" text-[20px] pb-3 gap text-start ">●Precio: <b className="text-[#E2725B]">{rooms.price}GS.</b></h3>

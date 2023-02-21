@@ -17,16 +17,13 @@ export const Welcome = () => {
   return (
     <div className={` border-t-3 p-0  overflow-hidden ${width > 768 ? "welcomeS" : ""} `}>
       {width < 768 ? (
-        <div className="h-[530px] p-7 pt-6 tcw:h-full tcw:w-screen tcw:p-0 tcw:pt-20 tsw:pt-28 md:grid md:grid-cols-2 md:text-center md:justify-center ">
+        <div className="h-full p-7 pt-6 tcw:h-full tcw:w-screen tcw:p-0 tcw:pt-20 tsw:pt-28 md:grid md:grid-cols-2 md:text-center md:justify-center ">
           <h2 className="text-[25px] text-[#B35642] text-center">
             Bienvenido a La Carreta
           </h2>
           <div className="text-center text-black">
-            <p className="text-[15px] p-5 tcw:pt-14">
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Tempora
-              exercitationem officiis voluptatum hic similique tempore quasi,
-              facere cumque, unde maiores placeat repellendus voluptas
-              consequatur labore assumenda, sunt optio? Eius, distinctio.
+            <p className="text-[18px] p-5 tcw:pt-14">
+              Nos enfocamos en brindar un servicio y una experiencia de calidad de manera eficiente para hacer sentir a nuestros huéspedes como en casa, somos un oasis que tiene la mezcla perfecta entre naturaleza y confort para que puedas descansar en paz y olvidarte los problemas de la ciudad, también contamos con la mejor gastronomía típica del Paraguay en nuestro establecimiento.
             </p>
           </div>
 
@@ -65,10 +62,7 @@ export const Welcome = () => {
           
           <div className=" grid grid-cols-2" data-aos-duration="1400"  data-aos='zoom-in'>
             <p className=" text-center md:text-[25px] p-5 pt-36 leading-8 lg:text-[30px] rounded-lg">
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Tempora
-              exercitationem officiis voluptatum hic similique tempore quasi,
-              facere cumque, unde maiores placeat repellendus voluptas
-              consequatur labore assumenda, sunt optio? Eius, distinctio.
+            Nos enfocamos en brindar un servicio y una experiencia de calidad de manera eficiente para hacer sentir a nuestros huéspedes como en casa, somos un oasis que tiene la mezcla perfecta entre naturaleza y confort para que puedas descansar en paz y olvidarte los problemas de la ciudad, también contamos con la mejor gastronomía típica del Paraguay en nuestro establecimiento.
             </p>
             <div className=" grid grid-cols-2 grid-rows-2 pt-14 p-3 lgg:p-10 rounded-lg">
               
