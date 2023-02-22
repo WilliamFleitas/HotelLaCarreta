@@ -70,7 +70,6 @@ export const Contact = () => {
 
     });
     const onSubmit = handleSubmit( async ({name,message, subject, lastName, email}) => {
-        console.log("contact", {name, message, subject, lastName, email});
         const newObj = {
           name,
           message,
