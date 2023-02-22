@@ -246,8 +246,8 @@ export const RoomDetail = () => {
           <div>
           <label className="text-[#E2725B] text-[26px] text-center xl:text-[28px]">Caracteristicas del baño</label>
           <div className=" text-start text-[19px] pt-4 xl:text-[22px]">
-            {room.room_features.length ? (
-              room.room_features.map((e) => {
+            {room.bathroom_features.length ? (
+              room.bathroom_features.map((e) => {
                 return <p key={e}>- {e}.</p>;
               })
             ) : (
