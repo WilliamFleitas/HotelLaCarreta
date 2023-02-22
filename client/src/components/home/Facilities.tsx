@@ -19,7 +19,7 @@ export const Facilities = () => {
                 {
                     facilities.length ? facilities.slice(0, 6).map((e, index) => {
                         return (
-                            <div className="m-auto pt-14 p-5 mb-14 w-[115px] h-[200px] md:w-[200px] md:h-[300px] pb-20" key={e.id}>
+                            <div className="m-auto pt-14 p-5 mb-14 w-[115px] h-[200px] md:w-[200px] md:h-[300px] md:mb-36 pb-20" key={e.id}>
                                 <img className="welcomeS object-cover border-2 border-[#c59990]  rounded-[100%] w-full h-full " src={`${e.image}`} />
                                 <h2 className="text-[23px] text-[#E2725B] pt-5">{e.name}</h2>
                                 <p className="pt-5 text-[18px]">{e.description}</p>

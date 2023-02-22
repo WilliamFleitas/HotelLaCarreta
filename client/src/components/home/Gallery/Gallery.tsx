@@ -74,7 +74,7 @@ export const Gallery = () => {
             return (
               <div className="p-1 bg-[#B35642] rounded-lg shadow-md shadow-black" key={e.id} data-aos-duration="900" data-aos-easing="ease-in-out" data-aos='zoom-in'>
                 <div>
-                <button type="button" onClick={() => handleModal(true, index)}>
+                <button type="button">
                   <img className="h-[330px] w-screen object-cover border-2 border-[#B35642] rounded-t-lg 1xl:h-[450px]" src={e.image}/>
                   </button>
                 </div>
@@ -83,10 +83,7 @@ export const Gallery = () => {
                   <p>{e.description}</p>
                 </div>
                 <div>
-                  {showModal && currentImg === index ?  <div onClick={() => handleModal(false, index)}>
-                    <ModalGallery image={`${e.image}`} /> 
-                    </div>
-                   : <></>}
+                  
                 </div>
               </div>
             )
