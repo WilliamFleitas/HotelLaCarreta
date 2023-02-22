@@ -48,7 +48,6 @@ export const GalleryTable = () => {
     newImage = Array.from(e.target.files);
     
       setImages(newImage);
-      console.log(images, "yhola");
     
   };
 
@@ -85,7 +84,6 @@ export const GalleryTable = () => {
             image: imgUrls?.[0],
             description,
           };
-          console.log(newObject);
           if (images.length > 0) {
             axios
               .post(`${BackUrl}/gallery`, newObject, {

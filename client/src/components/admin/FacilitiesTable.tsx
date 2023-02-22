@@ -50,7 +50,6 @@ export const FacilitiesTable = () => {
     newImage = Array.from(e.target.files);
     
       setImages(newImage);
-      console.log(images, "yhola");
     
   };
 
@@ -79,7 +78,6 @@ export const FacilitiesTable = () => {
     name, description
    }) => {
         
-        console.log(name, description)
         imgUrls = await uploadImageDb(images, "Facilities");
         const session = JSON.parse(
             window.localStorage.getItem("userSession") as string
@@ -89,7 +87,6 @@ export const FacilitiesTable = () => {
             image: imgUrls?.[0],
             description,
           };
-          console.log(newObject);
           if (images.length > 0) {
             axios
               .post(`${BackUrl}/facilities`, newObject, {

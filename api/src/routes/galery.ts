@@ -60,7 +60,6 @@ route.post("/",TokenValidation, checkRoleAuth(rolType), async (req: Request, res
       const result = await Post.create(req.body);
       res.status(200).send(result);
     } catch (error) {
-      console.error(error);
       res.status(400).send(error);
     }
   });
