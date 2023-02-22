@@ -141,7 +141,6 @@ route.put("/toggle/:id",  async (req: Request, res: Response) => {
     );
     res.status(200).send("Habitacion editada correctamente");
   } catch (error) {
-    console.error(error);
     res.status(400).send("No se ha podido editar la habitacion");
   }
 });
@@ -156,7 +155,6 @@ route.post("/", TokenValidation,  checkRoleAuth(rolType), async (req: Request, r
     const room = await Room.create(req.body);
     res.status(200).send(room);
   } catch (error) {
-    console.error("errorpost", error);
     res.status(400).send(error);
   }
 });

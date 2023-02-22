@@ -38,8 +38,7 @@ route.delete("/:id", async (req: Request, res: Response) => {
 });
 
 route.post("/", TokenValidation, checkRoleAuth(rolType), async (req: Request, res: Response) => {
-    try { console.log(req.header);
-      console.log(req.body);
+    try { 
       const result = await Facilitie.create(req.body);
      
       if(result.length < 0){
@@ -49,7 +48,6 @@ route.post("/", TokenValidation, checkRoleAuth(rolType), async (req: Request, re
         res.status(200).send(result);
       }
     } catch (error) {
-      console.error(error);
       res.status(400).send(error);
     }
   });

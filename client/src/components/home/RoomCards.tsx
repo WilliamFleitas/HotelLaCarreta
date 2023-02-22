@@ -11,7 +11,6 @@ export const RoomCards = () => {
   const { width } = useWindowSize();
   const rooms = useAppSelector((state) => state.rooms.roomList);
   const loading = useAppSelector((state) => state.rooms.loading);
-  console.log(loading);
   useEffect(() => {
     dispatch(getAllRooms());
   }, [dispatch]);

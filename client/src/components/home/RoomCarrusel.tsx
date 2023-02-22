@@ -43,7 +43,6 @@ export const RoomCarrusel = () => {
   useEffect(() => {
     dispatch(getAllRooms());
   }, [dispatch]);
-console.log(loading);
 
 
   return (  
