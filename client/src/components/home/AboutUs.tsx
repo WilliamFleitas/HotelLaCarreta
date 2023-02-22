@@ -216,7 +216,7 @@ export const AboutUs = () => {
             Proyecto rural
           </h2>
           <div className="md:grid md:grid-cols-2 md:p-5 md:space-x-5 ">
-            <p className="text-center pt-8 md:pt-[5px] text-[18px] md:text-[24px] aser:text-[28px] lg:text-[34px] ggg:text-[38px] ggg:leading-[40px]">
+            <p className="text-center pt-8 md:pt-[5px] text-[18px] md:text-[24px] aser:text-[28px] lg:text-[34px] ggg:text-[38px] md:leading-[40px] md:m-auto">
             La Carreta pretende ser una Posada Turística autosustentable y autosostenible con el tiempo, a través de la
 producción orgánica de los alimentos (frutas, hortalizas) y el cuidado del Medio Ambiente a través de uso
 racional de agua, suelo, energía y materia orgánica con enfoque de economía circular de esa manera a contribuir
@@ -229,7 +229,7 @@ en la reducción de huellas de carbono.
             />
             
           </div>
-          <p className="text-center pt-8 md:pt-[10px] text-[18px] md:text-[24px] aser:text-[28px] lg:text-[34px] ggg:text-[38px] ggg:leading-[40px]">En este contexto “La Carreta” ya viene trabajando desde hace casi 4 años
+          <p className="text-center pt-8 md:pt-[10px] text-[18px] md:text-[24px] aser:text-[28px] lg:text-[34px] ggg:text-[38px] md:leading-[40px]">En este contexto “La Carreta” ya viene trabajando desde hace casi 4 años
 en la implementación de Huerta Orgánica, principalmente en la plantación de frutas, recuperación de suelo,
 práctica de rotación de cultivos y utilización de abono orgánico, generando fuentes de trabajos en la comunidad.
 La Carreta lleva adelante un programa denominado “HUELLA VERDE” donde los huéspedes de la Posada Rural

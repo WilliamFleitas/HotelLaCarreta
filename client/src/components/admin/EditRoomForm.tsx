@@ -148,15 +148,12 @@ const EditRoomForm = ({ edit, setEdit, data }: EditRoomProps) => {
 };
 
  const handleInput = (e: React.ChangeEvent<HTMLInputElement>) => {
-  if(e.target.value.trim().length === 0){
-    return ;
-  }else{
+  
     setFeatureInput({
       ...featureInput,
       [e.target.id]: e.target.value,
     });
     
-  }
 };
 
 const addNewFeature = (e: string, name: string) => {
@@ -264,6 +261,10 @@ const onSubmit = handleSubmit(
           icon: "error",
           title: `No se pudo editar la habitación!, ${err.message}`,
           timer: 2000,
+        }).then((result) => {
+          if(result) {
+            window.location.reload();
+          }
         })
       })
     }

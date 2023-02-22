@@ -177,6 +177,8 @@ export const CheckRoom = ({ roomId, reserved, price, roomName }: CheckRoomProps)
         ...bookingInput,
         totalPrice: childsAmount! + daysAmount,
       });
+      setShowRate(true);
+      return ;
     }
     setBookingInput({ ...bookingInput, totalPrice: daysAmount });
     setShowRate(true);
