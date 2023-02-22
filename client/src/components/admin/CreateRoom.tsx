@@ -257,6 +257,10 @@ export const CreateRoom = () => {
               icon: "error",
               title: `No se pudo crear la habitación!, ${err.message}`,
               timer: 2000,
+            }).then((result) => {
+              if(result) {
+                window.location.reload();
+              }
             })
           });
       }

@@ -10,9 +10,9 @@ export const ModalGallery = (prop: { image: string}) => {
           {/*content*/}
           <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full outline-none focus:outline-none">
             {/*body*/}
-            <div className="relative p-5  flex-auto">
+            <div className="relative  p-5  flex-auto">
               <img
-                className="h-screen w-full object-contain pt-5"
+                className="h-screen w-full object-contain pt-5 md:w-full md:h-full"
                 src={prop.image}
                 alt={`${prop.image}+`}
               />

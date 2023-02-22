@@ -100,7 +100,7 @@ export const RoomDetail = () => {
           <h2 className="pb-5 text-[24px]">{room.name}</h2>
           <div className="text-start pb-4 text-black">
             <h4>● capacity: {room?.capacity}.</h4>
-            <h4>● precio: {room?.price}.</h4>
+            <h4>● precio: {room?.price}Gs.</h4>
             <h3>● Zona de la habitación: {room.roomZone}.</h3>
             <p>● {room.preDescription}.</p>
           </div>
@@ -210,7 +210,7 @@ export const RoomDetail = () => {
           <h2 className="pb-5 text-[32px] text-[#E2725B] text-center lg:text-[38px] lg:pb-8 xl:text-[42px]">{room.name}</h2>
           <div className="text-[24px] leading-8 lg:text-[28px] lg:leading-[40px] xl:leading-[48px] xl:text-[32px]">
             <h4>- capacity: {room?.capacity}.</h4>
-            <h4>- precio: {room?.price}.</h4>
+            <h4>- precio: {room?.price}Gs.</h4>
             <h3>- Zona de la habitación: {room.roomZone}.</h3>
             <p>- {room.preDescription}.</p>
           </div>

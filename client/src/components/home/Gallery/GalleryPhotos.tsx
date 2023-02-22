@@ -77,7 +77,8 @@ export const GalleryPhotos = () => {
               {typeof postList === "object" && postList.length > 0 ? (
                 postList.map((e: any, index) => {
                   return (
-                    <div className="p-3 " key={e.id} data-aos-duration="900" data-aos-easing="ease-in-out" data-aos='zoom-in'>
+                    <div >
+                    <div className={` p-3 ${showModal && "md:hidden"}`} key={e.id} data-aos-duration="900" data-aos-easing="ease-in-out" data-aos='zoom-in'>
                       <button type="button" onClick={() => handleModal(true, index)}>
                       <img
                         className="rounded-lg h-full  w-screen object-cover border border-white"
@@ -85,6 +86,7 @@ export const GalleryPhotos = () => {
                         alt={`${e.image}+${index}`}
                       />
                       </button>
+                      </div>
                        <div>
                   {showModal && currentImg === index ?  <div onClick={() => handleModal(false, index)}>
                     <ModalGallery image={`${e.image}`} /> 
